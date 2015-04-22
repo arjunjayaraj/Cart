@@ -34,3 +34,8 @@ footer.page-footer {
 #collection-wrap:hover .collection-title {
   display: block;
 }
+
+/* line 1, ../sass/_home-ads.scss */
+#sponsored-ads {
+  margin-top: 10px;
+}
