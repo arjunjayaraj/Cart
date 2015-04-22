@@ -13,10 +13,13 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
 <body>
+
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script type="text/javascript" src="resources/js/materialize.min.js"></script>
 	<script type="text/javascript" src="resources/js/custom.js"></script>
+
+
 
 	<nav style= "background-color: #4CAF50;">
 		<div class="nav-wrapper">
@@ -43,38 +46,33 @@
 			</ul>
 		</div>
 	</nav>
-	<div class="container" id="content-wrap">
-		<div class="row" id="collection-panel-wrap">
-			<div class="col l6 s12 m12">
-				<div class="card small collection-panel" id="home-collection-men"
-					style="height: 20%;">
-					<div class="card-image home-collection-image" style="height: 100%">
-						<a href="#"> <img id="collection-men-image"
-							src="resources/images/men.jpg"> <span
-							class="card-title collection-title" id="collection-men-title"
-							style="color: #EE6E73;">MEN</span>
-						</a>
-
-					</div>
-
-				</div>
-			</div>
-			<div class="col l6 s12 m12">
-				<div class="card small collection-panel" id="home-collection-women">
-					<div class="card-image home-collection-image" style="height: 100%">
-						<a href="#"> <img id="collection-women-image"
-							src="resources/images/women.jpg" style="height: 100%"> <span
-							class="card-title collection-title" id="collection-women-title"
-							style="color: #EE6E73">WOMEN</span>
-						</a>
-
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</div>
-
+	
+<div class="container" id="collection-wrap">
+ <div class="row" id="collection-panel-wrap">
+          <div class="col l6 s12 m12">
+          <div class="card small collection-panel" id="home-collection-men" >
+            <div class="card-image collection-content" >
+             <a href="#"> <img id="collection-men-image" src="resources/images/men.jpg">
+             <span class="card-title collection-title" id="collection-men-title" >MEN</span>
+             </a>
+            
+            </div>
+             
+          </div>
+        </div>
+        <div class="col l6 s12 m12">
+          <div class="card small collection-panel" id="home-collection-women">
+            <div class="card-image collection-content">
+             <a href="#"> <img id="collection-women-image" src="resources/images/women.jpg" >
+             <span class="card-title collection-title" id="collection-women-title" >WOMEN</span>
+             </a>
+            
+            </div>
+             
+          </div>
+        </div>
+      </div>
+          </div>  
 
 
 	<footer class="page-footer">
@@ -108,6 +106,7 @@
 			<div class="container">© 2015 Copyright Text</div>
 		</div>
 	</footer>
+
 
 
 </body>

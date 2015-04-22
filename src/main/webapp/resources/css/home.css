@@ -2,21 +2,52 @@
 #about-text {
   text-align: justify;
 }
+
 #search-bar{
 	height: 100%;
 	width: 50%;
 }
-.crossRotate{
--webkit-transition-duration: 1s;
-    -moz-transition-duration: 1s;
-    -o-transition-duration: 1s;
-    transition-duration: 1s;
-    -webkit-transition-property: -webkit-transform;
-    -moz-transition-property: -moz-transform;
-    -o-transition-property: -o-transform;
-    transition-property: transform;
-}
+
 .li_no_hover {
 	opacity:1;
 	background-color: transparent !important;
 }
+
+
+/* line 5, ../sass/_footer.scss */
+footer.page-footer {
+  background-color: #4CAF50 !important;
+}
+
+/* line 2, ../sass/_home-collection.scss */
+#collection-wrap .collection-panel {
+  height: 30%;
+}
+/* line 6, ../sass/_home-collection.scss */
+#collection-wrap .collection-content {
+  height: 100%;
+}
+/* line 10, ../sass/_home-collection.scss */
+#collection-wrap .collection-title {
+  display: none;
+  color: white;
+  font-weight: 700;
+  font-size: 40px;
+  right: 0px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+/* line 19, ../sass/_home-collection.scss */
+#collection-wrap #collection-men-title {
+  text-align: right;
+}
+
+/* line 26, ../sass/_home-collection.scss */
+#home-collection-men:hover #collection-men-title {
+  display: block;
+}
+
+/* line 32, ../sass/_home-collection.scss */
+#home-collection-women:hover #collection-women-title {
+  display: block;
+}
+
