@@ -3,17 +3,6 @@
   text-align: justify;
 }
 
-#search-bar{
-	height: 100%;
-	width: 50%;
-}
-
-.li_no_hover {
-	opacity:1;
-	background-color: transparent !important;
-}
-
-
 /* line 5, ../sass/_footer.scss */
 footer.page-footer {
   background-color: #4CAF50 !important;
@@ -50,4 +39,7 @@ footer.page-footer {
 #home-collection-women:hover #collection-women-title {
   display: block;
 }
+
+
+
 

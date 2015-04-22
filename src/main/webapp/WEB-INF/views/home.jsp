@@ -47,7 +47,8 @@
 		</div>
 	</nav>
 	
-<div class="container" id="collection-wrap">
+<div  class="container" >	
+<div id="collection-wrap">
  <div class="row" id="collection-panel-wrap">
           <div class="col l6 s12 m12">
           <div class="card small collection-panel" id="home-collection-men" >
@@ -73,7 +74,7 @@
         </div>
       </div>
           </div>  
-
+</div>
 
 	<footer class="page-footer">
 		<div class="container">
