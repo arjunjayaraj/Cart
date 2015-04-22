@@ -2,3 +2,21 @@
 #about-text {
   text-align: justify;
 }
+#search-bar{
+	height: 100%;
+	width: 50%;
+}
+.crossRotate{
+-webkit-transition-duration: 1s;
+    -moz-transition-duration: 1s;
+    -o-transition-duration: 1s;
+    transition-duration: 1s;
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -o-transition-property: -o-transform;
+    transition-property: transform;
+}
+.li_no_hover {
+	opacity:1;
+	background-color: transparent !important;
+}
