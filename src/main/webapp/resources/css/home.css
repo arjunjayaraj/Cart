@@ -19,11 +19,11 @@ footer.page-footer {
 /* line 10, ../sass/_home-collection.scss */
 #collection-wrap .collection-title {
   display: none;
-  color: #ee6e73;
+  color: white;
   font-weight: 700;
   font-size: 40px;
   right: 0px;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 /* line 19, ../sass/_home-collection.scss */
 #collection-wrap #collection-men-title {
