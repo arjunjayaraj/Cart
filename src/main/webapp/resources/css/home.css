@@ -26,6 +26,11 @@
 }
 
 /* line 26, ../sass/_home-collection.scss */
-#collection-wrap:hover .collection-title {
+#home-collection-men:hover #collection-men-title {
+  display: block;
+}
+
+/* line 32, ../sass/_home-collection.scss */
+#home-collection-women:hover #collection-women-title {
   display: block;
 }
