@@ -3,6 +3,11 @@
   text-align: justify;
 }
 
+/* line 5, ../sass/_footer.scss */
+footer.page-footer {
+  background-color: #4CAF50 !important;
+}
+
 /* line 2, ../sass/_home-collection.scss */
 #collection-wrap .collection-panel {
   height: 30%;
