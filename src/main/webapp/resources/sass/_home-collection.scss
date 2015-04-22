@@ -1,0 +1,29 @@
+#collection-wrap{
+.collection-panel{
+	height:30%;
+}
+
+.collection-content{
+	height:100%;
+}
+
+.collection-title{
+	display:none;
+	color: #ee6e73;
+	font-weight: 700;
+	font-size: 40px;
+	right: 0px;
+	background-color: rgba(0, 0, 0, 0.1);
+	
+}
+#collection-men-title{
+text-align: right;
+}
+}
+
+
+#collection-wrap:hover{
+.collection-title{
+display:block;
+}
+}
