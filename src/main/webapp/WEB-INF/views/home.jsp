@@ -10,13 +10,13 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 </head>
 <body>
-<div class="container" id="content-wrap">
+<div class="container" id="collection-wrap">
  <div class="row" id="collection-panel-wrap">
           <div class="col l6 s12 m12">
-          <div class="card small collection-panel" id="home-collection-men" style="height: 20%;" >
-            <div class="card-image home-collection-image" style="height: 100%">
+          <div class="card small collection-panel" id="home-collection-men" >
+            <div class="card-image collection-content" >
              <a href="#"> <img id="collection-men-image" src="resources/images/men.jpg">
-             <span class="card-title collection-title" id="collection-men-title" style="color: #EE6E73;">MEN</span>
+             <span class="card-title collection-title" id="collection-men-title" >MEN</span>
              </a>
             
             </div>
@@ -24,10 +24,10 @@
           </div>
         </div>
         <div class="col l6 s12 m12">
-          <div class="card small collection-panel" id="home-collection-women" >
-            <div class="card-image home-collection-image"  style="height: 100%">
-             <a href="#"> <img id="collection-women-image" src="resources/images/women.jpg" style="height: 100%">
-             <span class="card-title collection-title" id="collection-women-title" style="color: #EE6E73">WOMEN</span>
+          <div class="card small collection-panel" id="home-collection-women">
+            <div class="card-image collection-content">
+             <a href="#"> <img id="collection-women-image" src="resources/images/women.jpg" >
+             <span class="card-title collection-title" id="collection-women-title" >WOMEN</span>
              </a>
             
             </div>
@@ -36,6 +36,7 @@
         </div>
       </div>
           </div>  
+
 
 
 
