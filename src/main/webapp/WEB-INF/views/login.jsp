@@ -3,76 +3,84 @@
 <html>
 <head>
 <title>Login Page</title>
-<style>
-.error {
-	padding: 15px;
-	margin-bottom: 20px;
-	border: 1px solid transparent;
-	border-radius: 4px;
-	color: #a94442;
-	background-color: #f2dede;
-	border-color: #ebccd1;
-}
 
-.msg {
-	padding: 15px;
-	margin-bottom: 20px;
-	border: 1px solid transparent;
-	border-radius: 4px;
-	color: #31708f;
-	background-color: #d9edf7;
-	border-color: #bce8f1;
-}
+<link href="resources/css/materialize.css" rel="stylesheet">
+<link href="resources/css/materialize.min.css" rel="stylesheet">
+<link href="resources/css/login.css" rel="stylesheet">
 
-#login-box {
-	width: 300px;
-	padding: 20px;
-	margin: 100px auto;
-	background: #fff;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border: 1px solid #000;
-}
-</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="resources/js/materialize.js"></script>
+<script src="resources/js/materialize.min.js"></script>
+<script src="resources/js/login.js"></script>
 </head>
 <body onload='document.loginForm.username.focus();'>
 
-	<h1>Spring Security Custom Login Form (XML)</h1>
+	<h1>User Login</h1>
 
-	<div id="login-box">
-
-		<h3>Login with Username and Password</h3>
-
-		<c:if test="${not empty error}">
-			<div class="error">${error}</div>
-		</c:if>
-		<c:if test="${not empty msg}">
-			<div class="msg">${msg}</div>
-		</c:if>
-
-		<form name='loginForm'
-			action="<c:url value='/j_spring_security_check' />" method='POST'>
-
-			<table>
-				<tr>
-					<td>User:</td>
-					<td><input type='text' name='username'></td>
-				</tr>
-				<tr>
-					<td>Password:</td>
-					<td><input type='password' name='password' /></td>
-				</tr>
-				<tr>
-					<td colspan='2'><input name="submit" type="submit"
-						value="submit" /></td>
-				</tr>
-			</table>
-
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-
-		</form>
+	<!-- <div id="login-box">	
+		<div class="row">
+		    <form class="col s12"  name='loginForm'
+					action="<c:url value='/j_spring_security_check' />" method='POST'>
+		     <div class="row">
+		        <div class="input-field col s12">
+		          <input id="email" type="email" class="validate" placeholder="E Mail">
+		        		        </div>
+		      </div>
+		      <div class="row">
+		        <div class="input-field col s12">
+		          <input id="password" type="password" class="validate">
+		          <label for="password">Password</label>
+		        </div>
+		      </div>
+		      
+		 <button class="btn waves-effect waves-light" type="submit" name="action" value="submit" name="submit">Login
+		   
+		  </button>
+		        
+		    </form>
+		</div>
+	</div> -->
+	
+	<div class="row" >
+    <div class="col s5">
+      <ul class="tabs">
+        <li class="tab col s6"><a class="active" href="#test1">Test 1</a></li>
+        <li class="tab col s6"><a  href="#test2">Test 2</a></li>
+      
+      </ul>
+    </div>
+    <div id="test1" class="col s12">Test 1
+    <div>	
+		<div class="row">
+		    <form class="col s12"  name='loginForm'
+					action="<c:url value='/j_spring_security_check' />" method='POST'>
+		     <div class="row">
+		        <div class="input-field col s12">
+		          <input id="email" type="email" class="validate" placeholder="E Mail">
+		        		        </div>
+		      </div>
+		      <div class="row">
+		        <div class="input-field col s12">
+		          <input id="password" type="password" class="validate">
+		          <label for="password">Password</label>
+		        </div>
+		      </div>
+		      
+		 <button class="btn waves-effect waves-light" type="submit" name="action" value="submit" name="submit">Login
+		   
+		  </button>
+		        
+		    </form>
+		</div>
 	</div>
+    
+    </div>
+    
+    <div id="test2" class="col s12">Test 2</div>
+   
+  </div>
+        
+
 
 </body>
 </html>
