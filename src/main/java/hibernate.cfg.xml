@@ -21,8 +21,7 @@
     	
     	<property name="hbm2ddl.auto">update</property>
 		
-		<mapping class="testHibernate.studentInfo"/>
-		
+		<mapping class="com.Cart.start.studentInfo"/>
 		
 		<!-- <mapping resource="org/hibernate/test/legacy/Simple.hbm.xml"/>
 		<class-cache
