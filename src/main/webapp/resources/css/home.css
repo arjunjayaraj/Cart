@@ -55,4 +55,48 @@ footer.page-footer {
 .li_no_hover {
   opacity: 1;
   background-color: transparent !important;
+  margin-left: -5%;
+  margin-top: -15%;
+}
+
+/* line 12, ../sass/_navbar.scss */
+.arrange {
+  display: inline-block;
+}
+
+/* line 15, ../sass/_navbar.scss */
+nav {
+  background-color: #4CAF50;
+}
+
+/* line 18, ../sass/_navbar.scss */
+#categories_drop {
+  margin-right: 5%;
+}
+
+/* line 20, ../sass/_navbar.scss */
+#search_bar {
+  height: 100%;
+  width: 450px;
+}
+
+/* line 22, ../sass/_navbar.scss */
+#drop_button {
+  color: white;
+  border-radius: 25px;
+  margin-left: 30px;
+}
+
+/* line 26, ../sass/_navbar.scss */
+#dropdown1 {
+  z-index: 3;
+  margin-left: 30px;
+}
+
+/* line 28, ../sass/_navbar.scss */
+#search {
+  height: 40px;
+  border-radius: 25px;
+  margin-top: 12px;
+  line-height: 15px;
 }

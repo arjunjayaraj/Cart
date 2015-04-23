@@ -20,31 +20,36 @@
 	</head>
 	<body>
 	<!-- Vishnu edit styling -->
-	<nav style= "background-color: #4CAF50;">
+		<nav>
 		<div class="nav-wrapper">
+
 			<a href="#!" class="brand-logo">Logo</a>
-			<ul class="hide-on-med-and-down " style="margin-left: 15%;">
+			<ul id= "categories_drop" class="right hide-on-med-and-down">
 				
-				<li class="li_no_hover" style="margin-left: -5%;"><a class='dropdown-button waves-effect btn-flat' style= "color: white;border-radius: 25px;" data-beloworigin="true"
+				<li id= "search_bar"><form >
+				<div class="li_no_hover arrange" ><a id ="drop_button"
+					class='dropdown-button waves-effect btn-flat' data-beloworigin="true"
 					href='#' data-activates='dropdown1'><b>Categories</b></a>
-					<ul id='dropdown1' class='dropdown-content'>
+					<ul id='dropdown1' class='dropdown-content' >
 						<li><a href="#!">one</a></li>
 						<li><a href="#!">two</a></li>
 						<li class="divider"></li>
 						<li><a href="#!">three</a></li>
-					</ul></li>
-				<li id="search-bar"><form style="height: 100%;">
-						<div class="input-field" style="padding: 5px; margin-left: 10%; height: 83%; margin-left: 0px;">
-							<input id="search" type="search" required
-								style="height: 50%; border-radius: 25px; margin: 10px; padding-top: 5px;width: 85%;"> <label
-								for="search"><i class="mdi-action-search"></i></label>
+					</ul></div>
+						<div class="input-field arrange">
+							<input id="search" type="search" required>
+							<label for="search"><i class="mdi-action-search"></i></label>
 						</div>
 					</form></li>
-				<li style="float: right;"><a><i class="mdi-action-account-circle" ></i></a></li>
-				<li style="float: right;"><a><i class="mdi-action-add-shopping-cart" ></i></a></li>
+				<li><a href="mobile.html"><i
+						class="mdi-action-add-shopping-cart"></i></a></li>
+				<li><a href="http://localhost:8084/start/login"><i
+						class="mdi-action-account-circle"></i></a></li>
+				
 			</ul>
 		</div>
 	</nav>
+
 
 <div  class="container" >	
 
