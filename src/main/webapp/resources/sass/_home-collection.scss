@@ -1,0 +1,35 @@
+#collection-wrap{
+.collection-panel{
+	height:30%;
+}
+
+.collection-content{
+	height:100%;
+}
+
+.collection-title{
+	display:none;
+	color:white;
+	font-weight: 700;
+	font-size: 40px;
+	right: 0px;
+	background-color: rgba(0, 0, 0, 0.5);
+	
+}
+#collection-men-title{
+text-align: right;
+}
+}
+
+
+#home-collection-men:hover{
+#collection-men-title{
+display:block;
+}
+}
+
+#home-collection-women:hover{
+#collection-women-title{
+display:block;
+}
+}

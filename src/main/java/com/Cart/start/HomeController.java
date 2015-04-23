@@ -1,5 +1,8 @@
 package com.Cart.start;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.AnnotationConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,6 +14,16 @@ public class HomeController {
 
 	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
 	public ModelAndView welcomePage() {
+
+		ModelAndView model = new ModelAndView();
+		model.addObject("title", "Spring Security Custom Login Form");
+		model.addObject("message", "This is welcome page!");
+		model.setViewName("home");
+		return model;
+
+	}
+	@RequestMapping(value = {"/home" }, method = RequestMethod.GET)
+	public ModelAndView homePage() {
 
 		ModelAndView model = new ModelAndView();
 		model.addObject("title", "Spring Security Custom Login Form");
@@ -31,12 +44,23 @@ public class HomeController {
 
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public ModelAndView adminPage() {
-
+		
 		ModelAndView model = new ModelAndView();
 		model.addObject("title", "Spring Security Custom Login Form");
 		model.addObject("message", "This is protected page!");
 		model.setViewName("admin");
-
+		studentInfo stud = new studentInfo();
+		
+		stud.setName("JG3");
+		
+		SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+		Session session = sf.openSession();
+		session.beginTransaction();
+		
+		session.save(stud);
+		
+		session.getTransaction().commit();
+		session.close();
 		return model;
 
 	}
