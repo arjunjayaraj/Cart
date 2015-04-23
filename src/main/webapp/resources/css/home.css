@@ -3,17 +3,6 @@
   text-align: justify;
 }
 
-#search-bar{
-	height: 100%;
-	width: 50%;
-}
-
-.li_no_hover {
-	opacity:1;
-	background-color: transparent !important;
-}
-
-
 /* line 5, ../sass/_footer.scss */
 footer.page-footer {
   background-color: #4CAF50 !important;
@@ -35,19 +24,20 @@ footer.page-footer {
   font-size: 40px;
   right: 0px;
   background-color: rgba(0, 0, 0, 0.5);
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
-/* line 20, ../sass/_home-collection.scss */
+/* line 21, ../sass/_home-collection.scss */
 #collection-wrap #collection-men-title {
   text-align: right;
 }
 
-/* line 27, ../sass/_home-collection.scss */
+/* line 28, ../sass/_home-collection.scss */
 #home-collection-men:hover #collection-men-title {
   display: block;
 }
 
-/* line 33, ../sass/_home-collection.scss */
+/* line 34, ../sass/_home-collection.scss */
 #home-collection-women:hover #collection-women-title {
   display: block;
 }
-
