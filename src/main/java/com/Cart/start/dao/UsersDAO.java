@@ -1,5 +1,6 @@
 package com.Cart.start.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Criteria;
