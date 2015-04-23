@@ -1,0 +1,21 @@
+#email,#password{
+	width: 200px;
+}
+.login{
+	padding-top:20px;
+	height: 350px;
+	width:300px;
+	background-color:#feffc3;
+	 margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+}
+.login_wrap .btn{
+	margin-top: 50px;
+}
+.login_wrap h4{
+	margin:10px 10px;
+	padding:0px;
+	background-color:#4db6ac;
+	color: #fff;
+}

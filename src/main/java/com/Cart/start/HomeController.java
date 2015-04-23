@@ -20,7 +20,16 @@ public class HomeController {
 
 	}
 
-	@RequestMapping(value = "/admin**", method = RequestMethod.GET)
+	@RequestMapping(value = { "/adminLogin" }, method = RequestMethod.GET)
+	public ModelAndView adminLoginPage() {
+
+		ModelAndView model = new ModelAndView();
+		model.setViewName("adminLogin");
+		return model;
+
+	}
+
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public ModelAndView adminPage() {
 
 		ModelAndView model = new ModelAndView();
