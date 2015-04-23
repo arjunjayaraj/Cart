@@ -38,6 +38,14 @@ footer.page-footer {
 }
 
 /* line 34, ../sass/_home-collection.scss */
+
+/* line 1, ../sass/_home-ads.scss */
+#sponsored-ads {
+  margin-top: 10px;
+}
+
+/* line 32, ../sass/_home-collection.scss */
+
 #home-collection-women:hover #collection-women-title {
   display: block;
 }
