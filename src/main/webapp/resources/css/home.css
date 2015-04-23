@@ -24,18 +24,20 @@ footer.page-footer {
   font-size: 40px;
   right: 0px;
   background-color: rgba(0, 0, 0, 0.5);
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
-/* line 19, ../sass/_home-collection.scss */
+/* line 21, ../sass/_home-collection.scss */
 #collection-wrap #collection-men-title {
   text-align: right;
 }
 
-/* line 26, ../sass/_home-collection.scss */
+/* line 28, ../sass/_home-collection.scss */
 #home-collection-men:hover #collection-men-title {
   display: block;
 }
 
-/* line 32, ../sass/_home-collection.scss */
+/* line 34, ../sass/_home-collection.scss */
 #home-collection-women:hover #collection-women-title {
   display: block;
 }
