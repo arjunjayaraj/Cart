@@ -38,14 +38,23 @@ footer.page-footer {
 }
 
 /* line 34, ../sass/_home-collection.scss */
+#home-collection-women:hover #collection-women-title {
+  display: block;
+}
 
 /* line 1, ../sass/_home-ads.scss */
 #sponsored-ads {
   margin-top: 10px;
 }
 
-/* line 32, ../sass/_home-collection.scss */
+/* line 1, ../sass/_navbar.scss */
+#search-bar {
+  height: 100%;
+  width: 50%;
+}
 
-#home-collection-women:hover #collection-women-title {
-  display: block;
+/* line 6, ../sass/_navbar.scss */
+.li_no_hover {
+  opacity: 1;
+  background-color: transparent !important;
 }
