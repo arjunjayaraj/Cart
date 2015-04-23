@@ -32,5 +32,15 @@
 }
 /* line 30, ../sass/login.scss */
 #login-box button {
-  margin-left: 200px;
+  margin-left: 31%;
+}
+/* line 35, ../sass/login.scss */
+#login-box label {
+  font-size: 12px !important;
+}
+
+/* line 41, ../sass/login.scss */
+#error-msg {
+  color: red;
+  margin-left: 25%;
 }

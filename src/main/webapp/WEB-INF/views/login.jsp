@@ -13,70 +13,91 @@
 <script src="resources/js/materialize.min.js"></script>
 <script src="resources/js/login.js"></script>
 </head>
-<body onload='document.loginForm.username.focus();'>
+<body>
 
-	<h1>User Login</h1>
-
-	<!-- <div id="login-box">	
-		<div class="row">
-		    <form class="col s12"  name='loginForm'
-					action="<c:url value='/j_spring_security_check' />" method='POST'>
-		     <div class="row">
-		        <div class="input-field col s12">
-		          <input id="email" type="email" class="validate" placeholder="E Mail">
-		        		        </div>
-		      </div>
-		      <div class="row">
-		        <div class="input-field col s12">
-		          <input id="password" type="password" class="validate">
-		          <label for="password">Password</label>
-		        </div>
-		      </div>
-		      
-		 <button class="btn waves-effect waves-light" type="submit" name="action" value="submit" name="submit">Login
-		   
-		  </button>
-		        
-		    </form>
-		</div>
-	</div> -->
-	
-	<div class="row" >
-    <div class="col s5">
+<div class="row" id="login-box">
+    <div class="col s12">
       <ul class="tabs">
-        <li class="tab col s6"><a class="active" href="#test1">Test 1</a></li>
-        <li class="tab col s6"><a  href="#test2">Test 2</a></li>
+        <li class="tab col s6"><a class="active" href="#login">Sign In</a></li>
+        <li class="tab col s6"><a  href="#register">Sign Up</a></li>
       
       </ul>
     </div>
-    <div id="test1" class="col s12">Test 1
-    <div>	
-		<div class="row">
-		    <form class="col s12"  name='loginForm'
-					action="<c:url value='/j_spring_security_check' />" method='POST'>
-		     <div class="row">
-		        <div class="input-field col s12">
-		          <input id="email" type="email" class="validate" placeholder="E Mail">
-		        		        </div>
-		      </div>
-		      <div class="row">
-		        <div class="input-field col s12">
-		          <input id="password" type="password" class="validate">
-		          <label for="password">Password</label>
-		        </div>
-		      </div>
-		      
-		 <button class="btn waves-effect waves-light" type="submit" name="action" value="submit" name="submit">Login
-		   
-		  </button>
-		        
-		    </form>
+    
+   						 <!--     ***** Login *****     -->
+    <div id="login" class="col s12">
+	    <div>	
+			<div class="row">
+				<p id="error-msg"></p>
+			    <form class="col s12"  name='loginForm'
+						action="<c:url value='/j_spring_security_check' />" method='POST'>
+			     <div class="row">
+			        <div class="input-field col s12">
+			          <input type="text" name="username" class="validate" id="login-email" required>
+			        	 <label for="email">Username or email </label>
+			        		        </div>
+			      </div>
+			      <div class="row">
+			        <div class="input-field col s12">
+			          <input type="password" name="password" class="validate" id="login-password" required>
+			          <label for="password">Password</label>
+			        </div>
+			      </div>
+			      
+			 <button class="btn waves-effect waves-light" id="login-submit" type="submit" name="action" value="submit" name="submit">Login
+			   
+			  </button>
+			        
+			    </form>
+			</div>
 		</div>
-	</div>
     
     </div>
     
-    <div id="test2" class="col s12">Test 2</div>
+                       <!--  ***** Register ******  -->
+    
+    <div id="register" class="col s12">
+     <div>	
+			<div class="row">
+			<p id="error-msg"></p>
+			    <form class="col s12"  onsubmit="return validateRegisterForm()">
+				     <div class="row">
+				        <div class="input-field col s6">
+				          <input  id="first-name" type="text" class="validate" required>
+				          <label for="first-name">First Name</label>
+				        </div>
+				        <div class="input-field col s6">
+				          <input id="last-name" type="text" class="validate" required>
+				          <label for="last-name">Last Name</label>
+				        </div>
+	                </div>
+				    <div class="row">
+				        <div class="input-field col s12">
+				          <input id="register-email" type="email" name="username" class="validate" required>
+				       <label for="register-email">Email</label>
+				       </div>
+				      </div>
+				
+			     
+				      <div class="row">
+				        <div class="input-field col s6">
+				          <input  id= "register-password" type="password" name="password" class="validate" required>
+				          <label for="password">Enter Password </label>
+				        </div>
+				       <div class="input-field col s6">
+				          <input  type="password" name="confirm-password" id="confirm-password" class="validate" required>
+				          <label for="confirm-password" id="confirm-password-label" style="font-size:12px">Confirm Password</label>
+				        </div>
+				      </div>
+				      
+					 <button class="btn waves-effect waves-light" type="submit" name="action" value="submit" name="submit" id="register-submit">Register
+					   
+					  </button>
+					        
+			    </form>
+			</div>
+		</div>
+     </div>
    
   </div>
         
