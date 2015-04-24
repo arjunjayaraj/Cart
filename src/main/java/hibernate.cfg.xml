@@ -8,7 +8,7 @@
 	
 		<!-- 	DATABASE CONNECTION SETTINGS -->
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://localhost:3306/testHibernateDB</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/IndiaCart</property>
 		<property name="connection.username">root</property>
 		<property name="connection.password">qburst</property>
 		
@@ -21,7 +21,9 @@
     	
     	<property name="hbm2ddl.auto">update</property>
 		
-		<mapping class="com.Cart.start.studentInfo"/>
+		<mapping class="com.Cart.start.model.studentInfo"/>
+		<mapping class="com.Cart.start.model.Users"/>
+		<mapping class="com.Cart.start.model.Products"/>
 		
 		<!-- <mapping resource="org/hibernate/test/legacy/Simple.hbm.xml"/>
 		<class-cache
