@@ -6,4 +6,27 @@
 .li_no_hover {
     opacity:1;
     background-color: transparent !important;
+    margin-left: -5%;
+    margin-top: -15%;
 }
+.arrange{
+display: inline-block;
+}
+nav{
+background-color:#4CAF50;
+}
+#categories_drop{margin-right: 5%;
+}
+#search_bar{
+height: 100%; width: 450px; }
+#drop_button{
+color: white; 
+border-radius: 25px;
+margin-left: 30px;}
+#dropdown1{
+z-index: 3; margin-left: 30px;}
+#search{
+height: 40px; 
+border-radius: 25px; 
+margin-top: 12px; 
+line-height: 15px;}
