@@ -156,7 +156,7 @@
 			</div>
 		</div>
 		<div class="footer-copyright">
-			<div class="container">© 2015 Copyright Text</div>
+			<div class="container pull-right">© 2015 Copyright Text</div>
 		</div>
 	</footer>
 

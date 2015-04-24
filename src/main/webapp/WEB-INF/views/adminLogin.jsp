@@ -21,7 +21,7 @@
 </head>
 <body>
 	<div class="login_wrap center-align">
-	<header class="page-footer"></header>
+	<header class="page-header"></header>
 		<h4>Admin Login</h4>
 		<form class="login z-depth-3">
 			<div class="row">
@@ -44,7 +44,7 @@
 
 
 		</form>
-		<footer class="page-footer"></footer>
+<!-- 		<footer class="page-footer"></footer> -->
 	</div>
 </body>
 </html>
