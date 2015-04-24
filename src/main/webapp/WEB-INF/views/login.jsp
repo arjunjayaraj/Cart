@@ -77,7 +77,7 @@
 				       <label for="register-email">Email</label>
 				       </div>
 				      </div>
-				<div class="row">
+					<div class="row">
 				        <div class="input-field col s6">
 				          <input  id= "register-password" type="password" name="password" class="validate" required>
 				          <label for="password">Enter Password </label>
