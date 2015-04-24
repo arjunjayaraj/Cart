@@ -1,4 +1,4 @@
-package com.Cart.start;
+package com.Cart.start.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
