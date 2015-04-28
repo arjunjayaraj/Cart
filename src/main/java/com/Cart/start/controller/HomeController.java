@@ -52,6 +52,14 @@ public class HomeController {
 		return model;
 
 	}
+	@RequestMapping(value = { "/addNewProduct" }, method = RequestMethod.GET)
+	public ModelAndView addNewProductPage() {
+
+		ModelAndView model = new ModelAndView();
+		model.setViewName("addNewProduct");
+		return model;
+
+	}
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public ModelAndView adminPage() {
 		

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Admin Home</title>
 <!--Import materialize.css-->
 <link type="text/css" rel="stylesheet"
 	href="resources/css/materialize.min.css" media="screen,projection" />
