@@ -122,20 +122,21 @@ public class HomeController {
 		String email=user.getEmail();
 		UsersManager userManager = new UsersManager();
 		//Users userObj=checkUser.findById(email);
-		
-		if (user.getPasswd().equals(confirmPassword)) {
-
+		Boolean flagSave=true;
+	
+//		 if(userManager.isPresent(email)){
+//			flagSave=false;
+//			modelView.addObject("error", "Email already exists!!");
+//		}
+//		 else if (!(user.getPasswd().equals(confirmPassword))) {
+//				flagSave=false;
+//				modelView.addObject("error", "Password Mismatch!!");		
+//				
+//			} 
 			
+		if(flagSave==true){
 			userManager.persist(user);
 			modelView.addObject("error", "Registered Successfully!!");
-		} 
-		
-		else if(userManager.isPresent(email)){
-			modelView.addObject("error", "Email already exists!!");
-		}
-		else {
-			modelView.addObject("error", "Password Mismatch!!");
-			
 		}
 		return modelView;
 	}

@@ -9,10 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="USERS_TABLE")
+@Table(name="USERS_TABLEs")
 public class Users implements Serializable {
 	
 	@Id @Column(name="U_NAME")
+	@GeneratedValue
 	private int userName;
 
 	@Column(name="F_NAME")
@@ -23,7 +24,7 @@ public class Users implements Serializable {
 	
 	@Column(name="PASSWD")
 	private String passwd;
-	@Id 
+	
 	@Column(name="EMAIL")
 	private String email;
 	
