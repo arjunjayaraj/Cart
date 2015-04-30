@@ -60,16 +60,17 @@
   <div id="register" class="col s12">
      <div>	
 			<div class="row">
-			<p id="error-msg"></p>
-			  <form class="col s12"  action="register" method="post" commandName="registerForm" >
-			  			
+			
+			  <!-- <form class="col s12"  action="register" method="post" commandName="registerForm" >-->
+			  	<form class="col s12" id="registerForm" action="register" method="post" commandName="registerForm" >
+				    <p id="error-msg" name="errorMsg"></p>
 				     <div class="row">
 				        <div class="input-field col s6">
-				          <input  id="first-name" type="text" class="validate"  name="fName" required/>
+				          <input  id="first-name" type="text" class="validate alphabets-only"  name="fName"  required/>
 				          <label for="first-name">First Name</label>
 				        </div>
 				        <div class="input-field col s6">
-				          <input id="last-name" type="text" class="validate"  name="lName" required/>
+				          <input id="last-name" type="text" class="validate alphabets-only"  name="lName" required/>
 				          <label for="last-name">Last Name</label>
 				        </div>
 	                </div>
@@ -90,7 +91,7 @@
 				        </div>
 				      </div>
 				      
-					 <button class="btn waves-effect waves-light" type="submit" name="action" value="submit" name="submit" id="register-submit">Register
+					 <button class="btn waves-effect waves-light" type="submit"  name="submit"  value="submit" id="register-submit">Register
 					   
 					  </button>
 					        
