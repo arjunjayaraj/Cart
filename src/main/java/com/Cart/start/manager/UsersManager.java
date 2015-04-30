@@ -1,21 +1,21 @@
-package com.Cart.start.service;
+package com.Cart.start.manager;
 
 import java.util.List;
 
 import com.Cart.start.dao.UsersDAO;
 import com.Cart.start.model.Users;
 
-public class UsersService {
+public class UsersManager {
 
 		private static UsersDAO UsersDAO;
 
-		public UsersService() {
+		public UsersManager() {
 			UsersDAO = new UsersDAO();
 		}
 
-		public void persist(Users entity) {
+		public void save(Users entity) {
 			UsersDAO.openCurrentSessionwithTransaction();
-			UsersDAO.persist(entity);
+			UsersDAO.save(entity);
 			UsersDAO.closeCurrentSessionwithTransaction();
 		}
 

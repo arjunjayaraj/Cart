@@ -1,6 +1,5 @@
 package com.Cart.start.dao;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -71,7 +70,7 @@ public class UsersDAO {
 		this.currentTransaction = currentTransaction;
 	}
 
-	public void persist(Users entity) {
+	public void save(Users entity) {
 
 		getCurrentSession().save(entity);
 

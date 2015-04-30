@@ -3,7 +3,6 @@ $(document).ready(function(){
 
 	//check the validity on login submit
 	$('#login-submit').click(function(){
-		alert("dsaf");
 		var loginEmail= $('#login-email').val();
 		var loginPassword=$('#login-password').val();
 		if(validateEmail(loginEmail)){

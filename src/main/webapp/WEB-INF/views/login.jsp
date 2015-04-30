@@ -1,3 +1,4 @@
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page session="true"%>
 <html>
@@ -29,17 +30,19 @@
 	    <div>	
 			<div class="row">
 				<p id="error-msg"></p>
-			    <form class="col s12"  name='loginForm'
-						action="<c:url value='/j_spring_security_check' />" method='POST'>
+			    <form:form class="col s12"  name='loginForm' action="j_spring_security_check"
+			    			modelAttribute="users" method='POST'>
 			     <div class="row">
 			        <div class="input-field col s12">
-			          <input type="text" name="username" class="validate" id="login-email" required>
+			         <%--  <form:input type="text" name="username" path="username" class="validate" id="login-email" required/> --%>
+			          <form:input path="username" type="text"/>
 			        	 <label for="email">Username or email </label>
 			        		        </div>
 			      </div>
 			      <div class="row">
 			        <div class="input-field col s12">
-			          <input type="password" name="password" class="validate" id="login-password" required>
+			          <%-- <form:input type="password" name="password" path="password" class="validate" id="login-password" required/> --%>
+			          <form:input type="password" path="password"/>
 			          <label for="password">Password</label>
 			        </div>
 			      </div>
@@ -48,7 +51,7 @@
 			   
 			  </button>
 			        
-			    </form>
+			    </form:form>
 			</div>
 		</div>
     
