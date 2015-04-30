@@ -1,5 +1,6 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>  
 <%@page session="true"%>
 <html>
 <head>
@@ -17,6 +18,7 @@
 <body>
 
 <div class="row" id="login-box">
+		<p id="error-msg">${error}</p>
     <div class="col s12">
       <ul class="tabs">
         <li class="tab col s6"><a class="active" href="#login">Sign In</a></li>
@@ -29,6 +31,7 @@
     <div id="login" class="col s12">
 	    <div>	
 			<div class="row">
+
 				<p id="error-msg"></p>
 			    <form:form class="col s12"  name='loginForm' action="j_spring_security_check"
 			    			modelAttribute="users" method='POST'>
@@ -36,11 +39,13 @@
 			        <div class="input-field col s12">
 			         <%--  <form:input type="text" name="username" path="username" class="validate" id="login-email" required/> --%>
 			          <form:input path="username" type="text"/>
+
 			        	 <label for="email">Username or email </label>
 			        		        </div>
 			      </div>
 			      <div class="row">
 			        <div class="input-field col s12">
+
 			          <%-- <form:input type="password" name="password" path="password" class="validate" id="login-password" required/> --%>
 			          <form:input type="password" path="password"/>
 			          <label for="password">Password</label>
@@ -59,34 +64,35 @@
     
                        <!--  ***** Register ******  -->
     
-    <div id="register" class="col s12">
+  <div id="register" class="col s12">
      <div>	
 			<div class="row">
 			<p id="error-msg"></p>
-			    <form class="col s12"  onsubmit="return validateRegisterForm()">
+			  <form class="col s12"  action="register" method="post" commandName="registerForm" >
+			  			
 				     <div class="row">
 				        <div class="input-field col s6">
-				          <input  id="first-name" type="text" class="validate" required>
+				          <input  id="first-name" type="text" class="validate"  name="fName" required/>
 				          <label for="first-name">First Name</label>
 				        </div>
 				        <div class="input-field col s6">
-				          <input id="last-name" type="text" class="validate" required>
+				          <input id="last-name" type="text" class="validate"  name="lName" required/>
 				          <label for="last-name">Last Name</label>
 				        </div>
 	                </div>
 				    <div class="row">
 				        <div class="input-field col s12">
-				          <input id="register-email" type="email" name="username" class="validate" required>
+				          <input id="register-email" type="email" name="email" class="validate" required/>
 				       <label for="register-email">Email</label>
 				       </div>
 				      </div>
-				<div class="row">
+					<div class="row">
 				        <div class="input-field col s6">
-				          <input  id= "register-password" type="password" name="password" class="validate" required>
+				          <input id= "register-password" type="password" name="passwd" class="validate" required/>
 				          <label for="password">Enter Password </label>
 				        </div>
 				       <div class="input-field col s6">
-				          <input  type="password" name="confirm-password" id="confirm-password" class="validate" required>
+				          <input type="password" name="confirm-password" id="confirm-password" class="validate" required/>
 				          <label for="confirm-password" id="confirm-password-label" style="font-size:12px">Confirm Password</label>
 				        </div>
 				      </div>
@@ -96,9 +102,12 @@
 					  </button>
 					        
 			    </form>
+			   
 			</div>
 		</div>
      </div>
+     
+     
    
   </div>
         

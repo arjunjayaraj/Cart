@@ -43,4 +43,6 @@
 #error-msg {
   color: red;
   margin-left: 25%;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
