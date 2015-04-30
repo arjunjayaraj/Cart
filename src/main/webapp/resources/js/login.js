@@ -37,8 +37,7 @@ $(document).ready(function(){
 	});
 	*/
 
-
-	$('.alphabets-only').keydown(function (e) {
+$('.alphabets-only').keydown(function (e) {
 		if (e.ctrlKey || e.altKey) {
 		e.preventDefault();
 		} else {

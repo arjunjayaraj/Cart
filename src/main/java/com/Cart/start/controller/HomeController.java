@@ -107,12 +107,11 @@ public class HomeController {
 			modelView.addObject("error", "Password Mismatch!!");		
 			
 		} 
-
-
-//		if(userManager.isPresent(email)){
-//			flagSave=false;
-//			modelView.addObject("error","Email already exists!!!");
-//		}
+	
+		else if((userManager.isPresent(user.getEmail()))){
+			flagSave=false;
+			modelView.addObject("error","Email already exists!!!");
+		}
 //	
 		if(flagSave==true){
 			userManager.persist(user);

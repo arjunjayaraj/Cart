@@ -8,13 +8,44 @@
 <link href="resources/css/materialize.css" rel="stylesheet">
 <link href="resources/css/materialize.min.css" rel="stylesheet">
 <link href="resources/css/login.css" rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="resources/css/home.css"  media="screen,projection"/>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="resources/js/materialize.js"></script>
 <script src="resources/js/materialize.min.js"></script>
 <script src="resources/js/login.js"></script>
+<script  type="text/javascript" src="resources/js/home-ads.js"></script>
+<script type="text/javascript" src="resources/js/custom.js"></script>
 </head>
 <body>
+<nav>
+		<div class="nav-wrapper">
+
+			<a href="#!" class="brand-logo">Logo</a>
+			<ul id= "categories_drop" class="right hide-on-med-and-down">
+				
+				<li id= "search_bar"><form >
+				<div class="li_no_hover arrange" ><a id ="drop_button"
+					class='dropdown-button waves-effect btn-flat' data-beloworigin="true"
+					href='#' data-activates='dropdown1'><b>Categories</b></a>
+					<ul id='dropdown1' class='dropdown-content' >
+						<li><a href="#!">one</a></li>
+						<li><a href="#!">two</a></li>
+						<li class="divider"></li>
+						<li><a href="#!">three</a></li>
+					</ul></div>
+						<div class="input-field arrange">
+							<input id="search" type="search" required>
+							<label for="search"><i class="mdi-action-search"></i></label>
+						</div>
+					</form></li>
+				<li><a href="mobile.html"><i
+						class="mdi-action-add-shopping-cart"></i></a></li>
+				
+				
+			</ul>
+		</div>
+	</nav>
 
 <div class="row" id="login-box">
 		<p id="error-msg">${error}</p>

@@ -1,11 +1,15 @@
 package com.Cart.start.manager;
 import java.util.List;
 
+import javax.management.Query;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.criterion.Restrictions;
 
 import com.Cart.start.dao.UsersDAO;
 import com.Cart.start.model.Users;
+import com.mysql.jdbc.Statement;
 
 public class UsersManager{
 
@@ -58,13 +62,28 @@ public class UsersManager{
 		}
 		public Boolean isPresent(String email){
 			Users users=null;
-			Boolean flag=true;
+			Boolean flag=false;
+			List emailList=null;
 			try{
 				usersDAO.openCurrentSessionwithTransaction();
-				users=usersDAO.findById(email);
+				
+				Criteria criteria = usersDAO.getCurrentSession().createCriteria(Users.class);
+							criteria.add(Restrictions.eq("email", email));
+							emailList=criteria.list();
+							if(emailList!=null){
+								flag=true;
+							}
+				
+			
 				if(users==null){
-					flag=false;
+					flag=false;//when user already exists
 				}
+//				 List<Users> list = usersDAO.getCurrentSession().createQuery("FROM User WHERE username = ?").list(); // here should be something else than list()
+//				 Users temp=(list.isEmpty() ? null : list.get(0));
+//				 if(temp==null){
+//					 flag=true;
+//				 }
+
 			}
 			catch(HibernateException e){
 				System.out.println(e);
