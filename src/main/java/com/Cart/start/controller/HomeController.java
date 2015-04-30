@@ -24,11 +24,6 @@ import com.Cart.start.model.Users;
 import com.Cart.start.model.studentInfo;
 
 
-//import com.Cart.start.dao.UsersDAO;
-//import com.Cart.start.manager.UsersManager;
-//import com.Cart.start.model.Users;
-//import com.Cart.start.model.studentInfo;
-
 
 
 @Controller
@@ -120,54 +115,7 @@ public class HomeController {
 		return modelView;
 	}
 	
-	/*@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public  @ResponseBody ModelAndView register(
-			@RequestParam("fName") String fName,
-			@RequestParam("lName") String lName,
-			@RequestParam("email") String email,
-			@RequestParam("passwd") String passwd,
-			@RequestParam("errorMsg") String errorMsg){
-		System.out.println("**********************"+errorMsg+"***************************");
-		UsersDAO checkUser=new UsersDAO();
-		ModelAndView modelView = new ModelAndView();
-		
-		Users user =new Users();
-		user.setfName(fName);
-		user.setlName(lName);
-		user.setEmail(email);
-		user.setPasswd(passwd);
-		
-		UsersManager userManager = new UsersManager();
-		
-		Boolean flagSave=true;
 
-		
-//		 if(userManager.isPresent(email)){
-//			flagSave=false;
-		if(errorMsg!=""){
-			modelView.addObject("error",errorMsg);
-			flagSave=false;
-		}
-			
-//		
-		if(flagSave==true){
-			userManager.persist(user);
-			modelView.addObject("error", "Registered Successfully!!");
-		}
-		modelView.setViewName("login");
-		return modelView;
-	}*/
-	
-	/*@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public  @ResponseBody ModelAndView controllerMethod(@ModelAttribute(value="myData") Users myData) throws ParseException {
-		System.out.println("************************************************");
-		
-		ModelAndView modelView = new ModelAndView();
-		UsersManager userManager = new UsersManager();
-		userManager.persist(myData);
-		modelView.addObject("error", "Registered Successfully!!");
-		modelView.setViewName("login");
-		return modelView;
-	}*/
+
 
 }
