@@ -8,9 +8,9 @@
 	
 		<!-- 	DATABASE CONNECTION SETTINGS -->
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://localhost:3306/testHibernateDB</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/testDb</property>
 		<property name="connection.username">root</property>
-		<property name="connection.password">qburst</property>
+		<property name="connection.password">root</property>
 		
 		<property name="connection.pool_size">1</property>
 		
@@ -20,8 +20,14 @@
     	<property name="show_sql">true</property>
     	
     	<property name="hbm2ddl.auto">update</property>
+	<property name="hibernate.current_session_context_class">org.hibernate.context.ThreadLocalSessionContext</property>	
 		
-		<mapping class="testHibernate.studentInfo"/>
+		<property name="hibernate.current_session_context_class">thread</property>
+		
+		<mapping class="com.Cart.start.model.studentInfo"/>
+		<mapping class="com.Cart.start.model.Users"/>
+		<mapping class="com.Cart.start.model.Products"/>
+		<mapping class="com.Cart.start.model.Category"/>
 		
 		
 		<!-- <mapping resource="org/hibernate/test/legacy/Simple.hbm.xml"/>
