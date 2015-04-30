@@ -4,14 +4,16 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="USERS")
+@Table(name="USERS_TABLEs")
 public class Users implements Serializable {
 	
 	@Id @Column(name="U_NAME")
+	@GeneratedValue
 	private int userName;
 
 	@Column(name="F_NAME")
@@ -23,7 +25,7 @@ public class Users implements Serializable {
 	@Column(name="PASSWD")
 	private String passwd;
 	
-	@Id @Column(name="EMAIL")
+	@Column(name="EMAIL")
 	private String email;
 	
 	private enum roles {
