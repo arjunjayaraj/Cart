@@ -1,42 +1,6 @@
 
 $(document).ready(function(){
-
-	/*$("#register-submit").click(function(){
-		
-		var firstName= $('#first-name').val();
-		var lastName=$('#last-name').val();
-		var password=$('#register-password').val();
-		var confirmPassword=$("#confirm-password").val();
-		var email=$("#register-email").val();
-		
-		 if(password !=confirmPassword){
-			
-			$('#error-msg').html("Password Mismatch!!");
-		}
-		var data = 'fName='
-			+ encodeURIComponent(firstname)
-			+ '&amp;lName='
-			+ encodeURIComponent(lastname)
-			+'&amp;email='
-			+encodeURIComponent(email)
-			+'&amp;passwd='
-			+encodeURIComponent(passwd);
-		
-		alert(firstName +""+password);
-		$.ajax({
-		    type : "GET",
-		    url : "register",
-		    data : data,
-		    success : function(response) {
-		       alert("Success");
-		    },
-		    error : function(e) {
-		       alert('Error: ' + e);
-		    }
-		}); 
-	});
-	*/
-
+	
 $('.alphabets-only').keydown(function (e) {
 		if (e.ctrlKey || e.altKey) {
 		e.preventDefault();
