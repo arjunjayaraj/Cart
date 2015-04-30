@@ -1,7 +1,6 @@
 package com.Cart.start.manager;
-import java.util.List;
 
-import javax.management.Query;
+import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -9,7 +8,6 @@ import org.hibernate.criterion.Restrictions;
 
 import com.Cart.start.dao.UsersDAO;
 import com.Cart.start.model.Users;
-import com.mysql.jdbc.Statement;
 
 public class UsersManager{
 
@@ -22,7 +20,7 @@ public class UsersManager{
 		public void persist(Users entity) {
 			try{
 				usersDAO.openCurrentSessionwithTransaction();
-				usersDAO.persist(entity);
+				usersDAO.save(entity);
 			}
 			catch(HibernateException e){
 				System.out.println(e);

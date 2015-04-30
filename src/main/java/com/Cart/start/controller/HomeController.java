@@ -1,35 +1,15 @@
 package com.Cart.start.controller;
 
-import java.text.ParseException;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.AnnotationConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.Cart.start.dao.UsersDAO;
 import com.Cart.start.manager.UsersManager;
 import com.Cart.start.model.Users;
-import com.Cart.start.model.studentInfo;
-
-
-//import com.Cart.start.dao.UsersDAO;
-//import com.Cart.start.manager.UsersManager;
-//import com.Cart.start.model.Users;
-//import com.Cart.start.model.studentInfo;
-
-
 
 @Controller
 public class HomeController {
@@ -62,24 +42,12 @@ public class HomeController {
 		model.addObject("title", "Spring Security Custom Login Form");
 		model.addObject("message", "This is protected page!");
 		model.setViewName("admin");
-		studentInfo stud = new studentInfo();
-		
-		stud.setName("JG3");
-		
-		SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
-		Session session = sf.openSession();
-		session.beginTransaction();
-		
-		session.save(stud);
-		
-		session.getTransaction().commit();
-		session.close();
 		return model;
 
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public ModelAndView login(@RequestParam(value = "error", required = false) String error,
+	public ModelAndView login(@ModelAttribute Users users,@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String logout) {
 
 
@@ -88,6 +56,20 @@ public class HomeController {
 
 		return model;
 
+	}
+	
+	@RequestMapping("/loginno")
+	public ModelAndView getLoginForm(@ModelAttribute Users users,
+			@RequestParam(value = "error", required = false) String error,
+			@RequestParam(value = "logout", required = false) String logout) {
+
+		String message = "";
+		if (error != null) {
+			message = "Incorrect username or password !";
+		} else if (logout != null) {
+			message = "Logout successful !";
+		}
+		return new ModelAndView("loginno", "message", message);
 	}
 
 	
@@ -98,21 +80,21 @@ public class HomeController {
 		UsersDAO checkUser=new UsersDAO();
 		ModelAndView modelView = new ModelAndView();
 		modelView.setViewName("login");
-
+		
 		UsersManager userManager = new UsersManager();
 		Boolean flagSave=true;
 		
-		if (!(user.getPasswd().equals(confirmPassword))) {
+		if (!(user.getPassword().equals(confirmPassword))) {
 			flagSave=false;
 			modelView.addObject("error", "Password Mismatch!!");		
 			
 		} 
 	
-		else if((userManager.isPresent(user.getEmail()))){
+		else if((userManager.isPresent(user.getUsername()))){
 			flagSave=false;
 			modelView.addObject("error","Email already exists!!!");
 		}
-//	
+		
 		if(flagSave==true){
 			userManager.persist(user);
 			modelView.addObject("error", "Registered Successfully!!");
@@ -151,7 +133,7 @@ public class HomeController {
 			
 //		
 		if(flagSave==true){
-			userManager.persist(user);
+			userManager.save(user);
 			modelView.addObject("error", "Registered Successfully!!");
 		}
 		modelView.setViewName("login");

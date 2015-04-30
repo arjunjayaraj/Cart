@@ -1,48 +1,23 @@
 package com.Cart.start.model;
 
-import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="USERS_TABLEs")
-public class Users implements Serializable {
-	
-	@Id @Column(name="U_NAME")
-	@GeneratedValue
-	private int userName;
+@Table(name = "USERS")
+public class Users {
 
-	@Column(name="F_NAME")
-	private String fName;
-	
-	@Column(name="L_NAME")
-	private String lName;
-	
-	@Column(name="PASSWD")
-	private String passwd;
-	
-	@Column(name="EMAIL")
+	@Id
+	@Column(name = "EMAIL", unique = true, nullable = false, length = 45)
 	private String email;
 	
-	private enum roles {
-		ROLE_USER, ROLE_ADMIN
-	}
-	
-	@Column(name="ROLE")
-	private roles role;
-	
-	public final int getUserName() {
-		return userName;
-	}
-
-	public final void setUserName(int userName) {
-		this.userName = userName;
-	}
-
 	public final String getfName() {
 		return fName;
 	}
@@ -59,27 +34,40 @@ public class Users implements Serializable {
 		this.lName = lName;
 	}
 
-	public final String getPasswd() {
-		return passwd;
-	}
+	@Column(name="F_NAME", nullable = false, length = 60)
+	private String fName;
+	
+	@Column(name="L_NAME")
+	private String lName;
+	
+	@Column(name = "PASSWD", nullable = false, length = 60)
+	private String password;
 
-	public final void setPasswd(String passwd) {
-		this.passwd = passwd;
-	}
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<UserRole> userRole = new HashSet<UserRole>(0);
 
-	public final String getEmail() {
+	
+	public String getUsername() {
 		return email;
 	}
 
-	public final void setEmail(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.email = username;
 	}
 
-	public final roles getRole() {
-		return role;
+	public String getPassword() {
+		return password;
 	}
 
-	public final void setRole(roles role) {
-		this.role = role;
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Set<UserRole> getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(Set<UserRole> userRole) {
+		this.userRole = userRole;
 	}
 }
