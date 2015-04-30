@@ -1,87 +1,52 @@
 
 $(document).ready(function(){
 
-	//check the validity on login submit
-//	$('#login-submit').click(function(){
-//		alert("dsaf");
-//		var loginEmail= $('#login-email').val();
-//		var loginPassword=$('#login-password').val();
-//		if(validateEmail(loginEmail)){
-//			$('#error-msg').html("");
-//		
-//		}
-//		else{
-//			$('#error-msg').html("Invalid email/password");
-//		}
-//	});
-//	
-//$("#register-submit").click(function(){
-//		alert("dfsdsf");
-//		var firstName= $('#first-name').val();
-//		var lastName=$('#last-name').val();
-//		var password=$('#register-password').val();
-//		var confirmPassword=$("#confirm-password").val();
-//		var email=$("#register-email").val();
-//		if(firstName==""|| lastName==""){
-//			$('#error-msg').html("Enter your name");
-//		}
-//		else if(email==""){
-//			$('#error-msg').html("Enter your email id");
-//		}
-//		else if(confirmPassword=="" || password== ""){
-//			$('#error-msg').html("Enter password");
-//		}
-//		else if(password !=confirmPassword){
-//			alert("sadsa");
-//			$('#error-msg').html("Password Mismatch!!");
-//		}
-//		
-//		$.ajax({
-//		    type : "POST",
-//		    url : "register",
-//		    data : {
-//		        myArray: "dsf"//notice that "myArray" matches the value for @RequestParam
-//		                   //on the Java side
-//		    },
-//		    success : function(response) {
-//		       alert("Success");
-//		    },
-//		    error : function(e) {
-//		       alert('Error: ' + e);
-//		    }
-//		}); 
-//	});
-//	function validateRegisterForm() {
-//		alert("sadsj");
-//		var firstName= $('#first-name').val();
-//		var lastName=$('#last-name').val();
-//		var password=$('#register-password').val();
-//		var confirmPassword=$("#confirm-password").val();
-//		var email=$("#register-email").val();
-//		if(firstName==""|| lastName==""){
-//			$('#error-msg').html("Enter your name");
-//			alert("Enter name");
-//			return false;
-//		}
-//		else if(email==""){
-//			$('#error-msg').html("Enter your email id");
-//			return false;
-//		}
-//		else if(confirmPassword=="" || password== ""){
-//			$('#error-msg').html("Enter password");
-//			return false;
-//		}
-//		else if(password !=confirmPassword){
-//			$('#error-msg').html("Password Mismatch!!");
-//			alert("sadsa");
-//			return false;
-//		}
-//		else {
-//			return true;
-//		}
-//	}
+	/*$("#register-submit").click(function(){
+		
+		var firstName= $('#first-name').val();
+		var lastName=$('#last-name').val();
+		var password=$('#register-password').val();
+		var confirmPassword=$("#confirm-password").val();
+		var email=$("#register-email").val();
+		
+		 if(password !=confirmPassword){
+			
+			$('#error-msg').html("Password Mismatch!!");
+		}
+		var data = 'fName='
+			+ encodeURIComponent(firstname)
+			+ '&amp;lName='
+			+ encodeURIComponent(lastname)
+			+'&amp;email='
+			+encodeURIComponent(email)
+			+'&amp;passwd='
+			+encodeURIComponent(passwd);
+		
+		alert(firstName +""+password);
+		$.ajax({
+		    type : "GET",
+		    url : "register",
+		    data : data,
+		    success : function(response) {
+		       alert("Success");
+		    },
+		    error : function(e) {
+		       alert('Error: ' + e);
+		    }
+		}); 
+	});
+	*/
 
-	
+$('.alphabets-only').keydown(function (e) {
+		if (e.ctrlKey || e.altKey) {
+		e.preventDefault();
+		} else {
+		var key = e.keyCode;
+		if (!((key == 8) ||(key == 32) || (key == 46) || (key >= 35 && key <= 40) || (key >= 65 && key <= 90))) {
+		e.preventDefault();
+		}
+		}
+		});
 	
 	//check for the validity of the email
 	function validateEmail(email) {
