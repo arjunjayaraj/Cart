@@ -11,7 +11,6 @@ import com.Cart.start.dao.UsersDAO;
 import com.Cart.start.manager.UsersManager;
 import com.Cart.start.model.Users;
 
-
 @Controller
 public class HomeController {
 
@@ -50,39 +49,9 @@ public class HomeController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(@ModelAttribute Users users,@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String logout) {
-	
-//	@RequestMapping(value = "/login", method = RequestMethod.GET)
-//	public ModelAndView login(@RequestParam(value="myArray") String myArray)
-//							 
-	
+
 
 		ModelAndView model = new ModelAndView();
-		
-//		UserObj userObj1=new UserObj();
-//		userObj1.setFirstName("myArray");
-//		userObj1.setLastName("lastName");
-//		userObj1.setEmail("username");
-//		userObj1.setPassword("username");
-//		
-//		userObj1.setRole("password");
-//		
-//		
-//		
-//		UserDAO userDAO=new UserDAO();
-//		userDAO.openCurrentSessionwithTransaction();
-//		userDAO.save(userObj1);
-//		userDAO.closeCurrentSessionwithTransaction();
-//		
-//		
-//		
-//		
-//		if (error != null) {
-//			model.addObject("error", "Invalid username and password!");
-//		}
-//
-//		if (logout != null) {
-//			model.addObject("msg", "You've been logged out successfully.");
-//		}
 		model.setViewName("login");
 
 		return model;
@@ -103,34 +72,84 @@ public class HomeController {
 		return new ModelAndView("loginno", "message", message);
 	}
 
+	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ModelAndView register(@ModelAttribute("registerForm") Users user,
 			@RequestParam("confirm-password") String confirmPassword) {
-		
+
 		UsersDAO checkUser=new UsersDAO();
 		ModelAndView modelView = new ModelAndView();
 		modelView.setViewName("login");
 		
-		String email=user.getUsername();
 		UsersManager userManager = new UsersManager();
-		//Users userObj=checkUser.findById(email);
 		Boolean flagSave=true;
-	
-//		 if(userManager.isPresent(email)){
-//			flagSave=false;
-//			modelView.addObject("error", "Email already exists!!");
-//		}
-//		 else if (!(user.getPasswd().equals(confirmPassword))) {
-//				flagSave=false;
-//				modelView.addObject("error", "Password Mismatch!!");		
-//				
-//			} 
+		
+		if (!(user.getPassword().equals(confirmPassword))) {
+			flagSave=false;
+			modelView.addObject("error", "Password Mismatch!!");		
 			
+		} 
+	
+		else if((userManager.isPresent(user.getUsername()))){
+			flagSave=false;
+			modelView.addObject("error","Email already exists!!!");
+		}
+		
 		if(flagSave==true){
-			userManager.save(user);
+			userManager.persist(user);
 			modelView.addObject("error", "Registered Successfully!!");
 		}
 		return modelView;
 	}
+	
+	/*@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public  @ResponseBody ModelAndView register(
+			@RequestParam("fName") String fName,
+			@RequestParam("lName") String lName,
+			@RequestParam("email") String email,
+			@RequestParam("passwd") String passwd,
+			@RequestParam("errorMsg") String errorMsg){
+		System.out.println("**********************"+errorMsg+"***************************");
+		UsersDAO checkUser=new UsersDAO();
+		ModelAndView modelView = new ModelAndView();
+		
+		Users user =new Users();
+		user.setfName(fName);
+		user.setlName(lName);
+		user.setEmail(email);
+		user.setPasswd(passwd);
+		
+		UsersManager userManager = new UsersManager();
+		
+		Boolean flagSave=true;
+
+		
+//		 if(userManager.isPresent(email)){
+//			flagSave=false;
+		if(errorMsg!=""){
+			modelView.addObject("error",errorMsg);
+			flagSave=false;
+		}
+			
+//		
+		if(flagSave==true){
+			userManager.save(user);
+			modelView.addObject("error", "Registered Successfully!!");
+		}
+		modelView.setViewName("login");
+		return modelView;
+	}*/
+	
+	/*@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public  @ResponseBody ModelAndView controllerMethod(@ModelAttribute(value="myData") Users myData) throws ParseException {
+		System.out.println("************************************************");
+		
+		ModelAndView modelView = new ModelAndView();
+		UsersManager userManager = new UsersManager();
+		userManager.persist(myData);
+		modelView.addObject("error", "Registered Successfully!!");
+		modelView.setViewName("login");
+		return modelView;
+	}*/
 
 }
