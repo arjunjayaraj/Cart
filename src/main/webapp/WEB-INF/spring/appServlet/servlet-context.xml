@@ -39,12 +39,18 @@
 			</props>
 		</property>
 	</bean>
-
+	<bean id="loginDao" class="com.Cart.start.dao.LoginDaoImpl">
+		<property name="sessionFactory"
+			ref="sessionFactory" />
+	</bean>
+	<bean id="userService"
+		class="com.Cart.start.service.UsersServiceImpl">
+		<property name="loginDao" ref="loginDao"></property>
+	</bean>
 	<bean id="txManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-
 	<bean id="persistenceExceptionTranslationPostProcessor"
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" /> 
 
