@@ -7,20 +7,26 @@ import org.hibernate.HibernateException;
 import org.hibernate.criterion.Restrictions;
 
 import com.Cart.start.dao.UsersDAO;
+import com.Cart.start.model.UserRole;
 import com.Cart.start.model.Users;
 
 public class UsersManager{
 
-		private static UsersDAO usersDAO;
+		private UsersDAO usersDAO;
 
 		public UsersManager() {
 			usersDAO = new UsersDAO();
 		}
 
-		public void persist(Users entity) {
+		public void saveUser(Users entity) {
 			try{
 				usersDAO.openCurrentSessionwithTransaction();
 				usersDAO.save(entity);
+				UserRole user = new UserRole();
+				user.setUser(entity);
+				user.setRole("ROLE_ADMIN");
+				usersDAO.getCurrentSession().save(user);
+				
 			}
 			catch(HibernateException e){
 				System.out.println(e);
@@ -74,13 +80,8 @@ public class UsersManager{
 				
 			
 				if(users==null){
-					flag=false;//when user already exists
+					flag=false;
 				}
-//				 List<Users> list = usersDAO.getCurrentSession().createQuery("FROM User WHERE username = ?").list(); // here should be something else than list()
-//				 Users temp=(list.isEmpty() ? null : list.get(0));
-//				 if(temp==null){
-//					 flag=true;
-//				 }
 
 			}
 			catch(HibernateException e){
