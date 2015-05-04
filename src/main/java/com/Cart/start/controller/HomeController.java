@@ -14,6 +14,7 @@ import com.Cart.start.manager.UsersManager;
 import com.Cart.start.model.Users;
 import com.Cart.start.service.UsersService;
 
+
 @Controller
 public class HomeController {
 	   private UsersService userService;
@@ -89,6 +90,7 @@ public class HomeController {
 		ModelAndView modelView = new ModelAndView();
 		modelView.setViewName("home");
 		Boolean flagSave=true;
+
 	if (!(user.getPassword().equals(confirmPassword))) {
 		flagSave=false;
 		modelView.addObject("error", "Password Mismatch!!");		
@@ -101,4 +103,5 @@ public class HomeController {
 		user=null;
 		return modelView;
 	}
+
 }

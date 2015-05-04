@@ -19,6 +19,7 @@ public class UsersManager{
 		}
 
 		public void saveUser(Users entity) {
+
 			try{
 				usersDAO.openCurrentSessionwithTransaction();
 				usersDAO.save(entity);
@@ -29,7 +30,8 @@ public class UsersManager{
 				
 			}
 			catch(HibernateException e){
-				System.out.println(e);
+				e.printStackTrace();
+				System.out.println("**********************"+e+"***************"+entity);
 				usersDAO.getCurrentTransaction().rollback();
 			}
 			finally{
@@ -78,14 +80,15 @@ public class UsersManager{
 								flag=true;
 							}
 				
+
 			
 				if(users==null){
 					flag=false;
 				}
-
-			}
+}
 			catch(HibernateException e){
-				System.out.println(e);
+				e.printStackTrace();
+				usersDAO.getCurrentTransaction().rollback();
 			}
 			finally{
 				usersDAO.closeCurrentSessionwithTransaction();
