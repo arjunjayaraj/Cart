@@ -23,7 +23,8 @@ public class UsersManager{
 				usersDAO.save(entity);
 			}
 			catch(HibernateException e){
-				System.out.println(e);
+				e.printStackTrace();
+				System.out.println("**********************"+e+"***************"+entity);
 				usersDAO.getCurrentTransaction().rollback();
 			}
 			finally{
@@ -72,11 +73,7 @@ public class UsersManager{
 								flag=true;
 							}
 				
-			
-				if(users==null){
-					flag=false;//when user already exists
-				}
-//				 List<Users> list = usersDAO.getCurrentSession().createQuery("FROM User WHERE username = ?").list(); // here should be something else than list()
+//				 List<Users> list = usersDAO.getCurrentSession().createQuery("FROM Users WHERE username = ?").list();
 //				 Users temp=(list.isEmpty() ? null : list.get(0));
 //				 if(temp==null){
 //					 flag=true;
@@ -84,7 +81,8 @@ public class UsersManager{
 
 			}
 			catch(HibernateException e){
-				System.out.println(e);
+				e.printStackTrace();
+				usersDAO.getCurrentTransaction().rollback();
 			}
 			finally{
 				usersDAO.closeCurrentSessionwithTransaction();

@@ -85,17 +85,17 @@ public class HomeController {
 		UsersManager userManager = new UsersManager();
 		Boolean flagSave=true;
 		
-		if (!(user.getPassword().equals(confirmPassword))) {
-			flagSave=false;
-			modelView.addObject("error", "Password Mismatch!!");		
-			
-		} 
-	
-		else if((userManager.isPresent(user.getUsername()))){
-			flagSave=false;
-			modelView.addObject("error","Email already exists!!!");
-		}
-		
+//		if (!(user.getPassword().equals(confirmPassword))) {
+//			flagSave=false;
+//			modelView.addObject("error", "Password Mismatch!!");		
+//			
+//		} 
+//	
+//		else if((userManager.isPresent(user.getUsername()))){
+//			flagSave=false;
+//			modelView.addObject("error","Email already exists!!!");
+//		}
+		System.out.println("*********************"+confirmPassword);
 		if(flagSave==true){
 			userManager.save(user);
 			modelView.addObject("error", "Registered Successfully!!");
@@ -112,24 +112,14 @@ public class HomeController {
 		}
 			
 //		
-		if(flagSave==true){
-			userManager.save(user);
-			modelView.addObject("error", "Registered Successfully!!");
-		}
+//		if(flagSave==true){
+//			userManager.save(user);
+//			modelView.addObject("error", "Registered Successfully!!");
+//		}
 		modelView.setViewName("login");
 		return modelView;
 	}*/
 	
-	/*@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public  @ResponseBody ModelAndView controllerMethod(@ModelAttribute(value="myData") Users myData) throws ParseException {
-		System.out.println("************************************************");
-		
-		ModelAndView modelView = new ModelAndView();
-		UsersManager userManager = new UsersManager();
-		userManager.persist(myData);
-		modelView.addObject("error", "Registered Successfully!!");
-		modelView.setViewName("login");
-		return modelView;
-	}*/
+	
 
 }
