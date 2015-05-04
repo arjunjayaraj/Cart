@@ -1,5 +1,7 @@
 package com.Cart.start.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,11 +12,19 @@ import org.springframework.web.servlet.ModelAndView;
 import com.Cart.start.dao.UsersDAO;
 import com.Cart.start.manager.UsersManager;
 import com.Cart.start.model.Users;
+import com.Cart.start.service.UsersService;
 
 
 @Controller
 public class HomeController {
-
+	   private UsersService userService;
+	     
+	    @Autowired(required=true)
+	    @Qualifier(value="userService")
+	    public void setPersonService(UsersService us){
+	        this.userService = us;
+	    }
+	    
 	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
 	public ModelAndView welcomePage() {
 
@@ -43,6 +53,7 @@ public class HomeController {
 		model.addObject("title", "Spring Security Custom Login Form");
 		model.addObject("message", "This is protected page!");
 		model.setViewName("admin");
+		
 		return model;
 
 	}
@@ -50,8 +61,7 @@ public class HomeController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(@ModelAttribute Users users,@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String logout) {
-
-
+		
 		ModelAndView model = new ModelAndView();
 		model.setViewName("login");
 
@@ -77,49 +87,21 @@ public class HomeController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ModelAndView register(@ModelAttribute("registerForm") Users user,
 			@RequestParam("confirm-password") String confirmPassword) {
-
-		UsersDAO checkUser=new UsersDAO();
 		ModelAndView modelView = new ModelAndView();
-		modelView.setViewName("login");
-		
-		UsersManager userManager = new UsersManager();
+		modelView.setViewName("home");
 		Boolean flagSave=true;
-		
-//		if (!(user.getPassword().equals(confirmPassword))) {
-//			flagSave=false;
-//			modelView.addObject("error", "Password Mismatch!!");		
-//			
-//		} 
-//	
-//		else if((userManager.isPresent(user.getUsername()))){
-//			flagSave=false;
-//			modelView.addObject("error","Email already exists!!!");
-//		}
-		System.out.println("*********************"+confirmPassword);
+
+	if (!(user.getPassword().equals(confirmPassword))) {
+		flagSave=false;
+		modelView.addObject("error", "Password Mismatch!!");		
+			
+		} 
 		if(flagSave==true){
-			userManager.save(user);
+			this.userService.addUser(user);
 			modelView.addObject("error", "Registered Successfully!!");
 		}
+		user=null;
 		return modelView;
 	}
-/*
-		
-//		 if(userManager.isPresent(email)){
-//			flagSave=false;
-		if(errorMsg!=""){
-			modelView.addObject("error",errorMsg);
-			flagSave=false;
-		}
-			
-//		
-//		if(flagSave==true){
-//			userManager.save(user);
-//			modelView.addObject("error", "Registered Successfully!!");
-//		}
-		modelView.setViewName("login");
-		return modelView;
-	}*/
-	
-	
 
 }
