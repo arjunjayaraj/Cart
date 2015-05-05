@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.Cart.start.dao.LoginDao;
+import com.Cart.start.dao.UsersDao;
 import com.Cart.start.model.UserRole;
 import com.Cart.start.model.Users;
 
@@ -22,22 +22,23 @@ import com.Cart.start.model.Users;
 public class LoginService implements UserDetailsService {
 
 	@Autowired
-	LoginDao loginDao;
+	UsersDao usersDao;
 
 	@Override
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
 
-		Users user = loginDao.findByUserName(username);
+		Users user = usersDao.findByUserName(username);
 
 		List<GrantedAuthority> authorities = buildUserAuthority(user
 				.getUserRole());
-
+		System.out.println(authorities);
 		return buildUserForAuthentication(user, authorities);
 	}
 
 	private User buildUserForAuthentication(Users user,
 			List<GrantedAuthority> authorities) {
+		System.out.println(authorities);
 		return new User(user.getUsername(), user.getPassword(),
 				true, true, true, true, authorities);
 	}
@@ -53,7 +54,7 @@ public class LoginService implements UserDetailsService {
 
 		List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(
 				setAuths);
-
+		System.out.println(Result);
 		return Result;
 	}
 

@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 import com.Cart.start.model.UserRole;
 import com.Cart.start.model.Users;
 
-@Repository("loginDao")
-public class LoginDaoImpl implements LoginDao {
+@Repository("usersDao")
+public class UsersDaoImpl implements UsersDao {
 	
 	@Autowired
 	SessionFactory sessionFactory;
@@ -20,17 +20,17 @@ public class LoginDaoImpl implements LoginDao {
 	Session session = null;
 	Transaction tx = null;
 
-	public Users findByUserName(String username) {
+	public Users findByUserName(String email) {
 		session = sessionFactory.openSession();
 		tx = session.getTransaction();
 		session.beginTransaction();
-		Users user = (Users) session.load(Users.class, new String(username));
+		Users user = (Users) session.load(Users.class, new String(email));
 		tx.commit();
 		return user;
 	}
    
-    public void setSessionFactory(SessionFactory sf){
-        this.sessionFactory = sf;
+    public void setSessionFactory(SessionFactory sessionFactory){
+        this.sessionFactory = sessionFactory;
     }
  
     @Override

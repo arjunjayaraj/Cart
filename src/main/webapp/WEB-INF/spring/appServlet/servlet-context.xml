@@ -12,15 +12,16 @@
 
 	<context:component-scan base-package="com.Cart.start" />
 	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<context:property-placeholder location="classpath:database.properties" />
 	<mvc:annotation-driven />
 	<tx:annotation-driven transaction-manager="txManager" />
 
  	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/IndiaCart" />
-		<property name="username" value="root" />
-		<property name="password" value="qburst" />
+		<property name="driverClassName" value="${database.driver}" />
+		<property name="url" value="${database.url}" />
+		<property name="username" value="${database.user}" />
+		<property name="password" value="${database.password}" />
 	</bean>
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -34,18 +35,18 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 			</props>
 		</property>
 	</bean>
-	<bean id="loginDao" class="com.Cart.start.dao.LoginDaoImpl">
+	<bean id="usersDao" class="com.Cart.start.dao.UsersDaoImpl">
 		<property name="sessionFactory"
 			ref="sessionFactory" />
 	</bean>
-	<bean id="userService"
+	<bean id="usersService"
 		class="com.Cart.start.service.UsersServiceImpl">
-		<property name="loginDao" ref="loginDao"></property>
+		<property name="usersDao" ref="usersDao"></property>
 	</bean>
 	<bean id="txManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
