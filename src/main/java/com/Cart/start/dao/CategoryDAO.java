@@ -9,24 +9,28 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
-import com.Cart.start.model.Users;
+import com.Cart.start.model.Category;
+import com.Cart.start.model.Products;
 
-public class UsersDAO {
-	
+public class CategoryDAO {
 	private Session currentSession;
 	private Transaction currentTransaction;
 
-	public Session openCurrentSession() {
+	 private SessionFactory sessionFactory;
+     
+	 public void setSessionFactory(SessionFactory sf){
+	        this.sessionFactory = sf;
+	    }
+	public void openCurrentSession() {
 
 		currentSession = getSessionFactory().openSession();
-		return currentSession;
 	}
 
-	public Session openCurrentSessionwithTransaction() {
+	public void openCurrentSessionwithTransaction() {
 
 		currentSession = getSessionFactory().openSession();
 		currentTransaction = currentSession.beginTransaction();
-		return currentSession;
+		
 	}
 
 	public void closeCurrentSession() {
@@ -40,7 +44,7 @@ public class UsersDAO {
 		currentSession.close();
 	}
 
-	private static SessionFactory getSessionFactory() {
+	public static SessionFactory getSessionFactory() {
 
 		Configuration configuration = new Configuration().configure();
 		StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
@@ -70,49 +74,43 @@ public class UsersDAO {
 		this.currentTransaction = currentTransaction;
 	}
 
-	public void save(Users entity) {
-
+    public void save(Category entity) {
+		
 		getCurrentSession().save(entity);
-
 	}
 
-	public void update(Users entity) {
-
+	public void update(Category entity) {
+		
 		getCurrentSession().update(entity);
-
 	}
 
-	public Users findById(String id) {
-
-		Users Users = (Users) getCurrentSession().get(Users.class, id);
-
-		return Users;
-
+	public Category findCategoryById(int categoryId) {
+		Category  category=(Category) getCurrentSession().get(Category.class, categoryId);
+		return category;
 	}
 
-	public void delete(Users entity) {
-
+	public void delete(Category entity) {
+		
 		getCurrentSession().delete(entity);
-
 	}
-	 @SuppressWarnings("unchecked")
-	public List<Users> findAll() {
-
-		Criteria cr = getCurrentSession().createCriteria(Users.class);
-		List<Users> Users = (List<Users>)cr.list();
-
-		return Users;
-
+	
+	@SuppressWarnings("unchecked")
+	public List<Category> findAll() {
+		
+		Criteria cr = getCurrentSession().createCriteria(Category.class);
+		List<Category> category = (List<Category>) cr.list();
+		return category;
 	}
 
 	public void deleteAll() {
-
-		List<Users> entityList = findAll();
-		for (Users entity : entityList) {
+		
+		List<Category> entityList = findAll();
+		for (Category entity : entityList) {
 
 			delete(entity);
 
 		}
-
 	}
+	
+	
 }

@@ -8,25 +8,27 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import com.Cart.start.model.Products;
 
-import com.Cart.start.model.Users;
-
-public class UsersDAO {
-	
+public class ProductDAO {
 	private Session currentSession;
 	private Transaction currentTransaction;
 
-	public Session openCurrentSession() {
+	 private SessionFactory sessionFactory;
+     
+	 public void setSessionFactory(SessionFactory sf){
+	        this.sessionFactory = sf;
+	    }
+	public void openCurrentSession() {
 
 		currentSession = getSessionFactory().openSession();
-		return currentSession;
 	}
 
-	public Session openCurrentSessionwithTransaction() {
+	public void openCurrentSessionwithTransaction() {
 
 		currentSession = getSessionFactory().openSession();
 		currentTransaction = currentSession.beginTransaction();
-		return currentSession;
+		
 	}
 
 	public void closeCurrentSession() {
@@ -40,7 +42,7 @@ public class UsersDAO {
 		currentSession.close();
 	}
 
-	private static SessionFactory getSessionFactory() {
+	public static SessionFactory getSessionFactory() {
 
 		Configuration configuration = new Configuration().configure();
 		StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
@@ -70,49 +72,43 @@ public class UsersDAO {
 		this.currentTransaction = currentTransaction;
 	}
 
-	public void save(Users entity) {
-
+	public void save(Products entity) {
+		
 		getCurrentSession().save(entity);
-
 	}
 
-	public void update(Users entity) {
-
+	public void update(Products entity) {
+		
 		getCurrentSession().update(entity);
-
 	}
 
-	public Users findById(String id) {
-
-		Users Users = (Users) getCurrentSession().get(Users.class, id);
-
-		return Users;
-
+	public Products findProductById(int productId) {
+		
+		Products product=(Products) getCurrentSession().get(Products.class, productId);
+		return product;
 	}
 
-	public void delete(Users entity) {
-
+	public void delete(Products entity) {
+		
 		getCurrentSession().delete(entity);
-
 	}
-	 @SuppressWarnings("unchecked")
-	public List<Users> findAll() {
-
-		Criteria cr = getCurrentSession().createCriteria(Users.class);
-		List<Users> Users = (List<Users>)cr.list();
-
-		return Users;
-
+	
+	@SuppressWarnings("unchecked")
+	public List<Products> findAll() {
+		
+		Criteria cr = getCurrentSession().createCriteria(Products.class);
+		List<Products> product = (List<Products>) cr.list();
+		return product;
 	}
 
 	public void deleteAll() {
-
-		List<Users> entityList = findAll();
-		for (Users entity : entityList) {
+		
+		List<Products> entityList = findAll();
+		for (Products entity : entityList) {
 
 			delete(entity);
 
 		}
-
 	}
+	
 }

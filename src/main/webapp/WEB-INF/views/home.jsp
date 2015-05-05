@@ -23,7 +23,8 @@
 		<nav>
 		<div class="nav-wrapper">
 
-			<a href="#!" class="brand-logo">Logo</a>
+			<a href="#!" ><img id="logo_img" src= "resources/images/shopify-bag.png"></a>
+			<span id= "nav_title" ><b >India-Cart</b></span>
 			<ul id= "categories_drop" class="right hide-on-med-and-down">
 				
 				<li id= "search_bar"><form >
