@@ -9,3 +9,4 @@ src/main/webapp/META-INF
 *.iml
 *~
 src/main/webapp/resources/.sass-cache/
+src/main/resources/database.properties
