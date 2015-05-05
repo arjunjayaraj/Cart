@@ -13,7 +13,7 @@
 		<log4j.version>1.2.17</log4j.version>
 		<jdk.version>1.7</jdk.version>
 		<jstl.version>1.2</jstl.version>
-		<mysql_connector.version>5.1.6</mysql_connector.version>
+		<mysql_connector.version>5.1.35</mysql_connector.version>
 		<spring.security.version>3.2.5.RELEASE</spring.security.version>
 		<context.path>Cart</context.path>
 	</properties>
@@ -54,12 +54,14 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+		
 		<!-- jstl -->
 		<dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
 			<version>${jstl.version}</version>
 		</dependency>
+		
 		<!-- Servlet and Jsp API -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -73,6 +75,7 @@
 			<version>2.2</version>
 			<scope>provided</scope>
 		</dependency>
+		
 		<!-- Spring Security -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -92,13 +95,24 @@
 			<version>${spring.security.version}</version>
 		</dependency>
 
-		<!-- jstl -->
 		<dependency>
-			<groupId>jstl</groupId>
-			<artifactId>jstl</artifactId>
-			<version>${jstl.version}</version>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j-version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${org.slf4j-version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${org.slf4j-version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		
 		<!-- mysql driver -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -106,6 +120,7 @@
 			<version>${mysql_connector.version}</version>
 		</dependency>
 	</dependencies>
+	
 	<build>
 		<finalName>${pom.artifactId}</finalName>
 		<plugins>
