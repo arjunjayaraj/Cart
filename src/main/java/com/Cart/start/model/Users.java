@@ -18,6 +18,25 @@ public class Users {
 	@Column(name = "EMAIL", unique = true, nullable = false, length = 45)
 	private String email;
 	
+	public final String getEmail() {
+		return email;
+	}
+
+	public final void setEmail(String email) {
+		this.email = email;
+	}
+	
+	public String getUsername() {
+		return email;
+	}
+
+	public void setUsername(String email) {
+		this.email = email;
+	}
+	
+	@Column(name="F_NAME", nullable = false, length = 60)
+	private String fName;
+	
 	public final String getfName() {
 		return fName;
 	}
@@ -26,6 +45,9 @@ public class Users {
 		this.fName = fName;
 	}
 
+	@Column(name="L_NAME")
+	private String lName;
+	
 	public final String getlName() {
 		return lName;
 	}
@@ -34,27 +56,9 @@ public class Users {
 		this.lName = lName;
 	}
 
-	@Column(name="F_NAME", nullable = false, length = 60)
-	private String fName;
-	
-	@Column(name="L_NAME")
-	private String lName;
-	
 	@Column(name = "PASSWD", nullable = false, length = 60)
 	private String password;
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	private Set<UserRole> userRole = new HashSet<UserRole>(0);
-
 	
-	public String getUsername() {
-		return email;
-	}
-
-	public void setUsername(String username) {
-		this.email = username;
-	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -62,6 +66,9 @@ public class Users {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<UserRole> userRole = new HashSet<UserRole>(0);
 
 	public Set<UserRole> getUserRole() {
 		return userRole;
