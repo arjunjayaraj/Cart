@@ -20,22 +20,20 @@
 <body>
 	<nav>
 		<div class="nav-wrapper">
-			<a href="#!" class="brand-logo">Logo</a>
-			<ul id="categories_drop" class="right hide-on-med-and-down">
-				<li id="search_bar">
-					<form>
-						<div class="li_no_hover arrange">
-							<a id="drop_button" class='dropdown-button waves-effect btn-flat'
-								data-beloworigin="true" href='#' data-activates='dropdown1'>
-								<b>Categories</b>
-							</a>
-							<ul id='dropdown1' class='dropdown-content'>
-								<li><a href="#!">one</a></li>
-								<li><a href="#!">two</a></li>
-								<li class="divider"></li>
-								<li><a href="#!">three</a></li>
-							</ul>
-						</div>
+			<a href="#!" ><img id="logo_img" src= "resources/images/shopify-bag.png"></a>
+			<span id= "nav_title" ><b >India-Cart</b></span>
+			<ul id= "categories_drop" class="right hide-on-med-and-down">
+				
+				<li id= "search_bar"><form >
+				<div class="li_no_hover arrange" ><a id ="drop_button"
+					class='dropdown-button waves-effect btn-flat' data-beloworigin="true"
+					href='#' data-activates='dropdown1'><b>Categories</b></a>
+					<ul id='dropdown1' class='dropdown-content' >
+						<li><a href="#!">one</a></li>
+						<li><a href="#!">two</a></li>
+						<li class="divider"></li>
+						<li><a href="#!">three</a></li>
+					</ul></div>
 						<div class="input-field arrange">
 							<input id="search" type="search" required> <label
 								for="search"><i class="mdi-action-search"></i></label>
