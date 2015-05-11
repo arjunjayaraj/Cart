@@ -41,7 +41,32 @@ public class HomeController {
 
 	}
 
-	@RequestMapping(value = "/admin**", method = RequestMethod.GET)
+	@RequestMapping(value = { "/adminLogin" }, method = RequestMethod.GET)
+	public ModelAndView adminLoginPage() {
+
+		ModelAndView model = new ModelAndView();
+		model.setViewName("adminLogin");
+		return model;
+
+	}
+
+	@RequestMapping(value = { "/adminHome" }, method = RequestMethod.GET)
+	public ModelAndView adminHomePage() {
+
+		ModelAndView model = new ModelAndView();
+		model.setViewName("adminHome");
+		return model;
+
+	}
+	@RequestMapping(value = { "/addNewProduct" }, method = RequestMethod.GET)
+	public ModelAndView addNewProductPage() {
+
+		ModelAndView model = new ModelAndView();
+		model.setViewName("addNewProduct");
+		return model;
+
+	}
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public ModelAndView adminPage() {
 
 		ModelAndView model = new ModelAndView();
