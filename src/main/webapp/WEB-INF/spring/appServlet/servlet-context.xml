@@ -30,6 +30,8 @@
 			<list>
 				<value>com.Cart.start.model.Users</value>
 				<value>com.Cart.start.model.UserRole</value>
+				<value>com.Cart.start.model.Products</value>
+				<value>com.Cart.start.model.Category</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -51,6 +53,15 @@
 		<property name="usersDao" ref="usersDao"></property>
 		<property name="userRoleDao" ref="userRoleDao"></property>
 	</bean>
+	
+	<bean id="productDao" class="com.Cart.start.dao.ProductDaoImpl">
+	   <property name="sessionFactory" ref ="sessionFactory"></property> 
+	</bean>
+	
+	<bean id="productService" class="com.Cart.start.service.ProductServiceImpl">
+	 <property name ="productDao" ref="productDao"></property>   
+	</bean>
+
 	<bean id="txManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />

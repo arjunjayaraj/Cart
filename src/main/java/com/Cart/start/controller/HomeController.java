@@ -10,15 +10,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.Cart.start.model.Users;
+import com.Cart.start.service.ProductService;
 import com.Cart.start.service.UsersService;
+import com.Cart.start.model.Products;
+import com.Cart.start.model.Category;
+import javax.persistence.GeneratedValue;
+
 
 @Controller
 public class HomeController {
 	
-	private UsersService usersService;
+	@Autowired(required = true)
+	@Qualifier(value = "productService")
+	private ProductService productService;
+	public void setProductService(ProductService productService) {
+		this.productService = productService;
+	}
 
 	@Autowired(required = true)
 	@Qualifier(value = "usersService")
+	private UsersService usersService;
 	public void setUsersService(UsersService us) {
 		this.usersService = us;
 	}
@@ -116,6 +127,33 @@ public class HomeController {
 			}
 		}
 		return modelView;
+	}
+	
+	@RequestMapping(value = "/pr")
+	public ModelAndView product(){
+		ModelAndView modelView = new ModelAndView();
+		modelView.setViewName("product");
+			return modelView;
+	}
+	
+	@RequestMapping(value = "/product" )
+	public ModelAndView productAdd(@ModelAttribute("product") Products product){
+		ModelAndView modelView = new ModelAndView();
+
+//		Products product =new Products();
+		//product.setProductId(3);
+//		product.setBrand("addidas");
+//		product.setProductName("asdsdasdadf");
+//		product.setProductPrice(500);
+//		product.setQuantity(8);
+//		product.setProductImage("asdas");
+//		Category category1 = new Category();
+//		category1.setCategoryName("shoe");
+//		product.setCategory(category1);
+		
+			this.productService.addProduct(product);
+			modelView.setViewName("home");
+			return modelView;
 	}
 
 }
