@@ -52,7 +52,32 @@ public class HomeController {
 
 	}
 
-	@RequestMapping(value = "/admin**", method = RequestMethod.GET)
+	@RequestMapping(value = { "/adminLogin" }, method = RequestMethod.GET)
+	public ModelAndView adminLoginPage() {
+
+		ModelAndView model = new ModelAndView();
+		model.setViewName("adminLogin");
+		return model;
+
+	}
+
+	@RequestMapping(value = { "/adminHome" }, method = RequestMethod.GET)
+	public ModelAndView adminHomePage() {
+
+		ModelAndView model = new ModelAndView();
+		model.setViewName("adminHome");
+		return model;
+
+	}
+	@RequestMapping(value = { "/addNewProduct" }, method = RequestMethod.GET)
+	public ModelAndView addNewProductPage() {
+
+		ModelAndView model = new ModelAndView();
+		model.setViewName("addNewProduct");
+		return model;
+
+	}
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public ModelAndView adminPage() {
 
 		ModelAndView model = new ModelAndView();
@@ -67,7 +92,7 @@ public class HomeController {
 	public ModelAndView login(@ModelAttribute Users users,
 			@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String logout) {
-
+		
 		ModelAndView model = new ModelAndView();
 		model.setViewName("login");
 
@@ -75,8 +100,8 @@ public class HomeController {
 
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ModelAndView register(@ModelAttribute("registerForm") Users user,
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ModelAndView register(@ModelAttribute Users user,
 			@RequestParam("confirm-password") String confirmPassword) {
 		ModelAndView modelView = new ModelAndView();
 
@@ -89,9 +114,17 @@ public class HomeController {
 
 		}
 		if (flagSave == true) {
+			try{
 			this.usersService.addUser(user);
 			modelView.addObject("error", "Registered Successfully!!");
-			modelView.setViewName("home");
+			modelView.setViewName("login");
+			}
+			catch (Exception e){
+				 e.printStackTrace();
+				 modelView.addObject("error", "Already Registerd in same Email!!");
+				 modelView.addObject("forgot_password", "Forgot Password?");
+				 modelView.setViewName("login");
+			}
 		}
 		return modelView;
 	}

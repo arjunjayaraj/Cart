@@ -6,9 +6,9 @@ import com.Cart.start.model.Users;
 
 public interface UsersDao {
 	
-	Users findByUserName(String email);
-	public void addUser(Users u);
-    public void updateUser(Users u);
+	public Users findByUserName(String email);
+	public void addUser(Users user);
+    public void updateUser(Users user);
     public List<Users> listUsers();
     public void removeUser(String username);
 }

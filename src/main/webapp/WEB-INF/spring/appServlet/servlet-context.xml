@@ -43,12 +43,15 @@
 		</property>
 	</bean>
 	<bean id="usersDao" class="com.Cart.start.dao.UsersDaoImpl">
-		<property name="sessionFactory"
-			ref="sessionFactory" />
+		<property name="sessionFactory"	ref="sessionFactory" />
+	</bean>
+	<bean id="userRoleDao" class="com.Cart.start.dao.UserRoleDaoImpl">
+		<property name="sessionFactory"	ref="sessionFactory" />
 	</bean>
 	<bean id="usersService"
 		class="com.Cart.start.service.UsersServiceImpl">
 		<property name="usersDao" ref="usersDao"></property>
+		<property name="userRoleDao" ref="userRoleDao"></property>
 	</bean>
 	
 	<bean id="productDao" class="com.Cart.start.dao.ProductDaoImpl">
