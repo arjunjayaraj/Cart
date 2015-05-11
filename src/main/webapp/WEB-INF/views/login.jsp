@@ -150,6 +150,7 @@
 				</div>
 			</div>
 		</div>
+		<p id="error-msg"><a href="#">${forgot_password}</a></p>
 	</div>
 	
 						<!--     PAGE END  -->

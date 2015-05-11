@@ -44,7 +44,7 @@
 					</form></li>
 				<li><a href="mobile.html"><i
 						class="mdi-action-add-shopping-cart"></i></a></li>
-				<li><a href="login.html"><i
+				<li><a href="login"><i
 						class="mdi-action-account-circle"></i></a></li>
 				
 			</ul>
