@@ -12,12 +12,32 @@ $('.alphabets-only').keydown(function (e) {
 		}
 		});
 	
-	//check for the validity of the email
-	function validateEmail(email) {
-	    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-	    return re.test(email);//returns true if the email id is in proper format
-	}
-	
-	
-	
+/*	$("#reg-submit").click(function(){
+			var firstName= $('#first-name').val();
+			var lastName=$('#last-name').val();
+			var password=$('#register-password').val();
+			var confirmPassword=$("#confirm-password").val();
+			var email=$("#register-email").val();
+	if(password !=confirmPassword){
+		$('#error-msg').html("Password Mismatch!!!!!!!");
+		}
+			var search = {
+             "fName" : firstName,
+             "lName" : lastName,
+             "email" : email,
+             "password" : password
+          }
+          $.ajax({
+             type: "POST",
+             contentType : 'application/json; charset=utf-8',
+             dataType : 'json',
+             url: "register",
+             data: JSON.stringify(search), // Note it is important
+             success :function(result) {
+            	 alert("123");
+              // do what ever you want with data
+            }
+         });
+
+});*/
 });

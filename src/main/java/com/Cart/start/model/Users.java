@@ -17,7 +17,7 @@ public class Users {
 	@Id
 	@Column(name = "EMAIL", unique = true, nullable = false, length = 45)
 	private String email;
-	
+
 	public final String getEmail() {
 		return email;
 	}
@@ -25,18 +25,10 @@ public class Users {
 	public final void setEmail(String email) {
 		this.email = email;
 	}
-	
-	public String getUsername() {
-		return email;
-	}
 
-	public void setUsername(String email) {
-		this.email = email;
-	}
-	
-	@Column(name="F_NAME", nullable = false, length = 60)
+	@Column(name = "F_NAME", nullable = false, length = 60)
 	private String fName;
-	
+
 	public final String getfName() {
 		return fName;
 	}
@@ -45,9 +37,9 @@ public class Users {
 		this.fName = fName;
 	}
 
-	@Column(name="L_NAME")
+	@Column(name = "L_NAME")
 	private String lName;
-	
+
 	public final String getlName() {
 		return lName;
 	}
@@ -58,7 +50,7 @@ public class Users {
 
 	@Column(name = "PASSWD", nullable = false, length = 60)
 	private String password;
-	
+
 	public String getPassword() {
 		return password;
 	}

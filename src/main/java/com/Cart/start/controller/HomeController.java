@@ -9,17 +9,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.Cart.start.model.Products;
 import com.Cart.start.model.Users;
 import com.Cart.start.service.ProductService;
 import com.Cart.start.service.UsersService;
-import com.Cart.start.model.Products;
-import com.Cart.start.model.Category;
-import javax.persistence.GeneratedValue;
 
 
 @Controller
 public class HomeController {
 	
+	@Autowired(required = true)
+	@Qualifier(value = "usersService")
+	private UsersService usersService;
+
+	public void setUsersService(UsersService us) {
+	this.usersService = us;
+	}
+
 	@Autowired(required = true)
 	@Qualifier(value = "productService")
 	private ProductService productService;
@@ -27,12 +33,6 @@ public class HomeController {
 		this.productService = productService;
 	}
 
-	@Autowired(required = true)
-	@Qualifier(value = "usersService")
-	private UsersService usersService;
-	public void setUsersService(UsersService us) {
-		this.usersService = us;
-	}
 
 	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
 	public ModelAndView welcomePage() {
@@ -100,7 +100,7 @@ public class HomeController {
 
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ModelAndView register(@ModelAttribute Users user,
 			@RequestParam("confirm-password") String confirmPassword) {
 		ModelAndView modelView = new ModelAndView();
