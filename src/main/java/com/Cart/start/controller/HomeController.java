@@ -15,10 +15,11 @@ import com.Cart.start.service.UsersService;
 @Controller
 public class HomeController {
 	
-	private UsersService usersService;
-
 	@Autowired(required = true)
 	@Qualifier(value = "usersService")
+	private UsersService usersService;
+
+
 	public void setUsersService(UsersService us) {
 		this.usersService = us;
 	}
@@ -89,7 +90,7 @@ public class HomeController {
 
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ModelAndView register(@ModelAttribute Users user,
 			@RequestParam("confirm-password") String confirmPassword) {
 		ModelAndView modelView = new ModelAndView();
