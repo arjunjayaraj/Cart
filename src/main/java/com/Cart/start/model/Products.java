@@ -87,5 +87,13 @@ public class Products {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
+	public void setProduct(Products product){
+		this.setProductName(product.getProductName());
+		this.setProductImage(product.getProductImage());
+		this.setProductPrice(product.getProductPrice());
+		this.setQuantity(product.getQuantity());
+		this.setBrand(product.getBrand());
+	}
+	
 	
 }

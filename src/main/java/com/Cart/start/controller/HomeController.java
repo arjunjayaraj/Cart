@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.*;
+
+import com.Cart.start.model.Products;
 import com.Cart.start.model.Users;
+import com.Cart.start.service.CategoryService;
 import com.Cart.start.service.ProductService;
 import com.Cart.start.service.UsersService;
-import com.Cart.start.model.Products;
-import com.Cart.start.model.Category;
-import javax.persistence.GeneratedValue;
 
 
 @Controller
@@ -32,6 +33,12 @@ public class HomeController {
 	private UsersService usersService;
 	public void setUsersService(UsersService us) {
 		this.usersService = us;
+	}
+	@Autowired(required=true)
+	@Qualifier(value="categoryService")
+	private CategoryService categoryService;
+	public void setCategoryService(CategoryService categoryService) {
+		this.categoryService = categoryService;
 	}
 
 	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
@@ -69,14 +76,7 @@ public class HomeController {
 		return model;
 
 	}
-	@RequestMapping(value = { "/addNewProduct" }, method = RequestMethod.GET)
-	public ModelAndView addNewProductPage() {
-
-		ModelAndView model = new ModelAndView();
-		model.setViewName("addNewProduct");
-		return model;
-
-	}
+		
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public ModelAndView adminPage() {
 
@@ -133,25 +133,32 @@ public class HomeController {
 	public ModelAndView product(){
 		ModelAndView modelView = new ModelAndView();
 		modelView.setViewName("product");
-			return modelView;
+		List<Products> listproducts = this.productService.listProducts();
+		System.out.println(listproducts);
+		modelView.addObject("listproducts", listproducts);
+		return modelView;
 	}
 	
-	@RequestMapping(value = "/product" )
+	@RequestMapping(value = "/product", method = RequestMethod.POST)
 	public ModelAndView productAdd(@ModelAttribute("product") Products product){
 		ModelAndView modelView = new ModelAndView();
-
-//		Products product =new Products();
-		//product.setProductId(3);
-//		product.setBrand("addidas");
-//		product.setProductName("asdsdasdadf");
-//		product.setProductPrice(500);
-//		product.setQuantity(8);
-//		product.setProductImage("asdas");
-//		Category category1 = new Category();
-//		category1.setCategoryName("shoe");
-//		product.setCategory(category1);
-		
 			this.productService.addProduct(product);
+			modelView.setViewName("home");
+			return modelView;
+	}
+	@RequestMapping(value = "/updateproduct", method = RequestMethod.POST )
+	public ModelAndView productupdate(@ModelAttribute("product") Products product){
+		ModelAndView modelView = new ModelAndView();
+
+			this.productService.updateProduct(product);
+			modelView.setViewName("home");
+			return modelView;
+	}
+	@RequestMapping(value = "/removeproduct", method = RequestMethod.POST  )
+	public ModelAndView productremove(@ModelAttribute("productName") String productName){
+		ModelAndView modelView = new ModelAndView();
+
+			this.productService.removeProduct(productName);
 			modelView.setViewName("home");
 			return modelView;
 	}
