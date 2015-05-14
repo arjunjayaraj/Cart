@@ -72,7 +72,7 @@
 						<div class="row">
 							<div class="input-field col s12">
 								<%--  <form:input type="text" name="username" path="username" class="validate" id="login-email" required/> --%>
-								<form:input path="username" type="text" />
+								<form:input path="email" type="email" required="true"/>
 
 								<label for="email">Username or email </label>
 							</div>
@@ -81,7 +81,7 @@
 							<div class="input-field col s12">
 
 								<%-- <form:input type="password" name="password" path="password" class="validate" id="login-password" required/> --%>
-								<form:input type="password" path="password" />
+								<form:input type="password" path="password" required="true"/>
 								<label for="password">Password</label>
 							</div>
 						</div>
@@ -120,7 +120,7 @@
 						</div>
 						<div class="row">
 							<div class="input-field col s12">
-								<input id="register-email" type="email" name="username"
+								<input id="register-email" type="email" name="email"
 									class="validate" required /> <label for="register-email">Email</label>
 							</div>
 						</div>
@@ -140,9 +140,8 @@
 						<input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}" />
 
-						<button class="btn waves-effect waves-light" type="submit"
+					<button class="btn waves-effect waves-light" type="submit"
 							name="submit" value="submit" id="register-submit">Register
-
 						</button>
 
 					</form>

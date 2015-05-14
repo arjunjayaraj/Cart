@@ -35,7 +35,7 @@ public class LoginService implements UserDetailsService {
 
 	private User buildUserForAuthentication(Users user,
 			List<GrantedAuthority> authorities) {
-		return new User(user.getUsername(), user.getPassword(),
+		return new User(user.getEmail(), user.getPassword(),
 				true, true, true, true, authorities);
 	}
 

@@ -1,5 +1,7 @@
 package com.Cart.start.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -8,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.*;
 
 import com.Cart.start.model.Products;
 import com.Cart.start.model.Users;
@@ -22,24 +22,27 @@ import com.Cart.start.service.UsersService;
 public class HomeController {
 	
 	@Autowired(required = true)
+	@Qualifier(value = "usersService")
+	private UsersService usersService;
+
+	public void setUsersService(UsersService us) {
+	this.usersService = us;
+	}
+
+	@Autowired(required = true)
 	@Qualifier(value = "productService")
 	private ProductService productService;
 	public void setProductService(ProductService productService) {
 		this.productService = productService;
 	}
 
-	@Autowired(required = true)
-	@Qualifier(value = "usersService")
-	private UsersService usersService;
-	public void setUsersService(UsersService us) {
-		this.usersService = us;
-	}
 	@Autowired(required=true)
 	@Qualifier(value="categoryService")
 	private CategoryService categoryService;
 	public void setCategoryService(CategoryService categoryService) {
 		this.categoryService = categoryService;
 	}
+
 
 	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
 	public ModelAndView welcomePage() {
@@ -100,7 +103,7 @@ public class HomeController {
 
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ModelAndView register(@ModelAttribute Users user,
 			@RequestParam("confirm-password") String confirmPassword) {
 		ModelAndView modelView = new ModelAndView();
