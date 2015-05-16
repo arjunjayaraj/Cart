@@ -9,13 +9,12 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import com.Cart.start.model.Products;
+import com.Cart.start.model.Category;
 
-
-@Repository("productDao")
-public class ProductDaoImpl implements ProductDao{
-
+@Repository("categoryDao")
+public class CategoryDaoImpl implements CategoryDao{
 	
+
 	SessionFactory sessionFactory;
 	
 	public SessionFactory getSessionFactory() {
@@ -42,51 +41,54 @@ public class ProductDaoImpl implements ProductDao{
 	public void setTx(Transaction tx) {
 		this.tx = tx;
 	}
+	
+	
 	@Override
-	public Products findByProductName(String productName){
+	public Category findBycategoryName(String categoryName){
 		session =sessionFactory.getCurrentSession();
-		Criteria cr =session.createCriteria(Products.class);
-		cr.add(Restrictions.like("productName",productName));
-		return ((Products) cr.uniqueResult());
-		
+		Criteria cr =session.createCriteria(Category.class);
+		cr.add(Restrictions.like("categoryName",categoryName));
+		Category category=(Category) cr.uniqueResult();
+		return category;
 	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Products> searchByProductName(String productName){
+	public List<Category> searchByCategoryName(String categoryName){
 		session =sessionFactory.getCurrentSession();
-		Criteria cr =session.createCriteria(Products.class);
-		cr.add(Restrictions.like("productName","%" + productName +"%"));
-		return cr.list();
+		Criteria cr =session.createCriteria(Category.class);
+		cr.add(Restrictions.like("categoryName","%" +categoryName +"%"));
+		List<Category> category=(List<Category>) cr.list();
+		return category;
+		
 	}
 	
 	@Override
-	public void addProduct(Products product){
+	public void addCategory(Category category){
+		
 		session =sessionFactory.getCurrentSession();
-		session.persist(product);
+		session.persist(category);
 		
 	}
+    
 	@Override
-	public void updateProduct(Products product){
+	public void updateCategory(Category category){
 		session =sessionFactory.getCurrentSession();
-		session.update(product);
-		
-		
+		session.update(category);
 	}
-	@Override
+    
 	@SuppressWarnings("unchecked")
-	public List<Products> listProducts(){
-		session=sessionFactory.getCurrentSession();
-		Criteria cr = session.createCriteria(Products.class);
-    	return cr.list();
+	@Override
+	public List<Category> listCategory(){
+		session =sessionFactory.getCurrentSession();
+		Criteria cr =session.createCriteria(Category.class);
+		List<Category> category=(List<Category>) cr.list();
+		return category;
+		
     }
+	
 	@Override
-	public void removeProduct(Products product){
-		session =sessionFactory.getCurrentSession();
-		session.delete(product);
-			
-	}
-	
-
-
-	
+    public void removeCategory(Category category){
+		session.delete(category);
+	}	
 }

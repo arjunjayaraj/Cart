@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.Cart.start.model.Products;
 import com.Cart.start.model.Users;
+import com.Cart.start.service.CategoryService;
 import com.Cart.start.service.ProductService;
 import com.Cart.start.service.UsersService;
 
@@ -35,6 +36,13 @@ public class HomeController {
 	private ProductService productService;
 	public void setProductService(ProductService productService) {
 		this.productService = productService;
+	}
+
+	@Autowired(required=true)
+	@Qualifier(value="categoryService")
+	private CategoryService categoryService;
+	public void setCategoryService(CategoryService categoryService) {
+		this.categoryService = categoryService;
 	}
 
 
@@ -144,25 +152,32 @@ public class HomeController {
 	public ModelAndView product(){
 		ModelAndView modelView = new ModelAndView();
 		modelView.setViewName("product");
-			return modelView;
+		List<Products> listproducts = this.productService.listProducts();
+		System.out.println(listproducts);
+		modelView.addObject("listproducts", listproducts);
+		return modelView;
 	}
 	
-	@RequestMapping(value = "/product" )
+	@RequestMapping(value = "/product", method = RequestMethod.POST)
 	public ModelAndView productAdd(@ModelAttribute("product") Products product){
 		ModelAndView modelView = new ModelAndView();
-
-//		Products product =new Products();
-		//product.setProductId(3);
-//		product.setBrand("addidas");
-//		product.setProductName("asdsdasdadf");
-//		product.setProductPrice(500);
-//		product.setQuantity(8);
-//		product.setProductImage("asdas");
-//		Category category1 = new Category();
-//		category1.setCategoryName("shoe");
-//		product.setCategory(category1);
-		
 			this.productService.addProduct(product);
+			modelView.setViewName("home");
+			return modelView;
+	}
+	@RequestMapping(value = "/updateproduct", method = RequestMethod.POST )
+	public ModelAndView productupdate(@ModelAttribute("product") Products product){
+		ModelAndView modelView = new ModelAndView();
+
+			this.productService.updateProduct(product);
+			modelView.setViewName("home");
+			return modelView;
+	}
+	@RequestMapping(value = "/removeproduct", method = RequestMethod.POST  )
+	public ModelAndView productremove(@ModelAttribute("productName") String productName){
+		ModelAndView modelView = new ModelAndView();
+
+			this.productService.removeProduct(productName);
 			modelView.setViewName("home");
 			return modelView;
 	}
