@@ -1,46 +1,83 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page session="true"%>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Admin Home</title>
-<!--Import materialize.css-->
-<link type="text/css" rel="stylesheet"
-	href="resources/css/materialize.min.css" media="screen,projection" />
-<link type="text/css" rel="stylesheet" href="resources/css/admin.css"
-	media="screen,projection" />
 
-<!-- Import scripts -->
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="resources/js/materialize.min.js"></script>
-<script type="text/javascript" src="resources/js/admin.js"></script>
-<script type="text/javascript" src="resources/js/custom.js"></script>
-
-<!--Let browser know website is optimized for mobile-->
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-</head>
+	<head>
+		<title>AdminHome</title>
+		
+		<!--Import materialize.css-->
+      	<link type="text/css" rel="stylesheet" href="resources/css/materialize.min.css"  media="screen,projection"/>
+	  	<link type="text/css" rel="stylesheet" href="resources/css/home.css"  media="screen,projection"/>
+    	
+    	<!-- Import scripts -->
+      	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      	<script  type="text/javascript" src="resources/js/materialize.min.js"></script>
+      	<script  type="text/javascript" src="resources/js/home-ads.js"></script>
+      		<script type="text/javascript" src="resources/js/custom.js"></script>
+    	
+    	<!--Let browser know website is optimized for mobile-->
+      	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	</head>
 <body>
-	<div class="admin_wrap">
-		<div class="header">
-		<div class=" logut">
-		<button class="logout_btn">Logout</button>
+	<nav>
+		<div class="nav-wrapper">
+			<a href="#!" ><img id="logo_img" src= "resources/images/shopify-bag.png"></a>
+			<span id= "nav_title" ><b >India-Cart</b></span>
+			<ul id= "categories_drop" class="right hide-on-med-and-down">
+				<li><c:url value="/j_spring_security_logout" var="logoutUrl" />
+					<form action="${logoutUrl}" method="post" id="logoutForm" style="margin-bottom: 0px;">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+					</form>
+				<script>
+					function formSubmit() {
+						document.getElementById("logoutForm").submit();
+					}
+				</script>
+				
+				 <a class='dropdown-button' data-constrainwidth="false" data-beloworigin="true" href='#' data-activates='dropdown1'>
+				 	<i class="mdi-action-account-circle"></i>
+				 </a>
+				 <c:if test="${pageContext.request.userPrincipal.name != null}">
+ 						 <!-- Dropdown Structure -->
+  							<ul id='dropdown1' class='dropdown-content'>
+    						<li><a href="#!">${pageContext.request.userPrincipal.name}</a></li>
+    						<li><a href="javascript:formSubmit()">Logout</a></li>
+ 							 </ul>
+ 				</c:if>
+				</li>
+			</ul>
 		</div>
-		</div>
-		<div class="admin_options">
-			<div class="add_product z-depth-3 btn  waves-effect waves-orange">
-				<a>Add New Product</a>
-			</div>
-			<div class="delete_product z-depth-3 btn waves-effect waves-orange">
-				<a>Delete Existing Product</a>
-			</div>
-			<div class="edit_product z-depth-3 btn waves-effect waves-orange">
-				<a>Edit Product Details</a>
-			</div>
-		</div>
-			<footer class="page-footer">
+	</nav>
+<div id="collection-wrap">
+ <div class="row" id="collection-panel-wrap">
+          <div class="col l6 s12 m12">
+          <div class="card small collection-panel" id="home-collection-men" >
+            <div class="card-image collection-content" >
+             <a href="adminUsersControl"> <img id="collection-men-image" src="resources/images/users.png">
+             <span class="card-title collection-title" id="collection-men-title" >USERS</span>
+             </a>
+            
+            </div>
+             
+          </div>
+        </div>
+        <div class="col l6 s12 m12">
+          <div class="card small collection-panel" id="home-collection-women">
+            <div class="card-image collection-content">
+             <a href="adminProductsControl"> <img id="collection-women-image" src="resources/images/products.jpg" >
+             <span class="card-title collection-title" id="collection-women-title" >PRODUCTS</span>
+             </a>
+            
+            </div>
+             
+          </div>
+        </div>
+      </div>
+          
+          </div>  
+						<!--   	  FOOTER	-->
+
+	<footer class="page-footer">
 		<div class="container">
 			<div class="row">
 				<div class="col l6 s12">
@@ -68,10 +105,9 @@
 			</div>
 		</div>
 		<div class="footer-copyright">
-			<div class="container pull-right">Â© 2015 Copyright Text</div>
+			<div class="container">© 2015 Copyright Text</div>
 		</div>
 	</footer>
 
-	</div>
 </body>
 </html>

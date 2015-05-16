@@ -1,7 +1,6 @@
 package com.Cart.start.model;
 
-
-	import javax.persistence.Column;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,9 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import enums.Roles;
 
 @Entity
-@Table(name = "USER_ROLES")
+@Table(name = "USER_ROLES", uniqueConstraints = { @UniqueConstraint(columnNames = { "EMAIL", "ROLE" }) })
 public class UserRole {
 
 	@Id
@@ -20,12 +22,12 @@ public class UserRole {
 	@Column(name = "ID", unique = true, nullable = false)
 	private Integer userRoleId;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "EMAIL", nullable = false)
 	private Users user;
 
 	@Column(name = "ROLE", nullable = false, length = 45)
-	private String role;
+	private Roles role;
 
 	public Integer getUserRoleId() {
 		return userRoleId;
@@ -43,12 +45,14 @@ public class UserRole {
 		this.user = user;
 	}
 
-	public String getRole() {
+	public final Roles getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public final void setRole(Roles role) {
 		this.role = role;
 	}
+
+
 
 }

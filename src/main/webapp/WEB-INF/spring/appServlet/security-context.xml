@@ -14,7 +14,7 @@
 		<!-- access denied page -->
 		<form-login 
 				login-page="/login"
-				default-target-url="/admin" 
+				default-target-url="/adminHome" 
 				authentication-failure-url="/login?error"
 				username-parameter="email"
 				password-parameter="password" />
