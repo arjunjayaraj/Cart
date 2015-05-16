@@ -9,6 +9,7 @@ import com.Cart.start.model.Products;
 public interface ProductService {
 	
 	public Products findByProductName(String productName);
+	public List<Products> searchByProductName(String productName);
 	public void addProduct(Products product);
     public void updateProduct(Products product);
     public List<Products> listProducts();

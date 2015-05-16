@@ -1,5 +1,9 @@
 package com.Cart.start.model;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 @Entity
 @Table(name="CATEGORY")
 public class Category {
@@ -17,7 +21,7 @@ public class Category {
 		this.categoryId = categoryId;
 	}
 	
-	@Column(name="name" )
+	@Column(name="name", unique=true )
 	private String categoryName;
 
 	public String getCategoryName() {
@@ -27,6 +31,19 @@ public class Category {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
+//	@OneToMany(cascade=CascadeType.ALL)
+//	private Set<Products> product = new HashSet<Products>(0);
+//
+//	public Set<Products> getProduct() {
+//		return product;
+//	}
+//
+//	public void setProduct(Set<Products> product) {
+//		this.product = product;
+//	}	
 	
+	public void setCategory(Category category){
+	
+	}
 
 }
