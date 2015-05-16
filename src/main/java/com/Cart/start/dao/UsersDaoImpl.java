@@ -6,7 +6,6 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.Cart.start.model.Users;
@@ -14,7 +13,6 @@ import com.Cart.start.model.Users;
 @Repository("usersDao")
 public class UsersDaoImpl implements UsersDao {
 	
-	@Autowired
 	SessionFactory sessionFactory;
    
     public void setSessionFactory(SessionFactory sessionFactory){
@@ -23,7 +21,7 @@ public class UsersDaoImpl implements UsersDao {
  
 	public Users findByUserName(String email) {
 		
-		Criteria cr = this.sessionFactory.openSession().createCriteria(
+		Criteria cr = this.sessionFactory.getCurrentSession().createCriteria(
 				Users.class).add(Restrictions.eq("email", email));
 		Users user = (Users) cr.uniqueResult();
 		return user;
@@ -33,23 +31,22 @@ public class UsersDaoImpl implements UsersDao {
         Session session = this.sessionFactory.getCurrentSession();
         session.persist(user);
     }
+    
     public void updateUser(Users user) {
-    	
-        Session session = this.sessionFactory.getCurrentSession();
-        session.update(user);
+        this.sessionFactory.getCurrentSession().update(user);
     }
  
     @SuppressWarnings("unchecked")
     public List<Users> listUsers() {
-    	
-    	Criteria cr = this.sessionFactory.openSession().createCriteria(Users.class);
+    	Criteria cr = this.sessionFactory.getCurrentSession().createCriteria(Users.class)
+    					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         List<Users> usersList = cr.list();
         return usersList;
     }
  
-    public void removeUser(String username) {
+    public void removeUser(String email) {
         Session session = this.sessionFactory.getCurrentSession();
-        Users user = (Users) session.load(Users.class, new String(username));
+        Users user = (Users) session.get(Users.class, new String(email));
         if(null != user){
             session.delete(user);
         }

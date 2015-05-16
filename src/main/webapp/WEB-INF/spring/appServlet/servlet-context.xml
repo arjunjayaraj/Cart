@@ -26,12 +26,9 @@
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="annotatedClasses">
+		<property name="packagesToScan">
 			<list>
-				<value>com.Cart.start.model.Users</value>
-				<value>com.Cart.start.model.UserRole</value>
-				<value>com.Cart.start.model.Products</value>
-				<value>com.Cart.start.model.Category</value>
+				<value>com.Cart.start.model</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -53,7 +50,6 @@
 		<property name="usersDao" ref="usersDao"></property>
 		<property name="userRoleDao" ref="userRoleDao"></property>
 	</bean>
-	
 	<bean id="productDao" class="com.Cart.start.dao.ProductDaoImpl">
 	   <property name="sessionFactory" ref ="sessionFactory"></property> 
 	</bean>

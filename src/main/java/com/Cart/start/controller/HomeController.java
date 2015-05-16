@@ -17,6 +17,8 @@ import com.Cart.start.service.CategoryService;
 import com.Cart.start.service.ProductService;
 import com.Cart.start.service.UsersService;
 
+import enums.Roles;
+
 
 @Controller
 public class HomeController {
@@ -62,15 +64,6 @@ public class HomeController {
 
 	}
 
-	@RequestMapping(value = { "/adminLogin" }, method = RequestMethod.GET)
-	public ModelAndView adminLoginPage() {
-
-		ModelAndView model = new ModelAndView();
-		model.setViewName("adminLogin");
-		return model;
-
-	}
-
 	@RequestMapping(value = { "/adminHome" }, method = RequestMethod.GET)
 	public ModelAndView adminHomePage() {
 
@@ -79,7 +72,30 @@ public class HomeController {
 		return model;
 
 	}
+	@RequestMapping(value = { "/adminUsersControl" }, method = RequestMethod.GET)
+	public ModelAndView adminUsersControl() {
+
+		ModelAndView model = new ModelAndView();
+		List<Users> allUsers= this.usersService.listUsers();
+		System.out.println(allUsers);
+		model.addObject("roles", Roles.values());
+		model.addObject("listUsers", allUsers);
+		model.setViewName("adminUsersControl");
+		return model;
+
+	}
+	@RequestMapping(value = { "/adminAddRole" }, method = RequestMethod.POST)
+	public ModelAndView addRole(@RequestParam("email") String email,@RequestParam("role") String rol) {
 		
+		System.out.println(rol.toString());
+		Roles role = Roles.valueOf(rol);
+		this.usersService.addRole(email, role);
+		ModelAndView model = new ModelAndView();
+		model.setViewName("redirect:adminUsersControl");
+		return model;
+		//return "redirect:adminUsersControl";
+	}
+
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public ModelAndView adminPage() {
 
@@ -97,7 +113,7 @@ public class HomeController {
 			@RequestParam(value = "logout", required = false) String logout) {
 		
 		ModelAndView model = new ModelAndView();
-		model.setViewName("login");
+		model.setViewName("redirect:register");
 
 		return model;
 

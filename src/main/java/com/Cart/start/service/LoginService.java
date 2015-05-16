@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,12 +26,15 @@ public class LoginService implements UserDetailsService {
 	@Autowired
 	UsersDao usersDao;
 
+	public final void setUsersDao(UsersDao usersDao) {
+		this.usersDao = usersDao;
+	}
+	@Transactional
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
 
 		Users user = usersDao.findByUserName(username);
-		List<GrantedAuthority> authorities = buildUserAuthority(user
-				.getUserRole());
+		List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRole());
 		return buildUserForAuthentication(user, authorities);
 	}
 
@@ -45,7 +50,7 @@ public class LoginService implements UserDetailsService {
 
 		// Build user's authorities
 		for (UserRole userRole : userRoles) {
-			setAuths.add(new SimpleGrantedAuthority(userRole.getRole()));
+			setAuths.add(new SimpleGrantedAuthority(userRole.getRole().toString()));
 		}
 
 		List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(
