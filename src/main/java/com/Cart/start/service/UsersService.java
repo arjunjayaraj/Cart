@@ -15,5 +15,6 @@ public interface UsersService {
     public void updateUser(Users user);
     public List<Users> listUsers();
     public void removeUser(String username);
+    public void deleteRole(String email, Roles role);
     
 }
