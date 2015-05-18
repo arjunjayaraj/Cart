@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.Cart.start.model.Products;
@@ -84,8 +85,8 @@ public class HomeController {
 		return model;
 
 	}
-	@RequestMapping(value = { "/adminAddRole" }, method = RequestMethod.POST)
-	public ModelAndView addRole(@RequestParam("email") String email,@RequestParam("role") String rol) {
+	@RequestMapping(value = { "/adminAddRole" }, method = RequestMethod.GET)
+	public @ResponseBody ModelAndView addRole(@RequestParam("email") String email,@RequestParam("role") String rol) {
 		
 		System.out.println(rol.toString());
 		Roles role = Roles.valueOf(rol);
@@ -96,6 +97,18 @@ public class HomeController {
 		//return "redirect:adminUsersControl";
 	}
 
+	@RequestMapping(value = { "/adminDeleteRole" }, method = RequestMethod.GET)
+	public @ResponseBody ModelAndView deleteRole(@RequestParam("email") String email,@RequestParam("role") String rol) {
+		
+		System.out.println(rol.toString());
+		Roles role = Roles.valueOf(rol);
+		this.usersService.deleteRole(email, role);
+		ModelAndView model = new ModelAndView();
+		model.setViewName("redirect:adminUsersControl");
+		return model;
+		//return "redirect:adminUsersControl";
+	}
+	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public ModelAndView adminPage() {
 
@@ -113,7 +126,7 @@ public class HomeController {
 			@RequestParam(value = "logout", required = false) String logout) {
 		
 		ModelAndView model = new ModelAndView();
-		model.setViewName("redirect:register");
+		model.setViewName("login");
 
 		return model;
 
@@ -165,6 +178,7 @@ public class HomeController {
 			modelView.setViewName("home");
 			return modelView;
 	}
+	
 	@RequestMapping(value = "/updateproduct", method = RequestMethod.POST )
 	public ModelAndView productupdate(@ModelAttribute("product") Products product){
 		ModelAndView modelView = new ModelAndView();
@@ -173,6 +187,7 @@ public class HomeController {
 			modelView.setViewName("home");
 			return modelView;
 	}
+	
 	@RequestMapping(value = "/removeproduct", method = RequestMethod.POST  )
 	public ModelAndView productremove(@ModelAttribute("productName") String productName){
 		ModelAndView modelView = new ModelAndView();

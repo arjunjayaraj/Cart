@@ -31,7 +31,7 @@ public class UsersServiceImpl implements UsersService{
 	    public void addUser(Users user) {
 	        this.usersDao.addUser(user);
 	        UserRole userrole = new UserRole();
-	        userrole.setRole(Roles.ROLE_ADMIN);
+	        userrole.setRole(Roles.ROLE_USER);
 	        userrole.setUser(user);
 	        this.userRoleDao.addRole(userrole);
 	    }
@@ -67,6 +67,14 @@ public class UsersServiceImpl implements UsersService{
 		    userrole.setRole(role);
 		    userrole.setUser(user);
 		    this.userRoleDao.addRole(userrole);
+		}
+		
+		@Transactional
+		@Secured ({"ROLE_ADMIN"})
+		public void deleteRole(String email, Roles role) {
+			
+			Users user = this.usersDao.findByUserName(email);
+		    this.userRoleDao.removeUserRole(user, role);
 		}
 	 
 }

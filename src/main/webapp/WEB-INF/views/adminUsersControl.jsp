@@ -77,21 +77,21 @@
 								</c:forEach> <c:choose>
 									<c:when test="${flag==1}">
 										<i class="small mdi-action-done"></i>
-										<a href="adminDeleteRole/${user.email}/${role}">Delete
-											This Role</a>
+										<button onclick="deleteRole('${user.email}','${role}')">Delete</button>
 									</c:when>
 									<c:otherwise>
 										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 										<button onclick="addRole('${user.email}','${role}')">Add This Role</button>
-									 	<a href="adminAddRole?${user.email}&${role}">Add This Role</a>
+									 <%-- 	<a href="adminAddRole?${user.email}&${role}">Add This Role</a> --%>
 									</c:otherwise>
 								</c:choose></td>
 						</c:forEach>
 
 						<td><nobr>
 								<button onclick="addRole(${user.email});">Edit</button>
-								<a onclick="return confirm('Are you sure you want to delete this book?');"
+								<%-- <a onclick="return confirm('Are you sure you want to delete this book?');"
 									href="delete/${user.email}">Delete</a>
+								<button onclick="deleteRole('${user.email}','${role}')">Delete</button> --%>
 							</nobr></td>
 					</tr>
 				</c:forEach>
@@ -152,14 +152,29 @@
 		
 		alert(role);
 		$.ajax({
-            type: "POST",
+            type: "GET",
             url: "adminAddRole",
             contentType : 'application/json; charset=utf-8',
-             data: { "role" :role,
-            	"email" : email
+            data: { "role" :role,
+            		"email" : email
               }, 
             success :function(result) {
-           	 alert("123");
+            	location.reload();
+           }
+        });
+		}
+	function deleteRole(email,role){
+		
+		confirm('Are you sure you want to delete this role?');
+		$.ajax({
+            type: "GET",
+            url: "adminDeleteRole",
+            contentType : 'application/json; charset=utf-8',
+            data: { "role" :role,
+            		"email" : email
+              }, 
+            success :function(result) {
+            	location.reload();
            }
         });
 		}
