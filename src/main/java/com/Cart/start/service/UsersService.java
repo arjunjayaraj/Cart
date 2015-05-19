@@ -12,7 +12,7 @@ public interface UsersService {
 	Users findByUserName(String username);
 	public void addUser(Users user);
 	public void addRole(String email, Roles role);
-    public void updateUser(Users user);
+    public void updateUser(Users user, String email);
     public List<Users> listUsers();
     public void removeUser(String username);
     public void deleteRole(String email, Roles role);

@@ -3,7 +3,6 @@ package com.Cart.start.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.Cart.start.model.Products;
 import com.Cart.start.model.Users;
-import com.Cart.start.service.CategoryService;
 import com.Cart.start.service.ProductService;
 import com.Cart.start.service.UsersService;
 
@@ -24,29 +22,20 @@ import enums.Roles;
 @Controller
 public class HomeController {
 	
-	@Autowired(required = true)
-	@Qualifier(value = "usersService")
+	@Autowired
 	private UsersService usersService;
-
-	public void setUsersService(UsersService us) {
-	this.usersService = us;
+	public final void setUsersService(UsersService usersService) {
+		this.usersService = usersService;
 	}
 
-	@Autowired(required = true)
-	@Qualifier(value = "productService")
-	private ProductService productService;
-	public void setProductService(ProductService productService) {
+	public final void setProductService(ProductService productService) {
 		this.productService = productService;
 	}
-
-	@Autowired(required=true)
-	@Qualifier(value="categoryService")
-	private CategoryService categoryService;
-	public void setCategoryService(CategoryService categoryService) {
-		this.categoryService = categoryService;
-	}
-
-
+	@Autowired
+	private ProductService productService;
+	
+//				Main Home
+	
 	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
 	public ModelAndView welcomePage() {
 
@@ -64,7 +53,60 @@ public class HomeController {
 		return model;
 
 	}
+	
+//			Login & Register
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public ModelAndView login(@ModelAttribute Users users,
+			@RequestParam(value = "error", required = false) String error,
+			@RequestParam(value = "logout", required = false) String logout) {
+		
+		ModelAndView model = new ModelAndView();
+		model.addObject("loginTab", "active");
+		model.addObject("registerTab", "");
+		model.setViewName("login");
 
+		return model;
+
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ModelAndView register(@ModelAttribute Users user,
+			@RequestParam("confirm-password") String confirmPassword) {
+		ModelAndView modelView = new ModelAndView();
+
+		Boolean flagSave = true;
+
+		if (!(user.getPassword().equals(confirmPassword))) {
+			flagSave = false;
+			modelView.addObject("error", "Password Mismatch!!");
+			modelView.addObject("loginTab", "");
+			modelView.addObject("registerTab", "active");
+			modelView.setViewName("login");
+
+		}
+		if (flagSave == true) {
+			try{
+			this.usersService.addUser(user);
+			modelView.addObject("error", "Registered Successfully!!");
+			modelView.addObject("loginTab", "active");
+			modelView.addObject("registerTab", "");
+			modelView.setViewName("login");
+			}
+			catch (Exception e){
+				 e.printStackTrace();
+				 modelView.addObject("error", "Already Registerd in same Email!!");
+				 modelView.addObject("forgot_password", "Forgot Password?");
+				 modelView.addObject("loginTab", "");
+				 modelView.addObject("registerTab", "active");
+				 modelView.setViewName("login");
+			}
+		}
+		return modelView;
+	}
+	
+//			Admin Pages
+	
 	@RequestMapping(value = { "/adminHome" }, method = RequestMethod.GET)
 	public ModelAndView adminHomePage() {
 
@@ -92,75 +134,40 @@ public class HomeController {
 		Roles role = Roles.valueOf(rol);
 		this.usersService.addRole(email, role);
 		ModelAndView model = new ModelAndView();
-		model.setViewName("redirect:adminUsersControl");
+		model.setViewName("adminUsersControl");
 		return model;
-		//return "redirect:adminUsersControl";
 	}
 
 	@RequestMapping(value = { "/adminDeleteRole" }, method = RequestMethod.GET)
 	public @ResponseBody ModelAndView deleteRole(@RequestParam("email") String email,@RequestParam("role") String rol) {
 		
-		System.out.println(rol.toString());
 		Roles role = Roles.valueOf(rol);
 		this.usersService.deleteRole(email, role);
 		ModelAndView model = new ModelAndView();
-		model.setViewName("redirect:adminUsersControl");
+		model.setViewName("adminUsersControl");
 		return model;
-		//return "redirect:adminUsersControl";
 	}
 	
-	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public ModelAndView adminPage() {
+	@RequestMapping(value = "/adminUserDelete", method = RequestMethod.GET)
+	public @ResponseBody ModelAndView deleteUser(@RequestParam("email") String email) {
 
 		ModelAndView model = new ModelAndView();
-		model.addObject("title", "Spring Security Custom Login Form");
-		model.addObject("message", "This is protected page!");
-		model.setViewName("admin");
+		this.usersService.removeUser(email);
+		model.setViewName("adminUsersControl");
 		return model;
-
-	}
-
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public ModelAndView login(@ModelAttribute Users users,
-			@RequestParam(value = "error", required = false) String error,
-			@RequestParam(value = "logout", required = false) String logout) {
-		
-		ModelAndView model = new ModelAndView();
-		model.setViewName("login");
-
-		return model;
-
-	}
-
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ModelAndView register(@ModelAttribute Users user,
-			@RequestParam("confirm-password") String confirmPassword) {
-		ModelAndView modelView = new ModelAndView();
-
-		Boolean flagSave = true;
-
-		if (!(user.getPassword().equals(confirmPassword))) {
-			flagSave = false;
-			modelView.addObject("error", "Password Mismatch!!");
-			modelView.setViewName("login");
-
-		}
-		if (flagSave == true) {
-			try{
-			this.usersService.addUser(user);
-			modelView.addObject("error", "Registered Successfully!!");
-			modelView.setViewName("login");
-			}
-			catch (Exception e){
-				 e.printStackTrace();
-				 modelView.addObject("error", "Already Registerd in same Email!!");
-				 modelView.addObject("forgot_password", "Forgot Password?");
-				 modelView.setViewName("login");
-			}
-		}
-		return modelView;
 	}
 	
+	@RequestMapping(value = "/adminUserEdit", method = RequestMethod.GET)
+	public @ResponseBody ModelAndView editUser(@RequestParam("email") String email, @ModelAttribute Users user) {
+
+		ModelAndView model = new ModelAndView();
+		this.usersService.updateUser(user,email);
+		model.setViewName("adminUsersControl");
+		return model;
+	}
+	
+//				PRODUCT PAGES
+
 	@RequestMapping(value = "/pr")
 	public ModelAndView product(){
 		ModelAndView modelView = new ModelAndView();
