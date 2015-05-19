@@ -20,37 +20,12 @@
 </head>
 
 <body>
-<nav>
-		<div class="nav-wrapper">
-
-			<a href="#!" class="brand-logo">Logo</a>
-			<ul id= "categories_drop" class="right hide-on-med-and-down">
-				
-				<li id= "search_bar"><form >
-				<div class="li_no_hover arrange" ><a id ="drop_button"
-					class='dropdown-button waves-effect btn-flat' data-beloworigin="true"
-					href='#' data-activates='dropdown1'><b>Categories</b></a>
-					<ul id='dropdown1' class='dropdown-content' >
-						<li><a href="#!">one</a></li>
-						<li><a href="#!">two</a></li>
-						<li class="divider"></li>
-						<li><a href="#!">three</a></li>
-					</ul></div>
-						<div class="input-field arrange">
-							<input id="search" type="search" required>
-							<label for="search"><i class="mdi-action-search"></i></label>
-						</div>
-					</form></li>
-				<li><a href="mobile.html"><i
-						class="mdi-action-add-shopping-cart"></i></a></li>
-				<li><a href="login.html"><i
-						class="mdi-action-account-circle"></i></a></li>
-				
-			</ul>
-		</div>
-	</nav>
-	<div class="row">
-        <div class="col s12 m4 l3">
+		<nav>
+			<%@ include file = "partials/header.jsp"%>
+		</nav>
+		
+		<div class="row">
+        	<div class="col s12 m4 l3">
             <!-- Grey navigation panel -->
             <ul class="collapsible" data-collapsible="accordion">
                 <li>
@@ -195,37 +170,9 @@
         </div>
     </div>
     
-    <footer class="page-footer">
-		<div class="container">
-			<div class="row">
-				<div class="col l6 s12">
-					<h5 class="white-text">IndiaCart</h5>
-					<p class="grey-text text-lighten-4" id="about-text">IndiaCart
-						provides a platform for vendors across the country to connect with
-						millions of customers. Our online shopping platform has the widest
-						assortment of products from thousands of brands across categories
-						like Women's Apparel,and Men's Apparel. Grab your favorite
-						products at best prices and save the one thing that matters most
-						to you - "Your Money".
-				</div>
-				<div class="col l4 offset-l2 s12">
-					<h5 class="white-text">Top Links</h5>
-					<ul>
-						<li><a class="grey-text text-lighten-3" href="#!">Contact
-								us</a></li>
-						<li><a class="grey-text text-lighten-3" href="#!">About
-								us</a></li>
-						<li><a class="grey-text text-lighten-3" href="#!">Terms
-								of use</a></li>
-						<li><a class="grey-text text-lighten-3" href="#!">FAQ</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<div class="footer-copyright">
-			<div class="container">© 2015 Copyright Text</div>
-		</div>
-	</footer>  
+	<footer class="page-footer">
+		<%@ include file = "partials/footer.jsp"%>
+	</footer>
 
 </body>
 </html>

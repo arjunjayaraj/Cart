@@ -2,6 +2,7 @@ package com.Cart.start.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.Cart.start.dao.CategoryDao;
@@ -9,29 +10,24 @@ import com.Cart.start.model.Category;
 
 public class CategoryServiceImpl implements CategoryService {
 		
-	
+	@Autowired
 	CategoryDao categoryDao;
 	
 	public void setCategoryDao(CategoryDao categoryDao) {
 		this.categoryDao = categoryDao;
 	}
 	
-	@Override
-	 @Transactional
+	@Transactional
 	public Category findBycategoryName(String categoryName){
 		return this.categoryDao.findBycategoryName(categoryName);
 	}
 	
-	@Override
-	 @Transactional
+	@Transactional
 	public List<Category> searchByCategoryName(String categoryName){
 		return this.categoryDao.searchByCategoryName(categoryName);
-	
-		
 	}
 	
-	@Override
-	 @Transactional
+	@Transactional
 	public void addCategory(Category category){
 		Category entity = this.findBycategoryName(category.getCategoryName());
 		if(entity==null){
@@ -42,18 +38,15 @@ public class CategoryServiceImpl implements CategoryService {
 		}
 	}
     
-	@Override
-	 @Transactional
+	@Transactional
 	public void updateCategory(Category category){}
     
-	@Override
-	 @Transactional
+	@Transactional
 	public List<Category> listCategory(){
        	return this.categoryDao.listCategory();
 	}
 	
-	@Override
-	 @Transactional
+	@Transactional
     public void removeCategory(String categoryName){
 		Category category = this.findBycategoryName(categoryName);
 		if(category!=null){
@@ -64,6 +57,4 @@ public class CategoryServiceImpl implements CategoryService {
 		}
 		
 	}	
-	
-
 }
