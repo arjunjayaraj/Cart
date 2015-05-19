@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,22 +26,21 @@ public class LoginService implements UserDetailsService {
 	@Autowired
 	UsersDao usersDao;
 
-	@Override
+	public final void setUsersDao(UsersDao usersDao) {
+		this.usersDao = usersDao;
+	}
+	@Transactional
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
 
 		Users user = usersDao.findByUserName(username);
-
-		List<GrantedAuthority> authorities = buildUserAuthority(user
-				.getUserRole());
-		System.out.println(authorities);
+		List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRole());
 		return buildUserForAuthentication(user, authorities);
 	}
 
 	private User buildUserForAuthentication(Users user,
 			List<GrantedAuthority> authorities) {
-		System.out.println(authorities);
-		return new User(user.getUsername(), user.getPassword(),
+		return new User(user.getEmail(), user.getPassword(),
 				true, true, true, true, authorities);
 	}
 
@@ -49,12 +50,11 @@ public class LoginService implements UserDetailsService {
 
 		// Build user's authorities
 		for (UserRole userRole : userRoles) {
-			setAuths.add(new SimpleGrantedAuthority(userRole.getRole()));
+			setAuths.add(new SimpleGrantedAuthority(userRole.getRole().toString()));
 		}
 
 		List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(
 				setAuths);
-		System.out.println(Result);
 		return Result;
 	}
 

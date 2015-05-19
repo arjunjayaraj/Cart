@@ -1,0 +1,61 @@
+#email, #password {
+	width: 200px;
+}
+
+.login {
+	padding-top: 20px;
+	height: 350px;
+	width: 300px;
+	background-color: #feffc3;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50px;
+}
+
+.login_wrap .btn {
+	margin-top: 50px;
+}
+
+.login_wrap h4 {
+	margin: 10px 10px;
+	padding: 0px;
+	background-color: #4db6ac;
+	color: #fff;
+}
+
+
+.admin_wrap .header, .admin_wrap .footer {
+	height: 50px;
+	background-color: #424242;
+}
+
+.admin_wrap .footer {
+	margin-top: 470px;
+}
+
+.admin_options div {
+	margin: 50px;
+	display: block;
+	overflow: hidden;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	width: 458px;
+	height: 48px;
+	border-radius: 57px;
+	background-color: #fff;
+}
+
+.admin_options a {
+	line-height: 48px; color : #fff;
+	font-size: 18px;
+	font-weight:600;
+    color: white;
+}
+.admin_options .btn{
+	background-color: #ffcc80;
+}
+.logout
+{ position:absolute;
+	right:0;
+}

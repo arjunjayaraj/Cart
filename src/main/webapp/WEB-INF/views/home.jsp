@@ -44,8 +44,32 @@
 					</form></li>
 				<li><a href="mobile.html"><i
 						class="mdi-action-add-shopping-cart"></i></a></li>
-				<li><a href="login.html"><i
-						class="mdi-action-account-circle"></i></a></li>
+						
+				<li><c:url value="/j_spring_security_logout" var="logoutUrl" />
+					<form action="${logoutUrl}" method="post" id="logoutForm" style="margin-bottom: 0px;">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+					</form>
+				<script>
+					function formSubmit() {
+						document.getElementById("logoutForm").submit();
+					}
+				</script>
+					<c:if test="${pageContext.request.userPrincipal.name != null}">
+				 <a class='dropdown-button' data-constrainwidth="false" data-beloworigin="true" href='#' data-activates='user-dropdown'>
+				 	<i class="mdi-action-account-circle"></i>
+				 </a>
+				  						 <!-- Dropdown Structure -->
+  							<ul id='user-dropdown' class='dropdown-content'>
+    						<li><a href="#!">${pageContext.request.userPrincipal.name}</a></li>
+    						<li><a href="javascript:formSubmit()">Logout</a></li>
+ 							 </ul>
+				 </c:if>
+				 <c:if test="${pageContext.request.userPrincipal.name == null}">
+				 		<a href="login"><i class="mdi-action-account-circle"></i></a>
+				 </c:if>
+
+ 							 
+				</li>
 				
 			</ul>
 		</div>
@@ -162,7 +186,7 @@
 			</div>
 		</div>
 		<div class="footer-copyright">
-			<div class="container">© 2015 Copyright Text</div>
+			<div class="container pull-right">© 2015 Copyright Text</div>
 		</div>
 	</footer>
 
