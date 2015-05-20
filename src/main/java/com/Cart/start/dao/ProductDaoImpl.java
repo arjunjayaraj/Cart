@@ -55,7 +55,8 @@ public class ProductDaoImpl implements ProductDao{
 	public List<Products> searchByProductName(String productName){
 		session =sessionFactory.getCurrentSession();
 		Criteria cr =session.createCriteria(Products.class);
-		cr.add(Restrictions.like("productName","%" + productName +"%"));
+		String productname ="%" + productName +"%";
+		cr.add(Restrictions.like("productName",productname));
 		return cr.list();
 	}
 	

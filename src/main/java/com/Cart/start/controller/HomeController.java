@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -177,7 +178,18 @@ public class HomeController {
 		modelView.addObject("listproducts", listproducts);
 		return modelView;
 	}
-	
+	@RequestMapping(value="/productsearch", method = RequestMethod.GET)
+	public  @ResponseBody ModelAndView productsearch(@RequestParam("searchproduct") String search){
+		ModelAndView modelView = new ModelAndView();
+		modelView.setViewName("search");
+		System.out.println("the size of product is " +search);
+		List<Products> listproducts = this.productService.searchByProductName(search);
+		System.out.println("the size of product is " +listproducts);
+		modelView.addObject("listproducts", listproducts);
+		return modelView;
+		
+	}
+		
 	@RequestMapping(value = "/product", method = RequestMethod.POST)
 	public ModelAndView productAdd(@ModelAttribute("product") Products product){
 		ModelAndView modelView = new ModelAndView();

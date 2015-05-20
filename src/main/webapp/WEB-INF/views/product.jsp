@@ -20,13 +20,37 @@
 </head>
 
 <body>
-		<nav>
-			<%@ include file = "partials/header.jsp"%>
-		</nav>
-		
-		<div class="row">
-        	<div class="col s12 m4 l3">
-            <!-- Grey navigation panel -->
+<nav>
+		<div class="nav-wrapper">
+
+			<a href="#!" class="brand-logo">Logo</a>
+			<ul id= "categories_drop" class="right hide-on-med-and-down">
+				<li id= "search_bar"><form id="searchform" >
+				<div class="li_no_hover arrange" ><a id ="drop_button"
+					class='dropdown-button waves-effect btn-flat' data-beloworigin="true"
+					href='#' data-activates='dropdown1'><b>Categories</b></a>
+					<ul id='dropdown1' class='dropdown-content' >
+						<li><a href="#!">one</a></li>
+						<li><a href="#!">two</a></li>
+						<li class="divider"></li>
+						<li><a href="#!">three</a></li>
+					</ul></div>
+						<div class="input-field arrange" id="searchdiv">
+							<input id="searchproduct" type="search" required  name="searchproduct">
+							<label for="searchproduct"><i class="mdi-action-search"></i></label>
+							</div>
+						</form></li>
+				<li><a href="mobile.html"><i
+						class="mdi-action-add-shopping-cart"></i></a></li>
+				<li><a href="login.html"><i
+						class="mdi-action-account-circle"></i></a></li>
+				
+			</ul>
+		</div>
+	</nav>
+	<div class="row">
+        <div class="col s12 m4 l3">
+          <!-- Grey navigation panel -->
             <ul class="collapsible" data-collapsible="accordion">
                 <li>
                     <div class="collapsible-header">
@@ -54,9 +78,9 @@
                 </li>
             </ul>
         </div>
-<div class="col s12 m8 l9">
+<div class="col s12 m8 l9" id="productList">
             <!-- Main page content  -->
-            <div class="row">
+            <div class="row" >
                 <c:if test="${!empty listproducts}">
                     <c:forEach items="${listproducts}" var="product">
                         <div class="col s12 m6 l3">
@@ -145,34 +169,82 @@
     </c:forEach>
     </table>
 </c:if>
-<div class="col s12 m8 l9">
-            <!-- Main page content  -->
-            <div class="row">
-                <c:if test="${!empty listPersons}">
-                    <c:forEach items="${listPersons}" var="person">
-                        <div class="col s12 m6 l3">
-                            <div class="card">
-                                <div class="card-image">
-                                    <img class="item-image" src="${person.img}"><span class="card-title">${person.title}</span>
-                                </div>
-                                <div class="card-content">
-                                    <p>${person.descr}</p>
-                                </div>
-                                <div class="card-action">
-                                    <a class="waves-effect waves-light btn add-to-cart" onclick="Materialize.toast('<span>Added to Cart!</span><a class=&quot;btn-flat yellow-text&quot;href=&quot;#!&quot;>Undo</a>', 3000)">Add To Cart</a>
-                                </div>
-                            </div>
-                        </div>
+<!-- <div class="col s12 m8 l9"> -->
+<!--             Main page content  -->
+<!--             <div class="row"> -->
+<%--                 <c:if test="${!empty listPersons}"> --%>
+<%--                     <c:forEach items="${listPersons}" var="person"> --%>
+<!--                         <div class="col s12 m6 l3"> -->
+<!--                             <div class="card"> -->
+<!--                                 <div class="card-image"> -->
+<%--                                     <img class="item-image" src="${person.img}"><span class="card-title">${person.title}</span> --%>
+<!--                                 </div> -->
+<!--                                 <div class="card-content"> -->
+<%--                                     <p>${person.descr}</p> --%>
+<!--                                 </div> -->
+<!--                                 <div class="card-action"> -->
+<!--                                     <a class="waves-effect waves-light btn add-to-cart" onclick="Materialize.toast('<span>Added to Cart!</span><a class=&quot;btn-flat yellow-text&quot;href=&quot;#!&quot;>Undo</a>', 3000)">Add To Cart</a> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                         </div> -->
                       
-                    </c:forEach>
-                </c:if>                   
-            </div>
-        </div>
-    </div>
-    
+<%--                     </c:forEach> --%>
+<%--                 </c:if>                    --%>
+<!--             </div> -->
+<!--         </div> -->
+<!--     </div> -->
 	<footer class="page-footer">
 		<%@ include file = "partials/footer.jsp"%>
 	</footer>
-
+	
 </body>
 </html>
+
+		<script type="text/javascript">
+		$("#searchproduct").keyup( function() {
+			var searchQuery = $("#searchproduct").val();
+			    $.ajax({
+		            type: "GET",
+		            url: "productsearch",
+		            contentType : 'application/json; charset=utf-8',
+		            data: { "searchproduct" :searchQuery,
+		            }, 
+		              success :function(result) {
+		         $("#productList").html(result);
+		            		          			
+		          }});	    
+				
+		});
+// 		function searchproduct(search){
+// 		$.ajax({
+//             type: "POST",
+//             url: "Search",
+//             contentType : 'application/json; charset=utf-8',
+//             data: { "searchproduct" :search
+//             }, 
+//             success :function(result) {
+//             	 $('#info').innerhtml(     <c:if test="${!empty listproducts}">
+//                  <c:forEach items="${listproducts}" var="product">
+//                  <div class="col s12 m6 l3">
+//                      <div class="card">
+//                          <div class="card-image">
+//                              <img class="item-image" src="resources/images/${product.productImage}"><span class="card-title" style="color: black">${product.productName}</span>
+//                          </div>
+//                          <div class="card-content">
+//                              <p>${product.brand}</p>
+//                          </div>
+//                          <div class="card-action">
+//                              <a class="waves-effect waves-light btn add-to-cart" onclick="Materialize.toast('<span>Added to Cart!</span><a class=&quot;btn-flat yellow-text&quot; href=&quot;#!&quot;>Undo</a>', 3000)">Add To Cart</a>
+//                          </div>
+//                      </div>
+//                  </div>
+               
+//              </c:forEach>
+//          </c:if>    );
+//             }
+//         });
+// 		}
+	</script> 
+
+
+
