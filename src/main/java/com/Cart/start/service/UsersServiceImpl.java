@@ -36,7 +36,7 @@ public class UsersServiceImpl implements UsersService{
 	        this.userRoleDao.addRole(userrole);
 	    }
 	    @Transactional
-	    public void updateUser(Users user) {
+	    public void updateUser(Users user, String email) {
 	        this.usersDao.updateUser(user);
 	    }
 	    
