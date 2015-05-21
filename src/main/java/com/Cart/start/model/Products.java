@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import enums.Gender;
+
 @Entity
 @Table(name = "PRODUCTS")
 public class Products {
@@ -76,7 +78,19 @@ public class Products {
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
+
+	@Column(name="gender", unique=true)
+	private Gender gender;
+
 	
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Category category;
 
@@ -92,7 +106,9 @@ public class Products {
 		this.setProductImage(product.getProductImage());
 		this.setProductPrice(product.getProductPrice());
 		this.setQuantity(product.getQuantity());
+		System.out.println("GEnder is   " +product.getGender());
 		this.setBrand(product.getBrand());
+		this.setGender(product.getGender());
 	}
 	
 	
