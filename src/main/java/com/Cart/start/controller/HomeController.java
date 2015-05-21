@@ -1,7 +1,9 @@
 package com.Cart.start.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -117,11 +119,12 @@ public class HomeController {
 
 	}
 	@RequestMapping(value = { "/adminUsersControl" }, method = RequestMethod.GET)
-	public ModelAndView adminUsersControl() {
+	public ModelAndView adminUsersControl(@ModelAttribute Users user) {
 
 		ModelAndView model = new ModelAndView();
 		List<Users> allUsers= this.usersService.listUsers();
 		System.out.println(allUsers);
+		model.addObject("user", new Users());
 		model.addObject("roles", Roles.values());
 		model.addObject("listUsers", allUsers);
 		model.setViewName("adminUsersControl");
@@ -168,11 +171,19 @@ public class HomeController {
 		return model;
 	}
 	
-	@RequestMapping(value = "/adminUserEdit", method = RequestMethod.GET)
-	public @ResponseBody ModelAndView editUser(@RequestParam("email") String email, @ModelAttribute Users user) {
-
+	@RequestMapping(value = "/adminEditUser", method = RequestMethod.GET)
+	public @ResponseBody ModelAndView editUser(@RequestParam("loginId") String email, @RequestParam("user") String user) {
+		
+		Users edituser = null;
 		ModelAndView model = new ModelAndView();
-		this.usersService.updateUser(user,email);
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			edituser = mapper.readValue(user, Users.class);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.usersService.updateUser(edituser, email);
 		model.setViewName("adminUsersControl");
 		return model;
 	}
