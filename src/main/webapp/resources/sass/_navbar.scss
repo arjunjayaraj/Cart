@@ -2,6 +2,19 @@
     height: 100%;
     width: 50%;
 }
+#nav-category-select{
+	width:120px !important;
+	z-index: 4; 
+	font-weight: 900 !important;
+	font-size: 18px !important;
+	padding-left: 10% !important;
+	#category-select{
+	font-weight: 900 important;
+	font-size: 18px important;
+	padding-left: 10% important;
+	
+	}
+}
 
 .li_no_hover {
     opacity:1;

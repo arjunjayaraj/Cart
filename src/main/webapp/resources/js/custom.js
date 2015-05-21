@@ -7,3 +7,6 @@ $('.dropdown-button').dropdown({
     belowOrigin: false // Displays dropdown below the button
   }
 )
+ $(document).ready(function() {
+		    $('select').material_select();
+		  });

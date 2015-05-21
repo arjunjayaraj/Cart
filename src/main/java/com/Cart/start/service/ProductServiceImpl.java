@@ -36,7 +36,13 @@ public class ProductServiceImpl implements ProductService {
 	public List<Products> searchByProductName(String productName){
 		return this.productDao.searchByProductName(productName);
 	}
-	
+	@Override
+	 @Transactional
+	public List<Products> searchByGenderAndProductName(String productName, String genderName){
+		return this.productDao.searchByGenderAndProductName(productName,genderName);
+		
+		
+	}
 	 @Override
 	 @Transactional
 	public void addProduct(Products product){

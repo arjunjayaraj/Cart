@@ -8,6 +8,7 @@ public interface ProductDao {
 	
 	public Products findByProductName(String productName);
 	public List<Products> searchByProductName(String productName);
+	public List<Products> searchByGenderAndProductName(String productName, String genderName);
 	public void addProduct(Products product);
     public void updateProduct(Products product);
     public List<Products> listProducts();
