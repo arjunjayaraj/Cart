@@ -1,15 +1,32 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page session="true"%>
 <html>
-
 <head>
 	<title>AdminUsersControl</title>
-	
+	<meta name="_csrf" content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
 	<!--Import materialize.css-->
 	<link type="text/css" rel="stylesheet"
 			href="resources/css/materialize.min.css" media="screen,projection" />
 	<link type="text/css" rel="stylesheet" href="resources/css/home.css"
 			media="screen,projection" />
+
+<link rel="stylesheet"
+	href='<c:url value="resources/css/pure-0.4.2.css"/>'>
+
+<link rel="stylesheet"
+	href='<c:url value="resources/css/font-awesome-4.0.3/css/font-awesome.css"/>'>
+
+<link rel="stylesheet"
+	href='<c:url value="resources/css/jquery-ui-1.10.4.custom.css"/>'>
+
+<style type="text/css">
+th {
+	text-align: left
+}
+</style>
+
 
 	<!--Let browser know website is optimized for mobile-->
 	<meta name="viewport"
@@ -19,7 +36,10 @@
 	<nav>
 		<%@ include file = "partials/header.jsp"%>
 	</nav>
-	
+
+	<div id="userDialog" style="display: none;">
+			<%@ include file="partials/userForm.jsp"%>
+		</div>
 	<div>
 		<table>
 			<thead>
@@ -64,7 +84,8 @@
 				</c:forEach>
 					<td>
 						<nobr>
-							<button onclick="editInfo(${user.email});">Edit</button>
+						
+							<button onclick="editInfo('${user.email}','${user.fName}','${user.lName}','${pageContext.request.userPrincipal.name}');">Edit</button>
 							<button onclick="deleteUser('${user.email}');">Delete</button>
 						</nobr>
 					</td>
@@ -90,9 +111,9 @@
 		src="resources/js/lib/jquery-ui-1.10.4.custom.js"></script>
 	<script type="text/javascript"
 		src="resources/js/lib/jquery.ui.datepicker.js"/></script>
-
+<!-- 
 	<script type="text/javascript"
-		src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
 	<script type="text/javascript" src="resources/js/materialize.min.js"></script>
 	<script type="text/javascript" src="resources/js/home-ads.js"></script>
 	<script type="text/javascript" src="resources/js/custom.js"></script>
@@ -146,27 +167,80 @@
            }
         });
 		}
-		
-		function addUser() {
-			$('#bookDialog').dialog("option", "title", 'Add User');
-			$('#bookDialog').dialog('open');
-		}
-
-		function editUser(id) {
-
-			$.get("editUserLoad", function(result) {
-
-				$("#bookDialog").html(result);
-
-				$('#bookDialog').dialog("option", "title", 'Edit User');
-
-				$("#bookDialog").dialog('open');
-
-				initializeDatePicker();
-			});
-		}
-		
 	}
+		function addUser() {
+			$('#userDialog').dialog("option", "title", 'Add User');
+			$('#userDialog').dialog('open');
+		}
+
+		function editInfo(email,fname,lname,cur_email) {
+			alert(email);
+			$("#userDialog").html();
+			if(cur_email != email)
+				{
+				document.getElementById("email").disabled = true;
+				}
+			else
+				{
+				document.getElementById("email").disabled = false;
+				}
+			$("#email").val(email);
+			
+			$("#fname").val(fname);
+			$("#lname").val(lname);
+			$('#userDialog').dialog("option", "title", 'Edit User');
+			$("#userDialog").dialog('open');
+
+			}
+
+		$(document).ready(function() {
+			$('#userDialog').dialog({
+				autoOpen : false,
+				position : 'center',
+				modal : true,
+				resizable : false,
+				top:0,
+				width : 440,
+				buttons : {
+					"Save" : function() {
+				        var loginemail = $("#loginName").html();
+				        alert(loginemail);
+				        var email =  document.getElementById("email").value;
+				        var user = 
+				        	{
+				        		"email" : document.getElementById("email").value,
+								"fName"	: document.getElementById("fname").value,
+								"lName"	: document.getElementById("lname").value
+				        	};
+				        alert(JSON.stringify(user));
+						$.ajax({
+				            type: "GET",
+				            url: "adminEditUser",
+				            contentType : 'application/json; charset=utf-8',
+				            data: {"loginId":loginemail,
+				            	"user":  JSON.stringify(user),
+ 				            },
+				            success :function(result) {
+				            	location.reload();
+				           }
+				        });
+					},
+					"Cancel" : function() {
+						$(this).dialog('close');
+					}
+				},
+				close : function() {
+
+					resetDialog($('#userDialog'));
+
+					$(this).dialog('close');
+				}
+			});
+		});
+
+		function resetDialog(form) {
+			form.find("input").val("");
+		}
 	</script>
 </body>
 </html>
