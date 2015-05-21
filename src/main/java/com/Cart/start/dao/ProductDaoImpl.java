@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import com.Cart.start.model.Products;
 
+import enums.Gender;
+
 
 @Repository("productDao")
 public class ProductDaoImpl implements ProductDao{
@@ -69,7 +71,7 @@ public class ProductDaoImpl implements ProductDao{
 			genderName="%";
 		}
 		cr.add(Restrictions.like("productName",productname));
-		cr.add(Restrictions.like("gender",genderName));
+		cr.add(Restrictions.like("gender",Gender.valueOf(genderName)));
 		return cr.list();
 		
 		

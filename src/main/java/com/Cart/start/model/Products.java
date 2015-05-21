@@ -79,7 +79,7 @@ public class Products {
 		this.quantity = quantity;
 	}
 
-	@Column(name="gender", unique=true)
+	@Column(name="gender")
 	private Gender gender;
 
 	

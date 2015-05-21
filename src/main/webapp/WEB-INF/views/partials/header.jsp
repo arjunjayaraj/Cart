@@ -8,7 +8,7 @@
 		<li id= "search_bar">
 			<form>
 <div class="input-field col s1 li_no_hover arrange" id ="nav-category-select">
-   <select id ="categorySelect">
+   <select id ="categorySelect" name="category">
 				      <option value="ALL">ALL</option>
 				      <option value="MEN">Men</option>
 				      <option value="WOMEN">Women</option>

@@ -192,7 +192,16 @@ public class HomeController {
 		ModelAndView modelView = new ModelAndView();
 		modelView.setViewName("search");
 		List<Products> listproducts = this.productService.searchByGenderAndProductName(search, category);
-		System.out.println("the size of product is " +listproducts);
+		modelView.addObject("listproducts", listproducts);
+		return modelView;
+		
+	}
+	
+	@RequestMapping(value="/product",method = RequestMethod.GET)
+	public  @ResponseBody ModelAndView productSearch(@RequestParam("searchproduct") String search, @RequestParam("category") String category){
+		ModelAndView modelView = new ModelAndView();
+		modelView.setViewName("product");
+		List<Products> listproducts = this.productService.searchByGenderAndProductName(search, category);
 		modelView.addObject("listproducts", listproducts);
 		return modelView;
 		
@@ -201,7 +210,7 @@ public class HomeController {
 	@RequestMapping(value = "/addproduct", method = RequestMethod.POST)
 	public ModelAndView productAdd(@ModelAttribute("product") Products product){
 		ModelAndView modelView = new ModelAndView();
-		System.out.println("The gender is " +product.getGender());
+		System.out.println("The gender is  " +product.getGender());
 			this.productService.addProduct(product);
 			modelView.setViewName("adminProductControl");
 			return modelView;
