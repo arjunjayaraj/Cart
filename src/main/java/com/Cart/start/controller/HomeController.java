@@ -7,6 +7,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -130,6 +131,16 @@ public class HomeController {
 		return model;
 
 	}
+	@RequestMapping(value = { "/adminProductsControl" }, method = RequestMethod.GET)
+	public ModelAndView adminProductControl() {
+
+		ModelAndView model = new ModelAndView();
+		List<Products> listproducts = this.productService.listProducts();
+		model.addObject("listproducts", listproducts);
+		model.setViewName("adminProductControl");
+		return model;
+
+	}
 	@RequestMapping(value = { "/adminAddRole" }, method = RequestMethod.GET)
 	public @ResponseBody ModelAndView addRole(@RequestParam("email") String email,@RequestParam("role") String rol) {
 		
@@ -179,21 +190,31 @@ public class HomeController {
 	
 //				PRODUCT PAGES
 
-	@RequestMapping(value = "/pr")
+	@RequestMapping(value = "/product")
 	public ModelAndView product(){
 		ModelAndView modelView = new ModelAndView();
 		modelView.setViewName("product");
 		List<Products> listproducts = this.productService.listProducts();
-		System.out.println(listproducts);
 		modelView.addObject("listproducts", listproducts);
 		return modelView;
 	}
-	
-	@RequestMapping(value = "/product", method = RequestMethod.POST)
+	@RequestMapping(value="/productsearch",method = RequestMethod.GET)
+	public  @ResponseBody ModelAndView productsearch(@RequestParam("searchproduct") String search, @RequestParam("category") String category){
+		ModelAndView modelView = new ModelAndView();
+		modelView.setViewName("search");
+		List<Products> listproducts = this.productService.searchByGenderAndProductName(search, category);
+		System.out.println("the size of product is " +listproducts);
+		modelView.addObject("listproducts", listproducts);
+		return modelView;
+		
+	}
+		
+	@RequestMapping(value = "/addproduct", method = RequestMethod.POST)
 	public ModelAndView productAdd(@ModelAttribute("product") Products product){
 		ModelAndView modelView = new ModelAndView();
+		System.out.println("The gender is " +product.getGender());
 			this.productService.addProduct(product);
-			modelView.setViewName("home");
+			modelView.setViewName("adminProductControl");
 			return modelView;
 	}
 	

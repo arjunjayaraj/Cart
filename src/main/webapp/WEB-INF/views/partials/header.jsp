@@ -7,17 +7,19 @@
 	<ul id= "categories_drop" class="right hide-on-med-and-down">
 		<li id= "search_bar">
 			<form>
-				<div class="li_no_hover arrange">
-					<a id ="drop_button" class='dropdown-button waves-effect btn-flat' data-beloworigin="true"
-							href='#' data-activates='category-dropdown'><b>Categories</b></a>
-					<ul id='category-dropdown' class='dropdown-content' >
-						<li><a href="#!">one</a></li>
-						<li><a href="#!">two</a></li>
-						<li class="divider"></li>
-						<li><a href="#!">three</a></li>
-					</ul>
-				</div>
-				<div class="input-field arrange">
+<div class="input-field col s1 li_no_hover arrange" id ="nav-category-select">
+   <select id ="categorySelect">
+				      <option value="ALL">ALL</option>
+				      <option value="MEN">Men</option>
+				      <option value="WOMEN">Women</option>
+				      <option value="BOYS">Boys</option>
+				      <option value="GIRLS">Girls</option>
+				      <option value="UNISEX">Unisex</option>
+				    </select>
+     </div>
+
+				
+				<div class="input-field arrange col l2 s2 m2">
 					<input id="search" type="search" required>
 					<label for="search"><i class="mdi-action-search"></i></label>
 				</div>
@@ -55,9 +57,10 @@
 		</li>
 	</ul>
 </div>
-
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
 <script>
 	function formSubmit() {
 		document.getElementById("logoutForm").submit();
 	}
+	 
 </script>		

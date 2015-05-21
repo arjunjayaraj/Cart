@@ -55,10 +55,25 @@ public class ProductDaoImpl implements ProductDao{
 	public List<Products> searchByProductName(String productName){
 		session =sessionFactory.getCurrentSession();
 		Criteria cr =session.createCriteria(Products.class);
-		cr.add(Restrictions.like("productName","%" + productName +"%"));
+		String productname ="%" + productName +"%";
+		cr.add(Restrictions.like("productName",productname));
 		return cr.list();
 	}
-	
+	@SuppressWarnings("unchecked")
+	public List<Products> searchByGenderAndProductName(String productName, String genderName){
+		session =sessionFactory.getCurrentSession();
+		Criteria cr =session.createCriteria(Products.class);
+		String productname ="%" + productName +"%";
+		if(genderName.equals("ALL"))
+		{
+			genderName="%";
+		}
+		cr.add(Restrictions.like("productName",productname));
+		cr.add(Restrictions.like("gender",genderName));
+		return cr.list();
+		
+		
+	}
 	@Override
 	public void addProduct(Products product){
 		session =sessionFactory.getCurrentSession();
