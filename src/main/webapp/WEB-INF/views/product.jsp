@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page session="true"%>
 <html>
 <head>
     <title>Product Page</title>
@@ -7,6 +8,9 @@
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
 
     <!--Import materialize.css-->
+    <link rel="stylesheet"	href='<c:url value="resources/css/pure-0.4.2.css"/>'>
+    <link rel="stylesheet"	href='<c:url value="resources/css/font-awesome-4.0.3/css/font-awesome.css"/>'>
+	<link rel="stylesheet"	href='<c:url value="resources/css/jquery-ui-1.10.4.custom.css"/>'>
     <link type="text/css" rel="stylesheet" href="resources/css/materialize.min.css" media="screen,projection" />
     <link type="text/css" rel="stylesheet" href="resources/css/Items.css" media="screen,projection" />
 	<link type="text/css" rel="stylesheet" href="resources/css/home.css"  media="screen,projection"/>
@@ -16,9 +20,12 @@
 
     <!--Scripts-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+ 	<script type="text/javascript" src="resources/js/lib/jquery-ui-1.10.4.custom.js"></script>
+<!-- 	<script type="text/javascript" src="resources/js/lib/jquery.ui.datepicker.js"/></script> -->
     <script type="text/javascript" src="resources/js/materialize.min.js"></script>
     <script  type="text/javascript" src="resources/js/home-ads.js"></script>
     <script type="text/javascript" src="resources/js/custom.js"></script>
+    <script type="text/javascript" src="resources/js/product.js"></script>
 </head>
 
 <body>
@@ -37,7 +44,7 @@
 				      <option value="GIRLS">Girls</option>
 				      <option value="UNISEX">Unisex</option>
 				    </select>
-				  </div>
+				    </div>
 				<div class="input-field arrange" id="searchdiv">
 							<input id="searchproduct" type="search" required  name="searchproduct">
 							<label for="searchproduct"><i class="mdi-action-search"></i></label>
@@ -51,6 +58,9 @@
 			</ul>
 		</div>
 	</nav>
+	<div id="productDialog" style="display: none;">
+			<%@ include file="partials/productForm.jsp"%>
+		</div>
 	<div class="row">
         <div class="col s12 m4 l3">
           <!-- Grey navigation panel -->
@@ -89,10 +99,16 @@
                         <div class="col s12 m6 l3">
                             <div class="card">
                                 <div class="card-image">
-                                    <img class="item-image" src="resources/images/${product.productImage}"><span class="card-title" style="color: black">${product.productName}</span>
+                                    <img class="item-image" src="resources/images/${product.productImage}"><span class="card-title" style="color: black">${product.brand}</span>
                                 </div>
                                 <div class="card-content">
-                                    <p>${product.brand}</p>
+                                    <p>${product.productName}</p>
+                                    <c:choose>
+                                    <c:when test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
+                                    <a class="waves-effect waves-light btn product-change"  onclick="editProduct()">EDIT</a>
+                                    <a class="waves-effect waves-light btn product-change" onclick="deleteProduct('${product.productName}')">DELETE</a>
+                                    </c:when>
+                                    </c:choose>
                                 </div>
                                 <div class="card-action">
                                     <a class="waves-effect waves-light btn add-to-cart" onclick="Materialize.toast('<span>Added to Cart!</span><a class=&quot;btn-flat yellow-text&quot; href=&quot;#!&quot;>Undo</a>', 3000)">Add To Cart</a>
@@ -120,28 +136,44 @@
 </body>
 </html>
 
-		<script type="text/javascript">
-		$("#searchproduct").keyup( function() {
-			var searchQuery = $("#searchproduct").val();
-			var search = $("#categorySelect").val();
-			
-	 		window.alert(search);
-			    $.ajax({
-		            type: "GET",
-		            url: "productsearch",
-		            contentType : 'application/json; charset=utf-8',
-		            data: { "searchproduct" :searchQuery,
-		            		"category" :search,
-		            }, 
-		          
-		              success :function(result) {
-		         $("#productList").html(result);
-		            		          			
-		          }});	    
-				
-		});
+<script>
 
-	</script> 
+function editProduct() {
+	$("#productDialog").html();
+	$('#productDialog').dialog("option", "title", "Edit Product");
+	$("#productDialog").dialog('open');
 
+	}
+
+$(document).ready(function() {
+	$('#productDialog').dialog({
+		autoOpen : false,
+		position : 'center',
+		modal : true,
+		resizable : false,
+		top:0,
+		width : 800,
+		buttons : {
+			"Save" : function() {
+			},
+			"Cancel" : function() {
+				$(this).dialog('close');
+			}
+		},
+		close : function() {
+
+			resetDialog($('#productDialog'));
+
+			$(this).dialog('close');
+		}
+	});
+});
+
+function resetDialog(form) {
+	form.find("input").val("");
+}
+
+
+</script>
 
 
