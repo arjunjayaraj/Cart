@@ -41,10 +41,10 @@
 					<li >
 						<c:choose>
 							<c:when test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
-								<a href="adminHome" id="loginName">${pageContext.request.userPrincipal.name}</a>
+								<a href="adminHome" id="curUser">${pageContext.request.userPrincipal.name}</a>
 							</c:when>
 							<c:otherwise>
-								<a href="">${pageContext.request.userPrincipal.name}</a>
+								<a href="" id="curUser">${pageContext.request.userPrincipal.name}</a>
 							</c:otherwise>
 						</c:choose>
 					</li>
