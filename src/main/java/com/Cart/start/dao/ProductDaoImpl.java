@@ -66,12 +66,12 @@ public class ProductDaoImpl implements ProductDao{
 		session =sessionFactory.getCurrentSession();
 		Criteria cr =session.createCriteria(Products.class);
 		String productname ="%" + productName +"%";
-		if(genderName.equals("ALL"))
+		if(!(genderName.equals("ALL")))
 		{
-			genderName="%";
+			cr.add(Restrictions.like("gender",Gender.valueOf(genderName)));
 		}
 		cr.add(Restrictions.like("productName",productname));
-		cr.add(Restrictions.like("gender",Gender.valueOf(genderName)));
+		
 		return cr.list();
 		
 		

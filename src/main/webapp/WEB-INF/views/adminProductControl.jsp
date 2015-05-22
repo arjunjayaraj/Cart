@@ -71,7 +71,6 @@
 <tr><td>Product brand</td><td><input type="text" name="brand"></td></tr>
 <tr><td>Product quantity</td><td><input type="text" name="quantity"></td></tr>
 <tr><td>AGE GROUP</td><td><select id ="categorySelect" name="gender">
-				      <option value="ALL">ALL</option>
 				      <option value="MEN">Men</option>
 				      <option value="WOMEN">Women</option>
 				      <option value="BOYS">Boys</option>

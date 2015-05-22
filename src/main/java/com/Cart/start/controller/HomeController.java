@@ -208,12 +208,14 @@ public class HomeController {
 		
 	}
 	
-	@RequestMapping(value="/product",method = RequestMethod.GET)
-	public  @ResponseBody ModelAndView productSearch(@RequestParam("searchproduct") String search, @RequestParam("category") String category){
+	@RequestMapping(value="/productSearch")
+	public  ModelAndView productSearch(@RequestParam("agegroup") String category,@RequestParam("searchProduct") String search){
 		ModelAndView modelView = new ModelAndView();
 		modelView.setViewName("product");
 		List<Products> listproducts = this.productService.searchByGenderAndProductName(search, category);
 		modelView.addObject("listproducts", listproducts);
+		modelView.addObject("agegroup", category);
+		
 		return modelView;
 		
 	}
@@ -230,18 +232,16 @@ public class HomeController {
 	@RequestMapping(value = "/updateproduct", method = RequestMethod.POST )
 	public ModelAndView productupdate(@ModelAttribute("product") Products product){
 		ModelAndView modelView = new ModelAndView();
-
 			this.productService.updateProduct(product);
 			modelView.setViewName("home");
 			return modelView;
 	}
 	
-	@RequestMapping(value = "/removeproduct", method = RequestMethod.POST  )
+	@RequestMapping(value = "/removeproduct", method = RequestMethod.GET  )
 	public ModelAndView productremove(@ModelAttribute("productName") String productName){
 		ModelAndView modelView = new ModelAndView();
-
 			this.productService.removeProduct(productName);
-			modelView.setViewName("home");
+			modelView.setViewName("product");
 			return modelView;
 	}
 
