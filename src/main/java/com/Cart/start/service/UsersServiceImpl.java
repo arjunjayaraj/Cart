@@ -31,16 +31,44 @@ public class UsersServiceImpl implements UsersService{
 	    public void addUser(Users user) {
 	        this.usersDao.addUser(user);
 	        UserRole userrole = new UserRole();
-	        userrole.setRole(Roles.ROLE_USER);
+	        userrole.setRole(Roles.ROLE_ADMIN);
 	        userrole.setUser(user);
 	        this.userRoleDao.addRole(userrole);
 	    }
 	    @Transactional
-	    public void updateUser(Users user, String email) {
-	        this.usersDao.updateUser(user);
+	    public void updateUser(Users user) {
+	    	Users oldInfo = this.findByUserName(user.getEmail());
+	    	setEditValues(user,oldInfo);
+	        this.usersDao.updateUser(oldInfo);
 	    }
 	    
-	    @Transactional
+	    private void setEditValues(Users user, Users oldInfo) {
+	    	
+	    	if(user.getfName()!=null)
+	    	{
+	    		oldInfo.setfName(user.getfName());
+	    	}
+	    	if(user.getlName()!=null)
+	    	{
+	    		oldInfo.setlName(user.getlName());
+	    	}
+	    	if(user.getPassword()!=null)
+	    	{
+	    		oldInfo.setPassword(user.getPassword());
+	    	}
+			
+		}
+
+		@Transactional
+	    public void updateUserKey(Users user, String curUser)
+	    {
+	    	Users oldInfo = this.findByUserName(curUser);
+	    	oldInfo.setEmail(user.getEmail());
+	    	setEditValues(user,oldInfo);
+	        this.usersDao.updateUser(oldInfo);
+	    	
+	    }
+		@Transactional
 	    public List<Users> listUsers() {
 	    	System.out.println(this.usersDao.listUsers().get(0).getUserRole());
 	    	return this.usersDao.listUsers();
