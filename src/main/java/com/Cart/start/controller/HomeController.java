@@ -171,19 +171,28 @@ public class HomeController {
 		return model;
 	}
 	
-	@RequestMapping(value = "/adminEditUser", method = RequestMethod.GET)
-	public @ResponseBody ModelAndView editUser(@RequestParam("loginId") String email, @RequestParam("user") String user) {
+	@RequestMapping(value = "/adminEditUser", method = RequestMethod.POST)
+	public @ResponseBody ModelAndView editUser(@RequestBody Users user) {
 		
-		Users edituser = null;
 		ModelAndView model = new ModelAndView();
+		this.usersService.updateUser(user);
+		model.setViewName("adminUsersControl");
+		return model;
+	}
+	@RequestMapping(value = "/adminEditUser", method = RequestMethod.GET)
+	public @ResponseBody ModelAndView editUserWithKey(@RequestParam("user") String user,
+					@RequestParam("curUser") String curUser) {
+		
+		ModelAndView model = new ModelAndView();
+		Users editUser = new Users();
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			edituser = mapper.readValue(user, Users.class);
+			editUser = mapper.readValue(user, Users.class);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.usersService.updateUser(edituser, email);
+		this.usersService.updateUserKey(editUser, curUser);
 		model.setViewName("adminUsersControl");
 		return model;
 	}

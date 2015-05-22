@@ -7,27 +7,27 @@
     <!-- default header name is X-CSRF-TOKEN -->
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
 	<!--Import materialize.css-->
-	<link type="text/css" rel="stylesheet"
-			href="resources/css/materialize.min.css" media="screen,projection" />
-	<link type="text/css" rel="stylesheet" href="resources/css/home.css"
-			media="screen,projection" />
+<link href="resources/css/materialize.css" rel="stylesheet">
+		<link href="resources/css/materialize.min.css" rel="stylesheet">
+		<link href="resources/css/login.css" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="resources/css/home.css" media="screen,projection" />
 
-<link rel="stylesheet"
-	href='<c:url value="resources/css/pure-0.4.2.css"/>'>
-
+ <link rel="stylesheet"
+	href='<c:url value="resources/css/pure-0.4.2.css"/>'> 
+<%-- 
 <link rel="stylesheet"
 	href='<c:url value="resources/css/font-awesome-4.0.3/css/font-awesome.css"/>'>
-
+ --%>
 <link rel="stylesheet"
-	href='<c:url value="resources/css/jquery-ui-1.10.4.custom.css"/>'>
-
+	href="resources/css/jquery-ui-1.10.4.custom.css"> 
+<!-- 
 <style type="text/css">
 th {
 	text-align: left
 }
 </style>
 
-
+ -->
 	<!--Let browser know website is optimized for mobile-->
 	<meta name="viewport"
 			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -85,7 +85,7 @@ th {
 					<td>
 						<nobr>
 						
-							<button onclick="editInfo('${user.email}','${user.fName}','${user.lName}','${pageContext.request.userPrincipal.name}');">Edit</button>
+							<button onclick="editInfo('${user.email}','${user.fName}','${user.lName}');">Edit</button>
 							<button onclick="deleteUser('${user.email}');">Delete</button>
 						</nobr>
 					</td>
@@ -114,13 +114,17 @@ th {
 <!-- 
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
+		<script src="resources/js/materialize.js"></script>
+		<script src="resources/js/materialize.min.js"></script>
 	<script type="text/javascript" src="resources/js/materialize.min.js"></script>
 	<script type="text/javascript" src="resources/js/home-ads.js"></script>
 	<script type="text/javascript" src="resources/js/custom.js"></script>
 	<script>
 	function addRole(email,role){
 		
-		alert(role);
+		var x = confirm('Are you sure you want to ADD this role?');
+		if (x == true)
+		{
 		$.ajax({
             type: "GET",
             url: "adminAddRole",
@@ -133,6 +137,7 @@ th {
            }
         });
 		}
+	}
 	function deleteRole(email,role){
 		
 		var x = confirm('Are you sure you want to delete this role?');
@@ -168,71 +173,96 @@ th {
         });
 		}
 	}
-		function addUser() {
-			$('#userDialog').dialog("option", "title", 'Add User');
-			$('#userDialog').dialog('open');
+	
+	function addUser() {
+		$('#userDialog').dialog("option", "title", 'Add User');
+		$('#userDialog').dialog('open');
+	}
+	var curUser = $("#curUser").html();
+	var editUser = {};
+	var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+	
+	function editInfo(email,fname,lname) {
+		editUser= {
+				"email": email,
+				"fName":fname,
+				"lName":lname
 		}
-
-		function editInfo(email,fname,lname,cur_email) {
-			alert(email);
-			$("#userDialog").html();
-			if(cur_email != email)
-				{
-				document.getElementById("email").disabled = true;
-				}
-			else
-				{
-				document.getElementById("email").disabled = false;
-				}
-			$("#email").val(email);
-			
-			$("#fname").val(fname);
-			$("#lname").val(lname);
-			$('#userDialog').dialog("option", "title", 'Edit User');
-			$("#userDialog").dialog('open');
-
+		$("#userDialog").html();
+		if(curUser != email)
+			{
+			document.getElementById("email").disabled = true;
 			}
+		else
+			{
+			document.getElementById("email").disabled = false;
+			}
+		$("#email").val(email);
+		$("#fname").val(fname);
+		$("#lname").val(lname);
+		$('#userDialog').dialog("option", "title", 'Edit User');
+		$("#userDialog").dialog('open');
+	}
 
-		$(document).ready(function() {
-			$('#userDialog').dialog({
-				autoOpen : false,
-				position : 'center',
-				modal : true,
-				resizable : false,
-				top:0,
-				width : 440,
-				buttons : {
-					"Save" : function() {
-				        var loginemail = $("#loginName").html();
-				        alert(loginemail);
-				        var email =  document.getElementById("email").value;
-				        var user = 
-				        	{
-				        		"email" : document.getElementById("email").value,
-								"fName"	: document.getElementById("fname").value,
-								"lName"	: document.getElementById("lname").value
-				        	};
-				        alert(JSON.stringify(user));
-						$.ajax({
-				            type: "GET",
-				            url: "adminEditUser",
+	$(document).ready(function() {
+		$('#userDialog').dialog({
+			autoOpen : false,
+			position : 'center',
+			modal : true,
+			resizable : false,
+			top:0,
+			width : 440,
+			buttons : {
+				"Save" : function() {
+			        var user = 
+			        	{
+			        		"email" : document.getElementById("email").value,
+							"fName"	: document.getElementById("fname").value,
+							"lName"	: document.getElementById("lname").value
+			        	};
+			       if(user.email==editUser.email&&user.fName==editUser.fName&&user.lName==editUser.lName){
+			    	   alert("close");
+			    	   $(this).dialog('close');
+			    	}
+			       else if(user.email==editUser.email)
+			    	   {
+			    	   alert("saving");
+			    	   	$.ajax({
+			        	    type: "POST",
+			       	    	url: "adminEditUser",
 				            contentType : 'application/json; charset=utf-8',
-				            data: {"loginId":loginemail,
-				            	"user":  JSON.stringify(user),
- 				            },
-				            success :function(result) {
-				            	location.reload();
-				           }
-				        });
+				            data: JSON.stringify(user),
+				            beforeSend: function(xhr){
+				                xhr.setRequestHeader(header, token);
+				              },
+				    	    success :function(result) {
+				        	    	location.reload();
+				           		}
+				        	});
+			    	   }
+			       else
+			    	   {
+			    	   alert("changing Key");
+			    	   	$.ajax({
+			        	    type: "GET",
+			       	    	url: "adminEditUser",
+				            contentType : 'application/json; charset=utf-8',
+				            data: {	"user": JSON.stringify(user),
+				            		"curUser": curUser	
+				            },
+				    	    success :function(result) {
+				        	    	location.reload();
+				           		}
+				        	});
+			    	   }
 					},
-					"Cancel" : function() {
-						$(this).dialog('close');
+				"Cancel" : function() {
+					$(this).dialog('close');
 					}
 				},
-				close : function() {
-
+			close : function() {
 					resetDialog($('#userDialog'));
-
 					$(this).dialog('close');
 				}
 			});
