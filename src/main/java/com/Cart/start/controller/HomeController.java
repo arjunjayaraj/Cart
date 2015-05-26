@@ -6,12 +6,15 @@ import java.util.List;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.Cart.start.model.Products;
@@ -36,6 +39,17 @@ public class HomeController {
 	}
 	@Autowired
 	private ProductService productService;
+	
+	/**
+     * This is to covert org.springframework.web.multipart.commons.CommonsMultipartFile to
+     * byte[] in HadoopConnection.java
+     * @param binder
+     */
+    @InitBinder
+    public void initBinderAll(WebDataBinder binder) {
+        binder.registerCustomEditor(byte[].class,  new ByteArrayMultipartFileEditor());
+    }
+	
 	
 //				Main Home
 	
@@ -244,6 +258,23 @@ public class HomeController {
 			this.productService.updateProduct(product);
 			modelView.setViewName("home");
 			return modelView;
+	}
+
+	@RequestMapping(value = "/upproduct", method = RequestMethod.POST)
+	public @ResponseBody ModelAndView upproduct(@RequestBody String product) {
+		System.out.println(product);
+		ModelAndView model = new ModelAndView();
+		Products editProduct = new Products();
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			editProduct = mapper.readValue(product, Products.class);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.productService.updateProduct(editProduct);
+		model.setViewName("product");
+		return model;
 	}
 	
 	@RequestMapping(value = "/removeproduct", method = RequestMethod.GET  )

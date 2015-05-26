@@ -38,16 +38,26 @@ public class Products {
 		this.productName = productName;
 	}
 	
+//	@Column(name="img")
+//	private String productImage;
+//
+//	public String getProductImage() {
+//		return productImage;
+//	}
+//
+//	public void setProductImage(String productImage) {
+//		this.productImage = productImage;
+//	}
 	@Column(name="img")
-	private String productImage;
-
-	public String getProductImage() {
+	private byte[] productImage;
+	public byte[] getProductImage() {
 		return productImage;
 	}
 
-	public void setProductImage(String productImage) {
+	public void setProductImage(byte[] productImage) {
 		this.productImage = productImage;
 	}
+
 	@Column(name="price")
 	private double productPrice;
 
@@ -106,7 +116,6 @@ public class Products {
 		this.setProductImage(product.getProductImage());
 		this.setProductPrice(product.getProductPrice());
 		this.setQuantity(product.getQuantity());
-		System.out.println("GEnder is   " +product.getGender());
 		this.setBrand(product.getBrand());
 		this.setGender(product.getGender());
 	}

@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page session="true"%>
 <html>
 <head>
  <title>Admin Product Control</title>
@@ -55,18 +56,11 @@
 
 <div class="row">
 <div class="col s12 m6 l5 card-panel teal">
-<form action="addproduct" method="post">
+<form action="addproduct" method="post" enctype="multipart/form-data">
 <table>
 <!-- <tr><td>Product ID</td><td><input type="number" name="productId"></td></tr> -->
 <tr><td>Product Name</td><td><input type="text" name="productName"></td></tr>
-<tr><td>Product image</td><td><input type="text" name="productImage"></td></tr>
-<tr><td>Product image</td><td> <div class="file-field input-field">
-      <input class="file-path validate" type="text"/>
-      <div class="btn">
-        <span>File</span>
-        <input type="file" />
-      </div>
-    </div></td></tr>
+<tr><td>Product image</td><td><input type="file" name="productImage"></td></tr>
 <tr><td>Product price</td><td><input type="text" name="productPrice"></td></tr>
 <tr><td>Product brand</td><td><input type="text" name="brand"></td></tr>
 <tr><td>Product quantity</td><td><input type="text" name="quantity"></td></tr>
@@ -85,6 +79,12 @@
 </table>
 
 </form>
+<form method="POST" enctype="multipart/form-data"
+		action="/upload">
+		File to upload: <input type="file" name="file"><br /> Name: <input
+			type="text" name="name"><br /> <br /> <input type="submit"
+			value="Upload"> Press here to upload the file!
+	</form>
 </div>
 
 <div class="col s12 m6 l5 card-panel teal">

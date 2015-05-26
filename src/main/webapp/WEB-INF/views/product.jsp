@@ -8,12 +8,14 @@
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
 
     <!--Import materialize.css-->
+     <link type="text/css" rel="stylesheet" href="resources/css/materialize.min.css" media="screen,projection" />
     <link rel="stylesheet"	href='<c:url value="resources/css/pure-0.4.2.css"/>'>
     <link rel="stylesheet"	href='<c:url value="resources/css/font-awesome-4.0.3/css/font-awesome.css"/>'>
 	<link rel="stylesheet"	href='<c:url value="resources/css/jquery-ui-1.10.4.custom.css"/>'>
     <link type="text/css" rel="stylesheet" href="resources/css/materialize.min.css" media="screen,projection" />
     <link type="text/css" rel="stylesheet" href="resources/css/Items.css" media="screen,projection" />
 	<link type="text/css" rel="stylesheet" href="resources/css/home.css"  media="screen,projection"/>
+	<link type="text/css" rel="stylesheet" href="resources/css/product.css"  media="screen,projection"/>
 	
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -99,13 +101,13 @@
                         <div class="col s12 m6 l3">
                             <div class="card">
                                 <div class="card-image">
-                                    <img class="item-image" src="resources/images/${product.productImage}"><span class="card-title" style="color: black">${product.brand}</span>
+                                    <img class="item-image" src="data:image/jpg;base64, +${product.productImage}"><span class="card-title" style="color: black">${product.brand}</span>
                                 </div>
                                 <div class="card-content">
                                     <p>${product.productName}</p>
                                     <c:choose>
                                     <c:when test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
-                                    <a class="waves-effect waves-light btn product-change"  onclick="editProduct()">EDIT</a>
+                                    <a class="waves-effect waves-light btn product-change"  onclick="editProduct('${product.productId}','${product.productName}','${product.brand}','${product.quantity}','${product.productPrice}','${product.productImage}','${product.category.categoryName}','${product.gender}')">EDIT</a>
                                     <a class="waves-effect waves-light btn product-change" onclick="deleteProduct('${product.productName}')">DELETE</a>
                                     </c:when>
                                     </c:choose>
@@ -137,11 +139,18 @@
 </html>
 
 <script>
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
 
-function editProduct() {
+function editProduct(id,name,brand,quantity,price,image,category,gender) {
 	$("#productDialog").html();
 	$('#productDialog').dialog("option", "title", "Edit Product");
 	$("#productDialog").dialog('open');
+	$("#productName").val(name);
+	$("#brand").val(brand);
+	$("#productPrice").val(price);
+	$("#quantity").val(quantity);
+	$("#categoryName").val(category);
 
 	}
 
@@ -152,9 +161,45 @@ $(document).ready(function() {
 		modal : true,
 		resizable : false,
 		top:0,
-		width : 800,
+		width : 850,
 		buttons : {
 			"Save" : function() {
+
+				var product = 
+	        	{
+	        		"productName" : document.getElementById("productName").value,
+					"brand"	: document.getElementById("brand").value,
+					"productPrice"	: document.getElementById("productPrice").value,
+					"quantity"	: document.getElementById("quantity").value,
+					"category.categoryName"	: document.getElementById("categoryName").value,
+					};	
+				var product={};
+					product.category={};
+					product.category.categoryName=document.getElementById("categoryName").value;
+					product.quantity=document.getElementById("quantity").value;
+					product.productName=document.getElementById("productName").value;
+					product.productPrice=document.getElementById("productPrice").value;
+					product.brand=document.getElementById("brand").value;
+					product.gender=document.getElementById("productFormAge").value;
+					product.productImage=document.getElementById("productImage").value;
+
+
+				console.log(product);
+				alert("saving");
+	    	   	$.ajax({
+	        	    type: "POST",
+	       	    	url: "upproduct",
+		            contentType : 'application/json; charset=utf-8',
+		            data: JSON.stringify(product),
+		            beforeSend: function(xhr){
+		                xhr.setRequestHeader(header, token);
+		              },
+		    	    success :function(result) {
+		        	    	location.reload();
+		           		}
+		        	});
+				
+				
 			},
 			"Cancel" : function() {
 				$(this).dialog('close');
