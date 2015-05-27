@@ -64,6 +64,16 @@
 	<bean id="categoryService" class="com.Cart.start.service.CategoryServiceImpl">
 	 <property name ="categoryDao" ref="categoryDao"></property>   
 	</bean>
+	
+	<bean id="cartDao" class="com.Cart.start.dao.CartDaoImpl">
+	   <property name="sessionFactory" ref ="sessionFactory"></property> 
+	</bean>
+	
+	<bean id="cartService" class="com.Cart.start.service.CartServiceImpl">
+	 <property name ="cartDao" ref="cartDao"></property>
+	 <property name ="productDao" ref="productDao"></property>
+	 <property name="userDao" ref="usersDao"></property>
+	</bean>
 
 	<bean id="txManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">

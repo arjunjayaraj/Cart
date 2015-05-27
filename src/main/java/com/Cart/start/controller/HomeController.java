@@ -7,6 +7,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.Cart.start.model.Cart;
 import com.Cart.start.model.Products;
 import com.Cart.start.model.Users;
+import com.Cart.start.service.CartService;
 import com.Cart.start.service.ProductService;
 import com.Cart.start.service.UsersService;
 
@@ -31,14 +34,22 @@ public class HomeController {
 		this.usersService = usersService;
 	}
 
+	@Autowired
+	private ProductService productService;
 	public final void setProductService(ProductService productService) {
 		this.productService = productService;
 	}
+	
 	@Autowired
-	private ProductService productService;
+	private CartService cartService;
+
+	public final void setCartService(CartService cartService) {
+		this.cartService = cartService;
+	}
 	
 //				Main Home
 	
+
 	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
 	public ModelAndView welcomePage() {
 
@@ -253,5 +264,24 @@ public class HomeController {
 			modelView.setViewName("product");
 			return modelView;
 	}
+	
+	//				CART PAGES
+	@RequestMapping(value = "/userAddToCart", method = RequestMethod.GET)
+	public void addToCart(@RequestParam ("productname") String productName, 
+			@RequestParam ("user") String curUser)	{
+		this.cartService.addToCart(productName, curUser);
+	}
 
+	@RequestMapping(value = { "/userCart={email}.html" }, method = RequestMethod.GET)
+	public ModelAndView userCart(@PathVariable("email") String email) {
+
+		ModelAndView model = new ModelAndView();
+		System.out.println(email);
+		List<Cart> userCart= this.cartService.listAllByUser(email);
+		System.out.println(userCart);
+		model.addObject("listCart", userCart);
+		model.setViewName("userCart");
+		return model;
+
+	}
 }
