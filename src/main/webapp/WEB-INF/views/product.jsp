@@ -43,11 +43,36 @@
 							<label for="searchproduct"><i class="mdi-action-search"></i></label>
 							</div>
 						</form></li>
-				<li><a href="mobile.html"><i
-						class="mdi-action-add-shopping-cart"></i></a></li>
-				<li><a href="login.html"><i
-						class="mdi-action-account-circle"></i></a></li>
-				
+		<li><a href="userCart=${pageContext.request.userPrincipal.name}.html"><i class="mdi-action-add-shopping-cart"></i></a></li>
+		<li><c:url value="/j_spring_security_logout" var="logoutUrl" />
+			<form action="${logoutUrl}" method="post" id="logoutForm"
+					style="margin-bottom: 0px;">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			</form>
+			<c:if test="${pageContext.request.userPrincipal.name != null}">
+				<a class='dropdown-button' data-constrainwidth="false"
+						data-beloworigin="true" href='#' data-activates='user-details'>
+					<i class="mdi-action-account-circle"></i>
+				</a>
+				<!-- Dropdown Structure -->
+				<ul id='user-details' class='dropdown-content'>
+					<li >
+						<c:choose>
+							<c:when test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
+								<a href="adminHome" id="curUser">${pageContext.request.userPrincipal.name}</a>
+							</c:when>
+							<c:otherwise>
+								<a href="" id="curUser">${pageContext.request.userPrincipal.name}</a>
+							</c:otherwise>
+						</c:choose>
+					</li>
+					<li><a href="javascript:logout()">Logout</a></li>
+				</ul>
+			</c:if>
+			 <c:if test="${pageContext.request.userPrincipal.name == null}">
+			 	<a href="login"><i class="mdi-action-account-circle"></i></a>
+			 </c:if>
+		</li>
 			</ul>
 		</div>
 	</nav>
@@ -95,7 +120,7 @@
                                     <p>${product.brand}</p>
                                 </div>
                                 <div class="card-action">
-                                    <a class="waves-effect waves-light btn add-to-cart" onclick="Materialize.toast('<span>Added to Cart!</span><a class=&quot;btn-flat yellow-text&quot; href=&quot;#!&quot;>Undo</a>', 3000)">Add To Cart</a>
+                                    <a class="waves-effect waves-light btn add-to-cart" onclick="addtoCart('${product.productName}');">Add To Cart</a>
                                 </div>
                             </div>
                         </div>
@@ -143,5 +168,22 @@
 
 	</script> 
 
-
+<script>
+function addtoCart(productName)
+{
+	var curUser = $("#curUser").html();
+	alert(productName);
+	$.ajax({
+        type: "GET",
+        url: "userAddToCart",
+        contentType : 'application/json; charset=utf-8',
+        data: { "productname" :productName,
+        	"user": curUser
+        }, 
+          success :function(result) {
+        	  location.reload();
+        		          			
+      }});	    
+	}
+</script>
 

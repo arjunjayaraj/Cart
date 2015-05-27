@@ -14,20 +14,8 @@
 
  <link rel="stylesheet"
 	href='<c:url value="resources/css/pure-0.4.2.css"/>'> 
-<%-- 
-<link rel="stylesheet"
-	href='<c:url value="resources/css/font-awesome-4.0.3/css/font-awesome.css"/>'>
- --%>
 <link rel="stylesheet"
 	href="resources/css/jquery-ui-1.10.4.custom.css"> 
-<!-- 
-<style type="text/css">
-th {
-	text-align: left
-}
-</style>
-
- -->
 	<!--Let browser know website is optimized for mobile-->
 	<meta name="viewport"
 			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -38,8 +26,11 @@ th {
 	</nav>
 
 	<div id="userDialog" style="display: none;">
-			<%@ include file="partials/userForm.jsp"%>
-		</div>
+		<%@ include file="partials/userForm.jsp"%>
+	</div>
+	<div>
+		<h1>List Of Users</h1>
+	</div>
 	<div>
 		<table>
 			<thead>
@@ -174,10 +165,6 @@ th {
 		}
 	}
 	
-	function addUser() {
-		$('#userDialog').dialog("option", "title", 'Add User');
-		$('#userDialog').dialog('open');
-	}
 	var curUser = $("#curUser").html();
 	var editUser = {};
 	var token = $("meta[name='_csrf']").attr("content");
@@ -225,25 +212,12 @@ th {
 			    	   alert("close");
 			    	   $(this).dialog('close');
 			    	}
-			       else if(user.email==editUser.email)
+			       else if(user.email!=editUser.email)
 			    	   {
-			    	   alert("saving");
-			    	   	$.ajax({
-			        	    type: "POST",
-			       	    	url: "adminEditUser",
-				            contentType : 'application/json; charset=utf-8',
-				            data: JSON.stringify(user),
-				            beforeSend: function(xhr){
-				                xhr.setRequestHeader(header, token);
-				              },
-				    	    success :function(result) {
-				        	    	location.reload();
-				           		}
-				        	});
-			    	   }
-			       else
-			    	   {
-			    	   alert("changing Key");
+
+			    	   var x = confirm('Are you sure you want to Change UserName? ');
+			   		if (x == true)
+			   		{
 			    	   	$.ajax({
 			        	    type: "GET",
 			       	    	url: "adminEditUser",
@@ -252,10 +226,35 @@ th {
 				            		"curUser": curUser	
 				            },
 				    	    success :function(result) {
-				        	    	location.reload();
-				           		}
+				    	    	alert("Username Successfully Updated. Please Login");
+				    	    	logout();
+				           		},
+				            error:function(){
+				            	alert("Account Exist in same EMAIL")
+				            }
 				        	});
 			    	   }
+			    	
+			    	   }
+			       else
+			    	   {
+			    	   
+			    	   var x = confirm('Are you sure you want to Edit this User?');
+				   		if (x == true)
+				   		{
+				    	   	$.ajax({
+				        	    type: "POST",
+				       	    	url: "adminEditUser",
+					            contentType : 'application/json; charset=utf-8',
+					            data: JSON.stringify(user),
+					            beforeSend: function(xhr){
+					                xhr.setRequestHeader(header, token);
+					              },
+					    	    success :function(result) {
+					        	    	location.reload();
+					           		}
+					        	});
+				   		}   }
 					},
 				"Cancel" : function() {
 					$(this).dialog('close');

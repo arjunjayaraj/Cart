@@ -19,6 +19,7 @@ public class Products {
 	@GeneratedValue
 	@Column(name="ID")
 	private int productId;
+	
 	public int getProductId() {
 		return productId;
 	}

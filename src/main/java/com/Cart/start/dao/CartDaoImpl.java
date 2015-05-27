@@ -9,10 +9,9 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.Cart.start.model.Cart;
-import com.Cart.start.model.UserRole;
 import com.Cart.start.model.Users;
 
-@Repository("cartDao")
+@Repository
 public class CartDaoImpl implements CartDao{
 
 	private SessionFactory sessionFactory;
@@ -45,7 +44,7 @@ public class CartDaoImpl implements CartDao{
 	public void removeItem(Integer cartId) {
 		// TODO Auto-generated method stub
 		Session session = this.sessionFactory.getCurrentSession();
-		Cart cart = (Cart) session.get(Users.class, new Integer(cartId));
+		Cart cart = (Cart) session.get(Cart.class, new Integer(cartId));
         if(null != cart){
             session.delete(cart);
         }
@@ -56,7 +55,7 @@ public class CartDaoImpl implements CartDao{
 		// TODO Auto-generated method stub
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria cr = session
-				.createCriteria(UserRole.class)
+				.createCriteria(Cart.class)
 				.add(Restrictions.eq("user", user));
 		List<Cart> cart = cr.list();
 		if (null != cart) {
@@ -64,6 +63,13 @@ public class CartDaoImpl implements CartDao{
 				session.delete(cart.get(i));
 			}
 		}
+	}
+
+	public Cart findByCartID(int cartId) {
+		// TODO Auto-generated method stub
+		Session session = this.sessionFactory.getCurrentSession();
+		Cart cart = (Cart) session.get(Cart.class, new Integer(cartId));
+		return cart;
 	}
 
 }

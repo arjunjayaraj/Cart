@@ -25,7 +25,7 @@
 				</div>
 			</form>
 		</li>
-		<li><a href="userCart.html"><i class="mdi-action-add-shopping-cart"></i></a></li>
+		<li><a href="userCart=${pageContext.request.userPrincipal.name}.html"><i class="mdi-action-add-shopping-cart"></i></a></li>
 		<li><c:url value="/j_spring_security_logout" var="logoutUrl" />
 			<form action="${logoutUrl}" method="post" id="logoutForm"
 					style="margin-bottom: 0px;">
@@ -48,7 +48,7 @@
 							</c:otherwise>
 						</c:choose>
 					</li>
-					<li><a href="javascript:formSubmit()">Logout</a></li>
+					<li><a href="javascript:logout()">Logout</a></li>
 				</ul>
 			</c:if>
 			 <c:if test="${pageContext.request.userPrincipal.name == null}">
@@ -59,7 +59,7 @@
 </div>
 <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
 <script>
-	function formSubmit() {
+	function logout() {
 		document.getElementById("logoutForm").submit();
 	}
 	 
