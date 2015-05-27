@@ -78,7 +78,7 @@
 				<div class="col l6 s12 m12">
 					<div class="card small collection-panel" id="home-collection-men" >
 						<div class="card-image collection-content" >
-							<a href="#"> <img id="collection-men-image" src="resources/images/men.jpg">
+							<a href="MEN"> <img id="collection-men-image" src="resources/images/men.jpg">
 								<span class="card-title collection-title" id="collection-men-title" >MEN</span>
 							</a>
 						</div>
@@ -87,7 +87,7 @@
 				<div class="col l6 s12 m12">
 					<div class="card small collection-panel" id="home-collection-women">
 						<div class="card-image collection-content">
-							<a href="#"> <img id="collection-women-image" src="resources/images/women.jpg" >
+							<a href="WOMEN"> <img id="collection-women-image" src="resources/images/women.jpg" >
 								<span class="card-title collection-title" id="collection-women-title" >WOMEN</span>
 							</a>
 						</div>

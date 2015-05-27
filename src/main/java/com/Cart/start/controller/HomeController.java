@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.Cart.start.model.Filter;
 import com.Cart.start.model.Products;
 import com.Cart.start.model.Users;
 import com.Cart.start.service.ProductService;
@@ -219,40 +221,78 @@ public class HomeController {
 		modelView.setViewName("product");
 		List<Products> listproducts = this.productService.listProducts();
 		modelView.addObject("listproducts", listproducts);
+		List<String> listbrand = this.productService.brands();
+		modelView.addObject("listbrand", listbrand);
+		List<String> listcategory = this.productService.categoryList();
+		modelView.addObject("listcategory", listcategory);
 		return modelView;
 	}
 	@RequestMapping(value="/productsearch",method = RequestMethod.GET)
 	public  @ResponseBody ModelAndView productsearch(@RequestParam("searchproduct") String search, @RequestParam("category") String category){
-		ModelAndView modelView = new ModelAndView();
+		ModelAndView modelView = search(search,category);
 		modelView.setViewName("search");
-		List<Products> listproducts = this.productService.searchByGenderAndProductName(search, category);
-		modelView.addObject("listproducts", listproducts);
 		return modelView;
 		
 	}
-	
-	@RequestMapping(value="/productSearch")
-	public  ModelAndView productSearch(@RequestParam("agegroup") String category,@RequestParam("searchProduct") String search){
+	public  ModelAndView search(String search,String agegroup){
 		ModelAndView modelView = new ModelAndView();
-		modelView.setViewName("product");
-		List<Products> listproducts = this.productService.searchByGenderAndProductName(search, category);
+		List<Products> listproducts = this.productService.searchByGenderAndProductName(search, agegroup);
 		modelView.addObject("listproducts", listproducts);
-		modelView.addObject("agegroup", category);
+		List<String> listbrand = this.productService.brands();
+		modelView.addObject("listbrand", listbrand);
+		List<String> listcategory = this.productService.categoryList();
+		modelView.addObject("listcategory", listcategory);
+		return modelView;
+	}
+	
+	@RequestMapping(value="productSearch")
+	public  ModelAndView productSearch(@RequestParam("agegroup") String agegroup,@RequestParam("searchProduct") String search){
+		ModelAndView modelView = search(search,agegroup);
+		modelView.setViewName("product");
+		return modelView;
 		
+	}
+	@RequestMapping(value="productss/{agegroup}")
+	public  ModelAndView productGroup(@PathVariable("agegroup") String ageGroup){
+		String search="";
+		ModelAndView modelView = search(search,ageGroup);
+		modelView.setViewName("product");
+		return modelView;
+		
+	}
+	@RequestMapping(value="MEN")
+	public  ModelAndView productmen(){
+		ModelAndView modelView = search("","MEN");
+		modelView.setViewName("product");
+		return modelView;
+		
+	}
+	@RequestMapping(value="WOMEN")
+	public  ModelAndView productwomen(){
+		ModelAndView modelView = search("","WOMEN");
+		modelView.setViewName("product");
 		return modelView;
 		
 	}
 		
 	@RequestMapping(value = "/addproduct", method = RequestMethod.POST)
-	public ModelAndView productAdd(@ModelAttribute("product") Products product){
+	public ModelAndView productAdd(@ModelAttribute("product") Products products){
 		ModelAndView modelView = new ModelAndView();
-		System.out.println("The gender is  " +product.getGender());
-			this.productService.addProduct(product);
+			this.productService.addProduct(products);
 			modelView.setViewName("adminProductControl");
 			return modelView;
 	}
+	@RequestMapping(value = "/adproduct", method = RequestMethod.POST)
+	public @ResponseBody ModelAndView adproduct(@RequestBody Products product) {
+		System.out.println(product);
+		System.out.println("in ad product");
+		ModelAndView model = new ModelAndView();
+		this.productService.addProduct(product);
+		model.setViewName("product");
+		return model;
+	}
 	
-	@RequestMapping(value = "/updateproduct", method = RequestMethod.POST )
+	@RequestMapping(value = "/updateproduct", method = {RequestMethod.POST,RequestMethod.GET} )
 	public ModelAndView productupdate(@ModelAttribute("product") Products product){
 		ModelAndView modelView = new ModelAndView();
 			this.productService.updateProduct(product);
@@ -261,18 +301,11 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/upproduct", method = RequestMethod.POST)
-	public @ResponseBody ModelAndView upproduct(@RequestBody String product) {
+	public @ResponseBody ModelAndView upproduct(@RequestBody Products product) {
 		System.out.println(product);
+		System.out.println("in ad product");
 		ModelAndView model = new ModelAndView();
-		Products editProduct = new Products();
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			editProduct = mapper.readValue(product, Products.class);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.productService.updateProduct(editProduct);
+		this.productService.updateProduct(product);
 		model.setViewName("product");
 		return model;
 	}
@@ -284,5 +317,15 @@ public class HomeController {
 			modelView.setViewName("product");
 			return modelView;
 	}
+	@RequestMapping(value = "/filter", method = RequestMethod.POST  )
+	public @ResponseBody ModelAndView filterList(@RequestBody Filter filter) {
+		ModelAndView modelView = new ModelAndView();
+		List<Products> listproducts = this.productService.filterList(filter);
+		modelView.addObject("listproducts", listproducts);
+		modelView.setViewName("search");
+		return modelView;
+	
+	}
+	
 
 }

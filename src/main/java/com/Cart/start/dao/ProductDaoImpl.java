@@ -6,9 +6,13 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import com.Cart.start.model.Category;
+import com.Cart.start.model.Filter;
 import com.Cart.start.model.Products;
 
 import enums.Gender;
@@ -51,6 +55,13 @@ public class ProductDaoImpl implements ProductDao{
 		cr.add(Restrictions.like("productName",productName));
 		return ((Products) cr.uniqueResult());
 		
+	}
+	@Override
+	public Products findById(int productID){
+		session =sessionFactory.getCurrentSession();
+		Criteria cr =session.createCriteria(Products.class);
+		cr.add(Restrictions.like("productId",productID));
+		return ((Products) cr.uniqueResult());
 	}
 	@SuppressWarnings("unchecked")
 	@Override
@@ -103,7 +114,44 @@ public class ProductDaoImpl implements ProductDao{
 			
 	}
 	
-
-
+	@SuppressWarnings("unchecked")
+	public List<String>brands(){
+		session=sessionFactory.getCurrentSession();
+		Criteria cr = session.createCriteria(Products.class);
+		cr.setProjection(Projections.distinct(Projections.property("brand")) );
+		return cr.list();
+	}
+	@SuppressWarnings("unchecked")
+	public List<Products> filterList(Filter filter){
+		session=sessionFactory.getCurrentSession();
+		Criteria cr = session.createCriteria(Products.class);
+		String productname ="%" + filter.getSearch() +"%";
+		if(!(filter.getAgeGroup().equals("ALL")))
+		{
+			cr.add(Restrictions.like("gender",Gender.valueOf(filter.getAgeGroup())));
+		}
+		cr.add(Restrictions.like("productName",productname));
+		Disjunction or = Restrictions.disjunction();
+		for(String brand:filter.getBrand()){
+			or.add(Restrictions.eq("brand",brand));
+		}
+		cr.add(or);
+		Disjunction orr = Restrictions.disjunction();
+		for(String category:filter.getCategory()){
+			orr.add(Restrictions.eq("category.categoryName",category));
+		}
+		cr.add(orr);
+		return cr.list();
+		  
+	  }
+	@SuppressWarnings("unchecked")
+	public List<String>categoryList(){
+		session=sessionFactory.getCurrentSession();
+		Criteria cr = session.createCriteria(Category.class);
+		cr.setProjection(Projections.distinct(Projections.property("categoryName")) );
+		return cr.list();
+		 
+	 }
+	
 	
 }

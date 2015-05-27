@@ -1,6 +1,14 @@
-.pure-control-group{
-.select-wrapper input.select-dropdown{
-width:0%;
-	
-} 
+/* line 1, ../sass/product.scss */
+.filter-form {
+  margin-left: 60px;
+}
+
+/* line 4, ../sass/product.scss */
+.product-card {
+  height: 315px;
+}
+
+/* line 7, ../sass/product.scss */
+.product-item-image {
+  max-height: 165px;
 }

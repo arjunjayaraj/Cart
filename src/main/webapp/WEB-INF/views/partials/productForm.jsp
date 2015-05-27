@@ -23,7 +23,7 @@
 			<label for="categoryName">Category</label>
 			<input id = "categoryName" name="category.categoryName" placeholder="CATEGOEY NAME" />
 			<label for="productImage">IMAGE</label>
-			<input id = "productImage" type="file" name="productImage" style="width: 220px;" />
+			<input id = "productImage" type="text" name="productImage" style="width: 220px;" />
 		</div>
 	<div class="pure-control-group" style="width: 240px;background-color: white; margin-left: 140px;color: black;">
 	<select id ="productFormAge" name="gender" style="width:100px;padding-left: 20px;display:none">

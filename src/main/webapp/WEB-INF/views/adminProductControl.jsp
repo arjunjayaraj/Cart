@@ -56,11 +56,11 @@
 
 <div class="row">
 <div class="col s12 m6 l5 card-panel teal">
-<form action="addproduct" method="post" enctype="multipart/form-data">
+<form action="addproduct" method="post">
 <table>
 <!-- <tr><td>Product ID</td><td><input type="number" name="productId"></td></tr> -->
 <tr><td>Product Name</td><td><input type="text" name="productName"></td></tr>
-<tr><td>Product image</td><td><input type="file" name="productImage"></td></tr>
+<tr><td>Product image</td><td><input type="text" name="productImage"></td></tr>
 <tr><td>Product price</td><td><input type="text" name="productPrice"></td></tr>
 <tr><td>Product brand</td><td><input type="text" name="brand"></td></tr>
 <tr><td>Product quantity</td><td><input type="text" name="quantity"></td></tr>
@@ -79,12 +79,7 @@
 </table>
 
 </form>
-<form method="POST" enctype="multipart/form-data"
-		action="/upload">
-		File to upload: <input type="file" name="file"><br /> Name: <input
-			type="text" name="name"><br /> <br /> <input type="submit"
-			value="Upload"> Press here to upload the file!
-	</form>
+
 </div>
 
 <div class="col s12 m6 l5 card-panel teal">
@@ -113,6 +108,14 @@
 </table>
 
 </form>
+</div>
+<div>
+<form method="POST" enctype="multipart/form-data"
+		action="/home">
+		File to upload: <input type="file" name="file"><br /> Name: <input
+			type="text" name="name"><br /> <br /> <input type="submit"
+			value="Upload"> Press here to upload the file!
+	</form>
 </div>
 </div>
 

@@ -182,7 +182,6 @@ th {
 	var editUser = {};
 	var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
-	
 	function editInfo(email,fname,lname) {
 		editUser= {
 				"email": email,

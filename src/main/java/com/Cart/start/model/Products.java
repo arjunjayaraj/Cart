@@ -38,25 +38,25 @@ public class Products {
 		this.productName = productName;
 	}
 	
-//	@Column(name="img")
-//	private String productImage;
-//
-//	public String getProductImage() {
-//		return productImage;
-//	}
-//
-//	public void setProductImage(String productImage) {
-//		this.productImage = productImage;
-//	}
 	@Column(name="img")
-	private byte[] productImage;
-	public byte[] getProductImage() {
+	private String productImage;
+
+	public String getProductImage() {
 		return productImage;
 	}
 
-	public void setProductImage(byte[] productImage) {
+	public void setProductImage(String productImage) {
 		this.productImage = productImage;
 	}
+//	@Column(name="img")
+//	private byte[] productImage;
+//	public byte[] getProductImage() {
+//		return productImage;
+//	}
+//
+//	public void setProductImage(byte[] productImage) {
+//		this.productImage = productImage;
+//	}
 
 	@Column(name="price")
 	private double productPrice;

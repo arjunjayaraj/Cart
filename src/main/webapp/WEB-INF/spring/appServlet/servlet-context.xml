@@ -64,7 +64,16 @@
 	<bean id="categoryService" class="com.Cart.start.service.CategoryServiceImpl">
 	 <property name ="categoryDao" ref="categoryDao"></property>   
 	</bean>
+	<bean id="filterMultipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+        <!-- max upload size in bytes -->
+        <!-- <property name="maxUploadSize" value="20971520" />  --><!-- 20MB -->
+        
+        <!-- max size of file in memory (in bytes) -->
+        <!-- <property name="maxInMemorySize" value="1048576" /> --> <!-- 1MB -->
 
+    <!-- </bean> -->
+    
 	<bean id="txManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
