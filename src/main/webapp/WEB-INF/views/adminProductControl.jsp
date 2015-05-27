@@ -70,8 +70,7 @@
 <tr><td>Product price</td><td><input type="text" name="productPrice"></td></tr>
 <tr><td>Product brand</td><td><input type="text" name="brand"></td></tr>
 <tr><td>Product quantity</td><td><input type="text" name="quantity"></td></tr>
-<tr><td>AGE GROUP</td><td><input><select id ="categorySelect" name="gender">
-				      <option value="ALL">ALL</option>
+<tr><td>AGE GROUP</td><td><select id ="categorySelect" name="gender">
 				      <option value="MEN">Men</option>
 				      <option value="WOMEN">Women</option>
 				      <option value="BOYS">Boys</option>
@@ -79,7 +78,6 @@
 				      <option value="UNISEX">Unisex</option>
 				    </select>
 				  </td></tr>
- 
 <tr><td>category name</td><td><input type="text" name="category.categoryName"></td></tr>
 <tr><td><input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}" /></td></tr>

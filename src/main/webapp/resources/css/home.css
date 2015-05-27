@@ -124,3 +124,15 @@ nav {
   margin-top: 5px;
   margin-left: 15px;
 }
+
+/* line 51, ../sass/_navbar.scss */
+#searchSubmit {
+  display: none;
+}
+
+/* line 54, ../sass/_navbar.scss */
+.product-change {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: 5px;
+}

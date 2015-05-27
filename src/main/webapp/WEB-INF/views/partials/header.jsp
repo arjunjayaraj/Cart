@@ -6,9 +6,10 @@
 	</span>
 	<ul id= "categories_drop" class="right hide-on-med-and-down">
 		<li id= "search_bar">
-			<form>
+			<form action="productSearch">
 <div class="input-field col s1 li_no_hover arrange" id ="nav-category-select">
-   <select id ="categorySelect">
+<input id="searchSubmit" type="submit" value="">
+   <select id ="categorySelect" name="agegroup">
 				      <option value="ALL">ALL</option>
 				      <option value="MEN">Men</option>
 				      <option value="WOMEN">Women</option>
@@ -20,8 +21,8 @@
 
 				
 				<div class="input-field arrange col l2 s2 m2">
-					<input id="search" type="search" required>
-					<label for="search"><i class="mdi-action-search"></i></label>
+					<input id="searchProduct" type="search" name="searchProduct" required>
+					<label for="searchProduct"><i class="mdi-action-search"></i></label>
 				</div>
 			</form>
 		</li>
