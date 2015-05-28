@@ -38,7 +38,8 @@
 		<b>India-Cart</b>
 	</span>
 			<ul id= "categories_drop" class="right hide-on-med-and-down">
-				<li id= "search_bar"><form id="searchform" >
+				<li id= "search_bar"><form id="searchform" onsubmit="searchForm()">
+				<input id="searchSubmit" type="submit" value="">
 				<div class="input-field col s1 li_no_hover arrange" id ="nav-category-select">
 				    <select id ="categorySelect">
 				      <option value="ALL">ALL</option>
@@ -54,7 +55,9 @@
 							<label for="searchproduct"><i class="mdi-action-search"></i></label>
 							</div>
 						</form></li>
-				<li><a href="userCart.html"><i class="mdi-action-add-shopping-cart"></i></a></li>
+
+		<li><a href="userCart=${pageContext.request.userPrincipal.name}.html"><i class="mdi-action-add-shopping-cart"></i></a></li>
+
 		<li><c:url value="/j_spring_security_logout" var="logoutUrl" />
 			<form action="${logoutUrl}" method="post" id="logoutForm"
 					style="margin-bottom: 0px;">
@@ -77,6 +80,7 @@
 							</c:otherwise>
 						</c:choose>
 					</li>
+
 					<li><a href="javascript:formSubmit()">Logout</a></li>
 				</ul>
 			</c:if>
@@ -84,7 +88,6 @@
 			 	<a href="login"><i class="mdi-action-account-circle"></i></a>
 			 </c:if>
 		</li>
-				
 			</ul>
 		</div>
 	</nav>
@@ -167,7 +170,7 @@
                                     </c:choose>
                                 </div>
                                 <div class="card-action">
-                                    <a class="waves-effect waves-light btn add-to-cart" onclick="Materialize.toast('<span>Added to Cart!</span><a class=&quot;btn-flat yellow-text&quot; href=&quot;#!&quot;>Undo</a>', 3000)">Add To Cart</a>
+                                    <a class="waves-effect waves-light btn add-to-cart" onclick="addtoCart('${product.productName}');">Add To Cart</a>
                                 </div>
                             </div>
                         </div>
@@ -193,8 +196,41 @@
 </html>
 
 <script>
+function searchForm() {
+	var searchQuery = $("#searchproduct").val();
+	var search = $("#categorySelect").val();
+	alert("hello");
+		    $.ajax({
+		    type: "GET",
+            url: "pr",
+            contentType : 'application/json; charset=utf-8',
+            data: { "searchproduct" :searchQuery,
+            		"category" :search,
+            }, 
+          
+              success :function(result) {
+         $("#productList").html(result);
+            		          			
+          },error:function(e){
+        	  alert("error"+e);
+          }});	    
+		
+}
 
-
+function addtoCart(productName)
+{
+	var curUser = $("#curUser").html();
+	
+	$.ajax({
+        type: "GET",
+        url: "userAddToCart",
+        contentType : 'application/json; charset=utf-8',
+        data: { "productname" :productName,
+        	"user": curUser
+        }, 
+          success :function(result) {
+        	  location.reload();
+        		          			
+      }});	    
+	}
 </script>
-
-

@@ -18,7 +18,7 @@
                                     </c:choose>
                                 </div>
                                 <div class="card-action">
-                                    <a class="waves-effect waves-light btn add-to-cart" onclick="Materialize.toast('<span>Added to Cart!</span><a class=&quot;btn-flat yellow-text&quot; href=&quot;#!&quot;>Undo</a>', 3000)">Add To Cart</a>
+                                    <a class="waves-effect waves-light btn add-to-cart" onclick="addtoCart('${product.productName}');">Add To Cart</a>
                                 </div>
                             </div>
                         </div>
@@ -27,3 +27,21 @@
                 </c:if>                   
             </div>
 
+<script>
+addtoCart(productName)
+{
+	var curUser = $("#curUser").html();
+
+	$.ajax({
+        type: "GET",
+        url: "userAddToCart",
+        contentType : 'application/json; charset=utf-8',
+        data: { "productname" :productName,
+        	"user": curUser
+        }, 
+          success :function(result) {
+        	  location.reload();
+        		          			
+      }});	    
+	}
+</script>

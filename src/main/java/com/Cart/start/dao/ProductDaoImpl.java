@@ -131,11 +131,11 @@ public class ProductDaoImpl implements ProductDao{
 			cr.add(Restrictions.like("gender",Gender.valueOf(filter.getAgeGroup())));
 		}
 		cr.add(Restrictions.like("productName",productname));
-		Disjunction or = Restrictions.disjunction();
-		for(String brand:filter.getBrand()){
-			or.add(Restrictions.eq("brand",brand));
-		}
-		cr.add(or);
+//		Disjunction or = Restrictions.disjunction();
+//		for(String brand:filter.getBrand()){
+//			or.add(Restrictions.eq("brand",brand));
+//		}
+//		cr.add(or);
 		Disjunction orr = Restrictions.disjunction();
 		for(String category:filter.getCategory()){
 			orr.add(Restrictions.eq("category.categoryName",category));

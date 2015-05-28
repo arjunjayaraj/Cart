@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.Cart.start.model.Cart;
 import com.Cart.start.model.Filter;
 import com.Cart.start.model.Products;
 import com.Cart.start.model.Users;
+import com.Cart.start.service.CartService;
 import com.Cart.start.service.ProductService;
 import com.Cart.start.service.UsersService;
 
@@ -36,11 +38,18 @@ public class HomeController {
 		this.usersService = usersService;
 	}
 
+	@Autowired
+	private ProductService productService;
 	public final void setProductService(ProductService productService) {
 		this.productService = productService;
 	}
+	
 	@Autowired
-	private ProductService productService;
+	private CartService cartService;
+
+	public final void setCartService(CartService cartService) {
+		this.cartService = cartService;
+	}
 	
 	/**
      * This is to covert org.springframework.web.multipart.commons.CommonsMultipartFile to
@@ -55,6 +64,7 @@ public class HomeController {
 	
 //				Main Home
 	
+
 	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
 	public ModelAndView welcomePage() {
 
@@ -227,7 +237,7 @@ public class HomeController {
 		modelView.addObject("listcategory", listcategory);
 		return modelView;
 	}
-	@RequestMapping(value="/productsearch",method = RequestMethod.GET)
+	@RequestMapping(value="/pr",method = RequestMethod.GET)
 	public  @ResponseBody ModelAndView productsearch(@RequestParam("searchproduct") String search, @RequestParam("category") String category){
 		ModelAndView modelView = search(search,category);
 		modelView.setViewName("search");
@@ -245,8 +255,9 @@ public class HomeController {
 		return modelView;
 	}
 	
-	@RequestMapping(value="productSearch")
+	@RequestMapping(value="/productSearch")
 	public  ModelAndView productSearch(@RequestParam("agegroup") String agegroup,@RequestParam("searchProduct") String search){
+		System.out.println("inside search");
 		ModelAndView modelView = search(search,agegroup);
 		modelView.setViewName("product");
 		return modelView;
@@ -317,6 +328,7 @@ public class HomeController {
 			modelView.setViewName("product");
 			return modelView;
 	}
+
 	@RequestMapping(value = "/filter", method = RequestMethod.POST  )
 	public @ResponseBody ModelAndView filterList(@RequestBody Filter filter) {
 		ModelAndView modelView = new ModelAndView();
@@ -328,4 +340,25 @@ public class HomeController {
 	}
 	
 
+	
+	//				CART PAGES
+	@RequestMapping(value = "/userAddToCart", method = RequestMethod.GET)
+	public void addToCart(@RequestParam ("productname") String productName, 
+			@RequestParam ("user") String curUser)	{
+		this.cartService.addToCart(productName, curUser);
+	}
+
+
+	@RequestMapping(value = { "/userCart={email}.html" }, method = RequestMethod.GET)
+	public ModelAndView userCart(@PathVariable("email") String email) {
+
+		ModelAndView model = new ModelAndView();
+		System.out.println(email);
+		List<Cart> userCart= this.cartService.listAllByUser(email);
+		System.out.println(userCart);
+		model.addObject("listCart", userCart);
+		model.setViewName("userCart");
+		return model;
+
+	}
 }

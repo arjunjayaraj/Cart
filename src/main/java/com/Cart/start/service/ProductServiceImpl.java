@@ -53,6 +53,7 @@ public class ProductServiceImpl implements ProductService {
 	 @Transactional
 	public void addProduct(Products product){
 		 Category category = this.categoryService.findBycategoryName(product.getCategory().getCategoryName());
+		 System.out.println(category);
 			if(category!=null){
 			product.setCategory(category);
 			}
