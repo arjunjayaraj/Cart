@@ -1,2 +1,23 @@
-#productFormAge{
+.filter-form{
+  margin-left: 60px;
+  max-height:150px;
+  overflow-y:scroll;
+}
+.product-card{
+height: 315px;
+}
+.product-item-image{
+max-height: 165px
+}
+#priceFilter{
+margin-top:20px;
+margin-bottom:10px;
+margin-left:10px;
+margin-right:10px;
+}
+#filterButton{
+margin-top:5px;
+}
+#stockFilter{
+margin-left: 60px;
 }

@@ -18,16 +18,21 @@
 			<label for="quantity">Quantity</label>
 			<input id = "quantity" name="quantity" placeholder="QUANTITY" />
 		</div>
-		<div class="pure-control-group "  style="width: inherit;">
-			<label for="brand">Age Group</label>
-			<select id ="productFormAge" name="gender" style="display: none;">
-				      <option value="10">10</option>
-				      <option value="20">20</option>
-				      <option value="30">30</option>
-				      <option value="40">40</option>
-				      <option value="50">50</option>
-				    </select>
-		</div>
 
+	<div class="pure-control-group">
+			<label for="categoryName">Category</label>
+			<input id = "categoryName" name="category.categoryName" placeholder="CATEGOEY NAME" />
+			<label for="productImage">IMAGE</label>
+			<input id = "productImage" type="text" name="productImage" style="width: 220px;" />
+		</div>
+	<div class="pure-control-group" style="width: 240px;background-color: white; margin-left: 140px;color: black;">
+	<select id ="productFormAge" name="gender" style="width:100px;padding-left: 20px;display:none">
+					 <option value="MEN">MEN</option>
+				      <option value="WOMEN">WOMEN</option>
+				      <option value="BOYS">BOYS</option>
+				      <option value="GIRLS">GIRLS</option>
+				      <option value="UNISEX">UNISEX</option>
+			</select>
+		</div>
 	</fieldset>
 </form>

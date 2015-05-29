@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.Cart.start.dao.ProductDao;
 import com.Cart.start.model.Category;
+import com.Cart.start.model.Filter;
 import com.Cart.start.model.Products;
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -30,6 +31,11 @@ public class ProductServiceImpl implements ProductService {
 	 @Transactional
 	public Products findByProductName(String productName){
 			return this.productDao.findByProductName(productName);
+	}
+	@Override
+	 @Transactional
+	public Products findById(int productID){
+		return this.productDao.findById(productID);
 	}
 	@Override
 	 @Transactional
@@ -56,7 +62,8 @@ public class ProductServiceImpl implements ProductService {
 	 @Override
 	 @Transactional
 	public void updateProduct(Products product){
-		 Products entity =findByProductName(product.getProductName()); // To check entity is present
+		 System.out.println("product id is" +product.getProductId());
+		 Products entity =findById(product.getProductId()); // To check entity is present
 			if(entity!=null){
 				entity.setProduct(product);
 				if(!(product.getCategory().getCategoryName().equals(entity.getCategory().getCategoryName()))){ //To check whether category is changed or not
@@ -94,6 +101,27 @@ public class ProductServiceImpl implements ProductService {
 			}
     	
     }
+	 @Override
+	 @Transactional
+	 @SuppressWarnings("null")
+	public List<String>brands(){
+ 
+		 List<String> brand = this.productDao.brands();
+
+		 return brand;
+	 }
+	 @Override
+	 @Transactional
+	  public List<Products> filterList(Filter filter){
+		  return this.productDao.filterList(filter);
+		  
+	  }
+	 @Override
+	 @Transactional
+	 public List<String>categoryList(){
+			  return this.productDao.categoryList();
+		 
+	 }
 	
 
 }

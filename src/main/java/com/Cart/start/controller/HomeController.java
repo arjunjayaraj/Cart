@@ -6,6 +6,8 @@ import java.util.List;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,12 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.Cart.start.model.Cart;
+import com.Cart.start.model.Category;
+import com.Cart.start.model.Filter;
 import com.Cart.start.model.Products;
 import com.Cart.start.model.Users;
 import com.Cart.start.service.CartService;
+import com.Cart.start.service.CategoryService;
 import com.Cart.start.service.ProductService;
 import com.Cart.start.service.UsersService;
 
@@ -39,13 +45,30 @@ public class HomeController {
 	public final void setProductService(ProductService productService) {
 		this.productService = productService;
 	}
-	
+
+	@Autowired
+	private CategoryService categoryService;
+	public void setCategoryService(CategoryService categoryService) {
+		this.categoryService = categoryService;
+	}
+
 	@Autowired
 	private CartService cartService;
 
 	public final void setCartService(CartService cartService) {
 		this.cartService = cartService;
 	}
+	
+	/**
+     * This is to covert org.springframework.web.multipart.commons.CommonsMultipartFile to
+     * byte[] in HadoopConnection.java
+     * @param binder
+     */
+    @InitBinder
+    public void initBinderAll(WebDataBinder binder) {
+        binder.registerCustomEditor(byte[].class,  new ByteArrayMultipartFileEditor());
+    }
+	
 	
 //				Main Home
 	
@@ -216,45 +239,79 @@ public class HomeController {
 		modelView.setViewName("product");
 		List<Products> listproducts = this.productService.listProducts();
 		modelView.addObject("listproducts", listproducts);
+		List<String> listbrand = this.productService.brands();
+		modelView.addObject("listbrand", listbrand);
+		List<String> listcategory = this.productService.categoryList();
+		modelView.addObject("listcategory", listcategory);
 		return modelView;
 	}
 	@RequestMapping(value="/productsearch",method = RequestMethod.GET)
 	public  @ResponseBody ModelAndView productsearch(@RequestParam("searchproduct") String search, @RequestParam("category") String category){
-		ModelAndView modelView = new ModelAndView();
+		ModelAndView modelView = search(search,category);
 		modelView.setViewName("search");
-		List<Products> listproducts = this.productService.searchByGenderAndProductName(search, category);
-		modelView.addObject("listproducts", listproducts);
 		return modelView;
 		
+	}
+	public  ModelAndView search(String search,String agegroup){
+		ModelAndView modelView = new ModelAndView();
+		List<Products> listproducts = this.productService.searchByGenderAndProductName(search, agegroup);
+		modelView.addObject("listproducts", listproducts);
+		List<String> listbrand = this.productService.brands();
+		modelView.addObject("listbrand", listbrand);
+		List<Category> listcategory = this.categoryService.listCategory();
+		modelView.addObject("listcategory", listcategory);
+		return modelView;
 	}
 	
 	@RequestMapping(value="/productSearch")
-	public  ModelAndView productSearch(@RequestParam("agegroup") String category,@RequestParam("searchProduct") String search){
-		ModelAndView modelView = new ModelAndView();
+	public  ModelAndView productSearch(@RequestParam(value = "agegroup", required = false) String agegroup,@RequestParam("searchProduct") String search){
+		System.out.println("inside search");
+		ModelAndView modelView = search(search,agegroup);
 		modelView.setViewName("product");
-		List<Products> listproducts = this.productService.searchByGenderAndProductName(search, category);
-		modelView.addObject("listproducts", listproducts);
-		modelView.addObject("agegroup", category);
-		
 		return modelView;
 		
 	}
+	@RequestMapping(value="product={agegroup}")
+	public  ModelAndView productGroup(@PathVariable("agegroup") String ageGroup){
+		String search="";
+		ModelAndView modelView = search(search,ageGroup);
+		modelView.setViewName("product");
+		return modelView;
 		
+	}
 	@RequestMapping(value = "/addproduct", method = RequestMethod.POST)
-	public ModelAndView productAdd(@ModelAttribute("product") Products product){
+	public ModelAndView productAdd(@ModelAttribute("product") Products products){
 		ModelAndView modelView = new ModelAndView();
-		System.out.println("The gender is  " +product.getGender());
-			this.productService.addProduct(product);
+			this.productService.addProduct(products);
 			modelView.setViewName("adminProductControl");
 			return modelView;
 	}
+	@RequestMapping(value = "/adproduct", method = RequestMethod.POST)
+	public @ResponseBody ModelAndView adproduct(@RequestBody Products product) {
+		System.out.println(product);
+		System.out.println("in ad product");
+		ModelAndView model = new ModelAndView();
+		this.productService.addProduct(product);
+		model.setViewName("product");
+		return model;
+	}
 	
-	@RequestMapping(value = "/updateproduct", method = RequestMethod.POST )
+	@RequestMapping(value = "/updateproduct", method = {RequestMethod.POST,RequestMethod.GET} )
 	public ModelAndView productupdate(@ModelAttribute("product") Products product){
 		ModelAndView modelView = new ModelAndView();
 			this.productService.updateProduct(product);
 			modelView.setViewName("home");
 			return modelView;
+	}
+
+	@RequestMapping(value = "/upproduct", method = RequestMethod.POST)
+	public @ResponseBody ModelAndView upproduct(@RequestBody Products product) {
+		System.out.println(product);
+		System.out.println("in ad product");
+		ModelAndView model = new ModelAndView();
+		this.productService.updateProduct(product);
+		model.setViewName("product");
+		return model;
 	}
 	
 	@RequestMapping(value = "/removeproduct", method = RequestMethod.GET  )
@@ -264,13 +321,30 @@ public class HomeController {
 			modelView.setViewName("product");
 			return modelView;
 	}
+
+	@RequestMapping(value = "/filter", method = RequestMethod.POST  )
+	public @ResponseBody ModelAndView filterList(@RequestBody Filter filter) {
+		ModelAndView modelView = new ModelAndView();
+		System.out.println(filter.getCategory());
+		List<Products> listproducts = this.productService.filterList(filter);
+		modelView.addObject("listproducts", listproducts);
+		modelView.setViewName("search");
+		return modelView;
+	
+	}
+	
+
 	
 	//				CART PAGES
 	@RequestMapping(value = "/userAddToCart", method = RequestMethod.GET)
-	public void addToCart(@RequestParam ("productname") String productName, 
+	public ModelAndView addToCart(@RequestParam ("productname") String productName, 
 			@RequestParam ("user") String curUser)	{
 		this.cartService.addToCart(productName, curUser);
+		ModelAndView model = new ModelAndView();
+		model.setViewName("userCart");
+		return model;
 	}
+
 
 	@RequestMapping(value = { "/userCart={email}.html" }, method = RequestMethod.GET)
 	public ModelAndView userCart(@PathVariable("email") String email) {

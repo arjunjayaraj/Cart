@@ -8,12 +8,13 @@
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
 
     <!--Import materialize.css-->
+     <link type="text/css" rel="stylesheet" href="resources/css/materialize.min.css" media="screen,projection" />
     <link rel="stylesheet"	href='<c:url value="resources/css/pure-0.4.2.css"/>'>
     <link rel="stylesheet"	href='<c:url value="resources/css/font-awesome-4.0.3/css/font-awesome.css"/>'>
 	<link rel="stylesheet"	href='<c:url value="resources/css/jquery-ui-1.10.4.custom.css"/>'>
     <link type="text/css" rel="stylesheet" href="resources/css/materialize.min.css" media="screen,projection" />
-    <link type="text/css" rel="stylesheet" href="resources/css/Items.css" media="screen,projection" />
 	<link type="text/css" rel="stylesheet" href="resources/css/home.css"  media="screen,projection"/>
+	<link type="text/css" rel="stylesheet" href="resources/css/product.css"  media="screen,projection"/>
 	
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -32,9 +33,13 @@
 <nav>
 		<div class="nav-wrapper">
 
-			<a href="#!" class="brand-logo">Logo</a>
+				<a href="home" ><img id="logo_img" src= "resources/images/shopify-bag.png"></a>
+	<span id= "nav_title">
+		<b>India-Cart</b>
+	</span>
 			<ul id= "categories_drop" class="right hide-on-med-and-down">
-				<li id= "search_bar"><form id="searchform" >
+				<li id= "search_bar">
+				<form id="searchform" onkeyup="searchForm();" >
 				<div class="input-field col s1 li_no_hover arrange" id ="nav-category-select">
 				    <select id ="categorySelect">
 				      <option value="ALL">ALL</option>
@@ -49,8 +54,11 @@
 							<input id="searchproduct" type="search" required  name="searchproduct">
 							<label for="searchproduct"><i class="mdi-action-search"></i></label>
 							</div>
-						</form></li>
+						</form>
+					</li>
+
 		<li><a href="userCart=${pageContext.request.userPrincipal.name}.html"><i class="mdi-action-add-shopping-cart"></i></a></li>
+
 		<li><c:url value="/j_spring_security_logout" var="logoutUrl" />
 			<form action="${logoutUrl}" method="post" id="logoutForm"
 					style="margin-bottom: 0px;">
@@ -73,7 +81,8 @@
 							</c:otherwise>
 						</c:choose>
 					</li>
-					<li><a href="javascript:logout()">Logout</a></li>
+
+					<li><a href="javascript:formSubmit()">Logout</a></li>
 				</ul>
 			</c:if>
 			 <c:if test="${pageContext.request.userPrincipal.name == null}">
@@ -89,48 +98,105 @@
 	<div class="row">
         <div class="col s12 m4 l3">
           <!-- Grey navigation panel -->
+          <c:choose>
+          <c:when test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
+          <div>
+                 <a class="waves-effect waves-light btn" onclick="addProduct()">Add Product</a>
+          </div>
+        </c:when>
+          </c:choose>
             <ul class="collapsible" data-collapsible="accordion">
+                <li>
+                    <div class="collapsible-header">
+                        <i class="mdi-action-list"></i>BRAND
+                    </div>
+                    <div class="collapsible-body">
+                     <form id="brandFilter" class="filter-form">
+					<ul>
+					<c:if test="${!empty listbrand}">
+                    <c:forEach items="${listbrand}" var="brand">
+   					<li>  <input name="brand" type="checkbox" value="${brand}" id="${brand}"/>
+      				<label for="${brand}">${brand}</label> </li>
+      				</c:forEach>
+      				</c:if>
+      				</ul>
+     
+    		</form>
+                
+                </div>
+                </li>
                 <li>
                     <div class="collapsible-header">
                         <i class="mdi-action-list"></i>Category
                     </div>
                     <div class="collapsible-body">
-                        <p>Lorem ipsum dolor sit amet.</p>
+                          <form id="categoryFilter" class="filter-form">
+					<ul>
+					<c:if test="${!empty listcategory}">
+                    <c:forEach items="${listcategory}" var="category">
+   					<li>  <input name="category" type="checkbox" value="${category.categoryId}" id="${category.categoryName}"/>
+      				<label for="${category.categoryName}">${category.categoryName}</label> </li>
+      				</c:forEach>
+      				</c:if>
+      				</ul>
+     
+    		</form>
                     </div>
                 </li>
                 <li>
                     <div class="collapsible-header">
-                        <i class="mdi-action-list"></i>Price range
+                    <i class="mdi-action-list"></i>Maximum Price
                     </div>
                     <div class="collapsible-body">
-                        <p>Lorem ipsum dolor sit amet.</p>
+                        <form class="range-field" id=priceFilter>
+     						 <input type="range" id="priceinput" min="0" max="100000" />
+  					  </form>
                     </div>
-                </li>
+                 </li>
+                  <li>
+                    <div class="collapsible-header">
+                    <i class="mdi-action-list"></i>Availability
+                    </div>
+                    <div class="collapsible-body">
+                    
+                        <form id=stockFilter>
+                        <ul>
+                        <li>
+     					
+      	 <input type="checkbox" id="quantityFilter" value="1"/>
+      <label for="quantityFilter">Exclude Out of Stock</label>
+  					  </li>
+  					  </ul>
+  					  </form>
+                    </div>
+                 </li>
+                
+                
+                
                 <li>
                     <div class="collapsible-header">
-                        <i class="mdi-action-list"></i>Brand
+                        <i class="mdi-action-list"></i>
+              <a class="waves-effect waves-light btn add-to-cart" id="filterButton" onclick="filter()">Filter</a>
                     </div>
-                    <div class="collapsible-body">
-                        <p>Lorem ipsum dolor sit amet.</p>
-                    </div>
-                </li>
+                 </li>
             </ul>
         </div>
+
 <div class="col s12 m8 l9" id="productList">
             <!-- Main page content  -->
             <div class="row" >
                 <c:if test="${!empty listproducts}">
                     <c:forEach items="${listproducts}" var="product">
                         <div class="col s12 m6 l3">
-                            <div class="card">
+                            <div class="card product-card">
                                 <div class="card-image">
-                                    <img class="item-image" src="resources/images/${product.productImage}"><span class="card-title" style="color: black">${product.brand}</span>
+                                    <img class="item-image product-item-image" src="resources/images/${product.productImage}"><span class="card-title" style="color: black">Brand:${product.brand}</span>
                                 </div>
-                                <div class="card-content">
+                                <div class="card-content product-content">
                                     <p>${product.productName}</p>
                                     <c:choose>
                                     <c:when test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
-                                    <a class="waves-effect waves-light btn product-change"  onclick="editProduct()">EDIT</a>
+                                    <a class="waves-effect waves-light btn product-change"  onclick="editProduct('${product.productId}','${product.productName}','${product.brand}','${product.quantity}','${product.productPrice}','${product.productImage}','${product.category.categoryName}','${product.gender}')">EDIT</a>
                                     <a class="waves-effect waves-light btn product-change" onclick="deleteProduct('${product.productName}')">DELETE</a>
                                     </c:when>
                                     </c:choose>
@@ -162,46 +228,29 @@
 </html>
 
 <script>
-
-function editProduct() {
-	$("#productDialog").html();
-	$('#productDialog').dialog("option", "title", "Edit Product");
-	$("#productDialog").dialog('open');
-
-	}
-
-$(document).ready(function() {
-	$('#productDialog').dialog({
-		autoOpen : false,
-		position : 'center',
-		modal : true,
-		resizable : false,
-		top:0,
-		width : 800,
-		buttons : {
-			"Save" : function() {
-			},
-			"Cancel" : function() {
-				$(this).dialog('close');
-			}
-		},
-		close : function() {
-
-			resetDialog($('#productDialog'));
-
-			$(this).dialog('close');
-		}
-	});
-});
-
-function resetDialog(form) {
-	form.find("input").val("");
+function searchForm() {
+	var searchQuery = $("#searchproduct").val();
+	var search = $("#categorySelect").val();
+	
+		    $.ajax({
+            type: "GET",
+            url: "productsearch",
+            contentType : 'application/json; charset=utf-8',
+            data: { "searchproduct" :searchQuery,
+            		"category" :search,
+            }, 
+          
+              success :function(result) {
+         $("#productList").html(result);
+            		          			
+          }});	    
+		
 }
 
 function addtoCart(productName)
 {
 	var curUser = $("#curUser").html();
-	alert(productName);
+	
 	$.ajax({
         type: "GET",
         url: "userAddToCart",
@@ -209,9 +258,10 @@ function addtoCart(productName)
         data: { "productname" :productName,
         	"user": curUser
         }, 
-          success :function(result) {
+          success :function(result) {/* 
+       
         	  location.reload();
         		          			
-      }});	    
+       */}});	    
 	}
 </script>

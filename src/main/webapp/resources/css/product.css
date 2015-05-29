@@ -1,0 +1,34 @@
+/* line 1, ../sass/product.scss */
+.filter-form {
+  margin-left: 60px;
+  max-height: 150px;
+  overflow-y: scroll;
+}
+
+/* line 6, ../sass/product.scss */
+.product-card {
+  height: 315px;
+}
+
+/* line 9, ../sass/product.scss */
+.product-item-image {
+  max-height: 165px;
+}
+
+/* line 12, ../sass/product.scss */
+#priceFilter {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+/* line 18, ../sass/product.scss */
+#filterButton {
+  margin-top: 5px;
+}
+
+/* line 21, ../sass/product.scss */
+#stockFilter {
+  margin-left: 60px;
+}

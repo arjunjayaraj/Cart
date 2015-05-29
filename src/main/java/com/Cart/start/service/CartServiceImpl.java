@@ -41,11 +41,18 @@ public class CartServiceImpl implements CartService{
 		// TODO Auto-generated method stub
 		Users user = this.userDao.findByUserName(email);
 		Products product = this.productDao.findByProductName(productName);
+		Cart cart1 = this.cartDao.findByProductID(product.getProductId());
+		if(cart1!=null){
+		int qty = cart1.getQty()+1;
+			cart1.setQty(qty);
+		}
+		else{
 		Cart cart = new Cart();
 		cart.setProduct(product);
 		cart.setUser(user);
 		cart.setQty(1);
 		this.cartDao.addToCart(cart);
+		}
 		
 	}
 	
@@ -78,6 +85,10 @@ public class CartServiceImpl implements CartService{
 	public void updateQty(int qty) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Transactional
+	public Cart findByProductID(int productId){
+		return this.cartDao.findByProductID(productId);
 	}
 
 }

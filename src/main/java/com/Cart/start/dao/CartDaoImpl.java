@@ -71,5 +71,11 @@ public class CartDaoImpl implements CartDao{
 		Cart cart = (Cart) session.get(Cart.class, new Integer(cartId));
 		return cart;
 	}
+	public Cart findByProductID(int productId){
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria cr =session.createCriteria(Cart.class);
+		cr.add(Restrictions.like("product.productId",productId));
+		return (Cart) cr.uniqueResult();
+	}
 
 }
