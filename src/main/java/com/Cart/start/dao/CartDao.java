@@ -13,4 +13,5 @@ public interface CartDao {
     public List<Cart> listCart();
     public void removeItem(Integer cartId);
     public void removeAllItems(Users user);
+    public Cart findByProductID(int productId);
 }

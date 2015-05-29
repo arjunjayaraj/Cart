@@ -258,9 +258,10 @@ function addtoCart(productName)
         data: { "productname" :productName,
         	"user": curUser
         }, 
-          success :function(result) {
+          success :function(result) {/* 
+       
         	  location.reload();
         		          			
-      }});	    
+       */}});	    
 	}
 </script>

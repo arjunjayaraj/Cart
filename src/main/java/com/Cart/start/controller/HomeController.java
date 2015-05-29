@@ -271,7 +271,7 @@ public class HomeController {
 		return modelView;
 		
 	}
-	@RequestMapping(value="productss/{agegroup}")
+	@RequestMapping(value="product={agegroup}")
 	public  ModelAndView productGroup(@PathVariable("agegroup") String ageGroup){
 		String search="";
 		ModelAndView modelView = search(search,ageGroup);
@@ -279,21 +279,6 @@ public class HomeController {
 		return modelView;
 		
 	}
-	@RequestMapping(value="MEN")
-	public  ModelAndView productmen(){
-		ModelAndView modelView = search("","MEN");
-		modelView.setViewName("product");
-		return modelView;
-		
-	}
-	@RequestMapping(value="WOMEN")
-	public  ModelAndView productwomen(){
-		ModelAndView modelView = search("","WOMEN");
-		modelView.setViewName("product");
-		return modelView;
-		
-	}
-		
 	@RequestMapping(value = "/addproduct", method = RequestMethod.POST)
 	public ModelAndView productAdd(@ModelAttribute("product") Products products){
 		ModelAndView modelView = new ModelAndView();
@@ -352,9 +337,12 @@ public class HomeController {
 	
 	//				CART PAGES
 	@RequestMapping(value = "/userAddToCart", method = RequestMethod.GET)
-	public void addToCart(@RequestParam ("productname") String productName, 
+	public ModelAndView addToCart(@RequestParam ("productname") String productName, 
 			@RequestParam ("user") String curUser)	{
 		this.cartService.addToCart(productName, curUser);
+		ModelAndView model = new ModelAndView();
+		model.setViewName("userCart");
+		return model;
 	}
 
 
