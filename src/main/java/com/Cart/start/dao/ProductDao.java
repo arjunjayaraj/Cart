@@ -2,6 +2,7 @@ package com.Cart.start.dao;
 
 import java.util.List;
 
+import com.Cart.start.model.Category;
 import com.Cart.start.model.Filter;
 import com.Cart.start.model.Products;
 

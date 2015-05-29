@@ -13,11 +13,29 @@ public class Filter implements Serializable{
 private String search;
 private String ageGroup;
 private List<String> brand;
-private List<String> category;
-public List<String> getCategory() {
+private List<Integer> category;
+private double maximumPrice;
+private Integer availability;
+
+public double getMaximumPrice() {
+	return maximumPrice;
+}
+public void setMaximumPrice(double maximumPrice) {
+	this.maximumPrice = maximumPrice;
+}
+public Integer getAvailability() {
+	return availability;
+}
+public void setAvailability(Integer availability) {
+	this.availability = availability;
+}
+
+
+
+public List<Integer> getCategory() {
 	return category;
 }
-public void setCategory(List<String> category) {
+public void setCategory(List<Integer> category) {
 	this.category = category;
 }
 public String getSearch() {

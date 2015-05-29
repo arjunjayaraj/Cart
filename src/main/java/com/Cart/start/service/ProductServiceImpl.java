@@ -62,6 +62,7 @@ public class ProductServiceImpl implements ProductService {
 	 @Override
 	 @Transactional
 	public void updateProduct(Products product){
+		 System.out.println("product id is" +product.getProductId());
 		 Products entity =findById(product.getProductId()); // To check entity is present
 			if(entity!=null){
 				entity.setProduct(product);

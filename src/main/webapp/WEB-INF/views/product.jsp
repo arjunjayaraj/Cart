@@ -38,8 +38,8 @@
 		<b>India-Cart</b>
 	</span>
 			<ul id= "categories_drop" class="right hide-on-med-and-down">
-				<li id= "search_bar"><form id="searchform" onsubmit="searchForm()">
-				<input id="searchSubmit" type="submit" value="">
+				<li id= "search_bar">
+				<form id="searchform" onkeyup="searchForm();" >
 				<div class="input-field col s1 li_no_hover arrange" id ="nav-category-select">
 				    <select id ="categorySelect">
 				      <option value="ALL">ALL</option>
@@ -54,7 +54,8 @@
 							<input id="searchproduct" type="search" required  name="searchproduct">
 							<label for="searchproduct"><i class="mdi-action-search"></i></label>
 							</div>
-						</form></li>
+						</form>
+					</li>
 
 		<li><a href="userCart=${pageContext.request.userPrincipal.name}.html"><i class="mdi-action-add-shopping-cart"></i></a></li>
 
@@ -133,8 +134,8 @@
 					<ul>
 					<c:if test="${!empty listcategory}">
                     <c:forEach items="${listcategory}" var="category">
-   					<li>  <input name="brand" type="checkbox" value="${category}" id="${category}"/>
-      				<label for="${category}">${category}</label> </li>
+   					<li>  <input name="category" type="checkbox" value="${category.categoryId}" id="${category.categoryName}"/>
+      				<label for="${category.categoryName}">${category.categoryName}</label> </li>
       				</c:forEach>
       				</c:if>
       				</ul>
@@ -144,7 +145,38 @@
                 </li>
                 <li>
                     <div class="collapsible-header">
-                        <i class="mdi-action-list"></i><input type="button" onclick="filter()" value="Filter">
+                    <i class="mdi-action-list"></i>Maximum Price
+                    </div>
+                    <div class="collapsible-body">
+                        <form class="range-field" id=priceFilter>
+     						 <input type="range" id="priceinput" min="0" max="100000" />
+  					  </form>
+                    </div>
+                 </li>
+                  <li>
+                    <div class="collapsible-header">
+                    <i class="mdi-action-list"></i>Availability
+                    </div>
+                    <div class="collapsible-body">
+                    
+                        <form id=stockFilter>
+                        <ul>
+                        <li>
+     					
+      	 <input type="checkbox" id="quantityFilter" value="1"/>
+      <label for="quantityFilter">Exclude Out of Stock</label>
+  					  </li>
+  					  </ul>
+  					  </form>
+                    </div>
+                 </li>
+                
+                
+                
+                <li>
+                    <div class="collapsible-header">
+                        <i class="mdi-action-list"></i>
+              <a class="waves-effect waves-light btn add-to-cart" id="filterButton" onclick="filter()">Filter</a>
                     </div>
                  </li>
             </ul>
@@ -199,10 +231,10 @@
 function searchForm() {
 	var searchQuery = $("#searchproduct").val();
 	var search = $("#categorySelect").val();
-	alert("hello");
+	
 		    $.ajax({
-		    type: "GET",
-            url: "pr",
+            type: "GET",
+            url: "productsearch",
             contentType : 'application/json; charset=utf-8',
             data: { "searchproduct" :searchQuery,
             		"category" :search,
@@ -211,8 +243,6 @@ function searchForm() {
               success :function(result) {
          $("#productList").html(result);
             		          			
-          },error:function(e){
-        	  alert("error"+e);
           }});	    
 		
 }

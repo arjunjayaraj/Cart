@@ -19,10 +19,12 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.Cart.start.model.Cart;
+import com.Cart.start.model.Category;
 import com.Cart.start.model.Filter;
 import com.Cart.start.model.Products;
 import com.Cart.start.model.Users;
 import com.Cart.start.service.CartService;
+import com.Cart.start.service.CategoryService;
 import com.Cart.start.service.ProductService;
 import com.Cart.start.service.UsersService;
 
@@ -43,7 +45,13 @@ public class HomeController {
 	public final void setProductService(ProductService productService) {
 		this.productService = productService;
 	}
-	
+
+	@Autowired
+	private CategoryService categoryService;
+	public void setCategoryService(CategoryService categoryService) {
+		this.categoryService = categoryService;
+	}
+
 	@Autowired
 	private CartService cartService;
 
@@ -237,7 +245,7 @@ public class HomeController {
 		modelView.addObject("listcategory", listcategory);
 		return modelView;
 	}
-	@RequestMapping(value="/pr",method = RequestMethod.GET)
+	@RequestMapping(value="/productsearch",method = RequestMethod.GET)
 	public  @ResponseBody ModelAndView productsearch(@RequestParam("searchproduct") String search, @RequestParam("category") String category){
 		ModelAndView modelView = search(search,category);
 		modelView.setViewName("search");
@@ -250,13 +258,13 @@ public class HomeController {
 		modelView.addObject("listproducts", listproducts);
 		List<String> listbrand = this.productService.brands();
 		modelView.addObject("listbrand", listbrand);
-		List<String> listcategory = this.productService.categoryList();
+		List<Category> listcategory = this.categoryService.listCategory();
 		modelView.addObject("listcategory", listcategory);
 		return modelView;
 	}
 	
 	@RequestMapping(value="/productSearch")
-	public  ModelAndView productSearch(@RequestParam("agegroup") String agegroup,@RequestParam("searchProduct") String search){
+	public  ModelAndView productSearch(@RequestParam(value = "agegroup", required = false) String agegroup,@RequestParam("searchProduct") String search){
 		System.out.println("inside search");
 		ModelAndView modelView = search(search,agegroup);
 		modelView.setViewName("product");
@@ -332,6 +340,7 @@ public class HomeController {
 	@RequestMapping(value = "/filter", method = RequestMethod.POST  )
 	public @ResponseBody ModelAndView filterList(@RequestBody Filter filter) {
 		ModelAndView modelView = new ModelAndView();
+		System.out.println(filter.getCategory());
 		List<Products> listproducts = this.productService.filterList(filter);
 		modelView.addObject("listproducts", listproducts);
 		modelView.setViewName("search");

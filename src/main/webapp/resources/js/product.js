@@ -1,8 +1,23 @@
-$(document).ready(function(){
-	 
-				
-		});
-
+/*$(document).ready(function(){
+	$("#searchproduct").keyup( function() {
+					var searchQuery = $("#searchproduct").val();
+					var search = $("#categorySelect").val();
+					
+			 		    $.ajax({
+				            type: "GET",
+				            url: "productsearch",
+				            contentType : 'application/json; charset=utf-8',
+				            data: { "searchproduct" :searchQuery,
+				            		"category" :search,
+				            }, 
+				          
+				              success :function(result) {
+				         $("#productList").html(result);
+				            		          			
+				          }});	    
+						
+				});
+		});*/
 
 function deleteProduct(productName){
 	
@@ -32,11 +47,26 @@ function filter() {
 	filters.search=searchQuery;
 	filters.ageGroup=search
 	filters.brand=[];
-	for (i = 0; i < select.length; i++) {
-        if (select[i].checked) {
-           filters.brand.push(select[i].value);
-        }
-    }
+	filters.category=[];
+	filters.availability=0;
+	console.log(filters.availability);
+	filters.maximumPrice=$("#priceinput").val();
+	console.log($("#priceinput").val())
+	$('#brandFilter input:checked').each(function() {
+			filters.brand.push($(this).attr('value'));
+		});
+	$('#categoryFilter input:checked').each(function() {
+		filters.category.push($(this).attr('value'));
+	});
+
+
+
+	$('#quantityFilter input:checked').each(function() {
+		filters.availability=$(this).attr('value');
+	});
+		console.log(filters.maximumPrice);
+		console.log(filters.availability);
+   
 		    $.ajax({
             type: "POST",
             url: "filter",
@@ -69,6 +99,7 @@ function editProduct(id,name,brand,quantity,price,image,category,gender) {
 	$("#productPrice").val(price);
 	$("#quantity").val(quantity);
 	$("#categoryName").val(category);
+	$("#productImage").val(image);
 	productId=id;
 	}
 
@@ -86,7 +117,6 @@ $(document).ready(function() {
 				
 				var product={};
 					product.category={};
-					product.productImage=[];
 					product.category.categoryName=document.getElementById("categoryName").value;
 					product.quantity=document.getElementById("quantity").value;
 					product.productName=document.getElementById("productName").value;
@@ -94,7 +124,7 @@ $(document).ready(function() {
 					product.brand=document.getElementById("brand").value;
 					product.gender=document.getElementById("productFormAge").value;
 					product.productImage=document.getElementById("productImage").value;
-					console.log(product);
+				console.log(product);
 				if(productId==0){
 					product.productId=productId;
 					$.ajax({
@@ -112,6 +142,7 @@ $(document).ready(function() {
 				
 				}
 				else{
+					product.productId=productId;
 					$.ajax({
 		        	    type: "POST",
 		       	    	url: "upproduct",
@@ -140,15 +171,16 @@ $(document).ready(function() {
 			$(this).dialog('close');
 		}
 	});
+	
 });
+
 
 function resetDialog(form) {
 	form.find("input").val("");
 }
-//function formSubmit() {
-//	document.getElementById("logoutForm").submit();
-//}
-
+function formSubmit() {
+	document.getElementById("logoutForm").submit();
+}
 
 
 

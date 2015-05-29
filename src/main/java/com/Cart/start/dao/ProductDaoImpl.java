@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -131,16 +132,21 @@ public class ProductDaoImpl implements ProductDao{
 			cr.add(Restrictions.like("gender",Gender.valueOf(filter.getAgeGroup())));
 		}
 		cr.add(Restrictions.like("productName",productname));
-//		Disjunction or = Restrictions.disjunction();
-//		for(String brand:filter.getBrand()){
-//			or.add(Restrictions.eq("brand",brand));
-//		}
-//		cr.add(or);
-		Disjunction orr = Restrictions.disjunction();
-		for(String category:filter.getCategory()){
-			orr.add(Restrictions.eq("category.categoryName",category));
+		Disjunction or = Restrictions.disjunction();
+		for(String brand:filter.getBrand()){
+			or.add(Restrictions.eq("brand",brand));
 		}
-		cr.add(orr);
+		Disjunction or1 = Restrictions.disjunction();
+		for(int category:filter.getCategory()){
+			or1.add(Restrictions.eq("category.categoryId",category));
+			
+		}
+		cr.add(Restrictions.ge("quantity",filter.getAvailability()));
+		cr.add(Restrictions.le("productPrice",filter.getMaximumPrice()));
+		Conjunction and =Restrictions.conjunction();
+		and.add(or1);
+		and.add(or);
+		cr.add(and);
 		return cr.list();
 		  
 	  }
