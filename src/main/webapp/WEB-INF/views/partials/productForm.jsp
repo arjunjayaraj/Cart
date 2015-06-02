@@ -20,19 +20,32 @@
 		</div>
 
 	<div class="pure-control-group">
-			<label for="categoryName">Category</label>
-			<input id = "categoryName" name="category.categoryName" placeholder="CATEGOEY NAME" />
 			<label for="productImage">IMAGE</label>
-			<input id = "productImage" type="text" name="productImage" style="width: 220px;" />
-		</div>
-	<div class="pure-control-group" style="width: 240px;background-color: white; margin-left: 140px;color: black;">
-	<select id ="productFormAge" name="gender" style="width:100px;padding-left: 20px;display:none">
+			<input id = "productImage" type="text" name="productImage" disabled="disabled" />
+			<input type="file" name="file" id="file" />
+    		<input type="button" value="upload"  onclick="test();"/>
+			</div>
+			<div class="pure-control-group">
+			<table>
+			<tr>
+			<td><label for="categoryName">Category</label>
+			<input id = "categoryName" name="category.categoryName" placeholder="CATEGOEY NAME" /></td>
+			<td>Age Group</td>
+			<td><div id="formselectdiv">
+			<select id ="productFormAge" name="gender" >
 					 <option value="MEN">MEN</option>
 				      <option value="WOMEN">WOMEN</option>
 				      <option value="BOYS">BOYS</option>
 				      <option value="GIRLS">GIRLS</option>
 				      <option value="UNISEX">UNISEX</option>
-			</select>
-		</div>
-	</fieldset>
+			</select></div></td>
+			</tr>
+			</table>
+			</div>
+			<div class="" style="width: 100px;background-color: white; margin-left: 140px;color: black;">
+	
+			</div>
+		</fieldset>
+	
 </form>
+

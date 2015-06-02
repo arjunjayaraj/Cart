@@ -28,29 +28,39 @@
 		<h1>Cart</h1>
 	</div>
 	<div>
-		<table>
+		<table style="margin-left: 10%">
             <c:set var="subtotal" value="${0}"></c:set>
 			<thead>
 				<tr>
-					<th width="40%">ITEM</th>
+					<th width="20%">ITEM</th>
 					<th width="10%">QTY</th>
 					<th width="10%">PRICE</th>
-					<th width="20%">SUBTOTAL</th>
+					<th width="10%">SUBTOTAL</th>
+					<th width="10%">DELETE</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${listCart}" var="cart">
 					<tr>
-						 <c:set var="subtotal" value="${subtotal+ cart.product.productPrice}"></c:set> 
+						 <c:set var="total" value="${total+ (cart.product.productPrice*cart.qty)}"></c:set> 
 						<td>
-						<img src="${cart.product.productImage}" style="width: 25px;height:auto;">	
+						<img src="resources/images/${cart.product.productImage}" style="width: 10%;height:auto;">	
 						<c:out value="${cart.product.productName}"/>
 								</td>
 						<td><c:out value="${cart.qty}"/></td>
 						<td><c:out value="${cart.product.productPrice}"/></td>
-						<td><c:out value="${subtotal}"></c:out>
+						<td><c:out value="${cart.product.productPrice*cart.qty}"></c:out></td>
+						<td><button onclick="deleteitem('${cart.cartId}')">Delete</button> </td>
 					</tr>
 				</c:forEach>
+				
+				<tr>
+				<c:if test="${!empty listCart}">
+				<td></td><td></td>
+				<td>TOTAL</td><td><c:out value="${total}"></c:out></td>
+				<td><button onclick="deleteallitems()">Delete All</button> </td>
+				</c:if>
+				</tr>
 			</tbody>
 		</table>
 	</div>

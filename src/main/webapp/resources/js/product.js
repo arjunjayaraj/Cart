@@ -173,7 +173,65 @@ $(document).ready(function() {
 	});
 	
 });
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
+function test(){
+		var path = $("#file").val();
+		var filename = path.substring(path.lastIndexOf("\\") + 1);
+		var oMyForm = new FormData();
+		oMyForm.append("file", file.files[0]);
+	
+		    $.ajax({
+            url: "imageupload",
+            data: oMyForm,
+            dataType: 'text',
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            beforeSend: function(xhr){
+                xhr.setRequestHeader(header, token);
+              },  
+              success :function(result) {
+            	  $("#productImage").val(filename);
+                   		          			
+          }});	    
+}
+function searchForm() {
+	var searchQuery = $("#searchproduct").val();
+	var search = $("#categorySelect").val();
+	
+		    $.ajax({
+            type: "POST",
+            url: "productsearch",
+            contentType : 'application/json; charset=utf-8',
+            data: { "searchproduct" :searchQuery,
+            		"category" :search,
+            }, 
+          
+              success :function(result) {
+         $("#productList").html(result);
+            		          			
+          }});	    
+		
+}
 
+function addtoCart(productName)
+{
+	var curUser = $("#curUser").html();
+	
+	$.ajax({
+        type: "GET",
+        url: "userAddToCart",
+        contentType : 'application/json; charset=utf-8',
+        data: { "productname" :productName,
+        	"user": curUser
+        }, 
+          success :function(result) {/* 
+       
+        	  location.reload();
+        		          			
+       */}});	    
+	}
 
 function resetDialog(form) {
 	form.find("input").val("");
