@@ -32,3 +32,32 @@
 #stockFilter {
   margin-left: 60px;
 }
+
+/* line 25, ../sass/product.scss */
+.pure-control-group #productImage {
+  width: 220px;
+  color: black;
+  font-weight: 900;
+}
+/* line 30, ../sass/product.scss */
+.pure-control-group #file {
+  margin-left: 7%;
+  width: 30%;
+}
+/* line 34, ../sass/product.scss */
+.pure-control-group #formselectdiv {
+  width: 250px;
+  background-color: white;
+  margin-left: 0px;
+  color: black;
+}
+/* line 40, ../sass/product.scss */
+.pure-control-group #productFormAge {
+  width: 100px;
+  padding-left: 20px;
+  display: none;
+}
+/* line 45, ../sass/product.scss */
+.pure-control-group td, .pure-control-group th {
+  padding: 0px;
+}

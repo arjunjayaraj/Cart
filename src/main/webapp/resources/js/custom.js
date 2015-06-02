@@ -7,6 +7,40 @@ $('.dropdown-button').dropdown({
     belowOrigin: false // Displays dropdown below the button
   }
 )
+function deleteallitems(){
+	var curUser = $("#curUser").html();
+	var x = confirm('Are you sure you want to delete all Products? ');
+	if (x == true)
+	{
+	$.ajax({
+        type: "GET",
+        url: "cartDeleteAll",
+        contentType : 'application/json; charset=utf-8',
+        data: { "curUser" : curUser
+          }, 
+        success :function(result) {
+        	location.reload();
+       }
+    });
+	}
+	
+}
+function deleteitem(id){
+	var x = confirm('Are you sure you want to delete this Product? ');
+	if (x == true)
+	{
+	$.ajax({
+        type: "GET",
+        url: "cartProductDelete",
+        contentType : 'application/json; charset=utf-8',
+        data: { "id" : id
+          }, 
+        success :function(result) {
+        	location.reload();
+       }
+    });
+	}
+}
  $(document).ready(function() {
 		    $('select').material_select();
 		  });

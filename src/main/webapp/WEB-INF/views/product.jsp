@@ -228,40 +228,5 @@
 </html>
 
 <script>
-function searchForm() {
-	var searchQuery = $("#searchproduct").val();
-	var search = $("#categorySelect").val();
-	
-		    $.ajax({
-            type: "GET",
-            url: "productsearch",
-            contentType : 'application/json; charset=utf-8',
-            data: { "searchproduct" :searchQuery,
-            		"category" :search,
-            }, 
-          
-              success :function(result) {
-         $("#productList").html(result);
-            		          			
-          }});	    
-		
-}
 
-function addtoCart(productName)
-{
-	var curUser = $("#curUser").html();
-	
-	$.ajax({
-        type: "GET",
-        url: "userAddToCart",
-        contentType : 'application/json; charset=utf-8',
-        data: { "productname" :productName,
-        	"user": curUser
-        }, 
-          success :function(result) {/* 
-       
-        	  location.reload();
-        		          			
-       */}});	    
-	}
 </script>

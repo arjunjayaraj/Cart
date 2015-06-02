@@ -70,14 +70,15 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Transactional
-	public void deleteItem(String CartID) {
-		// TODO Auto-generated method stub
+	public void deleteItem(int cartId) {
+		this.cartDao.removeItem(cartId);
 		
 	}
 
 	@Transactional
 	public void deleteAllItem(String email) {
-		// TODO Auto-generated method stub
+	Users user = this.userDao.findByUserName(email);
+	this.cartDao.removeAllItems(user);
 		
 	}
 

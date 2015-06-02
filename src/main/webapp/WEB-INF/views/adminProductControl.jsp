@@ -3,7 +3,9 @@
 <html>
 <head>
  <title>Admin Product Control</title>
-    
+     <meta name="_csrf" content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
 
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="resources/css/materialize.min.css" media="screen,projection" />
@@ -110,12 +112,16 @@
 </form>
 </div>
 <div>
-<form method="POST" enctype="multipart/form-data"
-		action="/home">
-		File to upload: <input type="file" name="file"><br /> Name: <input
-			type="text" name="name"><br /> <br /> <input type="submit"
-			value="Upload"> Press here to upload the file!
-	</form>
+
+<form method="POST" action="upload"
+    enctype="multipart/form-data">
+
+<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" />
+    Please select a file to upload : <input type="file" name="file" id="file" />
+    <input type="button" value="upload"  onclick="test();"/>
+
+</form>
 </div>
 </div>
 
@@ -129,15 +135,39 @@
 
 </body>
 </html>
+
+
+
 <script type="text/javascript"
 		src="resources/js/lib/jquery-1.10.2.js"></script>
 	<script type="text/javascript"
 		src="resources/js/lib/jquery-ui-1.10.4.custom.js"></script>
 	<script type="text/javascript"
-		src="resources/js/lib/jquery.ui.datepicker.js"/></script>
-
-	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script type="text/javascript" src="resources/js/materialize.min.js"></script>
 	<script type="text/javascript" src="resources/js/home-ads.js"></script>
 	<script type="text/javascript" src="resources/js/custom.js"></script>
+	<script>
+
+
+function test(){
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+		var searchQuery = $("#file").val();
+		var oMyForm = new FormData($("#file").val());
+		    $.ajax({
+            type: "POST",
+            url: "upload",
+            contentType : false,
+            processData: false,
+            data:  {"file":oMyForm},
+            beforeSend: function(xhr){
+                xhr.setRequestHeader(header, token);
+              },  
+              success :function(result) {
+                   		          			
+          }});	    
+}
+
+
+</script>

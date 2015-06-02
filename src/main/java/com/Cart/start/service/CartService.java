@@ -9,7 +9,7 @@ public interface CartService {
 
 	public void addToCart(String productName, String email);
 	public List<Cart> listAllByUser(String email);
-	public void deleteItem(String CartID);
+	public void deleteItem(int CartID);
 	public void deleteAllItem(String email);
 	public void updateQty(int qty);
 	public Cart findByProductID(int productId);

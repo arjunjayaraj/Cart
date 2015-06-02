@@ -1,7 +1,14 @@
 package com.Cart.start.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
+
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -344,7 +353,22 @@ public class HomeController {
 		model.setViewName("userCart");
 		return model;
 	}
+	@RequestMapping(value = "/cartProductDelete", method = RequestMethod.GET)
+	public ModelAndView deleteFromCart(@RequestParam ("id") int id)	{
+		this.cartService.deleteItem(id);
+		ModelAndView model = new ModelAndView();
+		model.setViewName("userCart");
+		return model;
+	}
+	
 
+	@RequestMapping(value = "/cartDeleteAll", method = RequestMethod.GET)
+	public ModelAndView cartDeleteAll(@RequestParam ("curUser") String curUser)	{
+		this.cartService.deleteAllItem(curUser);
+		ModelAndView model = new ModelAndView();
+		model.setViewName("userCart");
+		return model;
+	}
 
 	@RequestMapping(value = { "/userCart={email}.html" }, method = RequestMethod.GET)
 	public ModelAndView userCart(@PathVariable("email") String email) {
@@ -356,6 +380,49 @@ public class HomeController {
 		model.addObject("listCart", userCart);
 		model.setViewName("userCart");
 		return model;
+	}
+	
+	@RequestMapping(value = "/imageupload", method = RequestMethod.POST)
+	@ResponseBody public String iamgeUpload(MultipartHttpServletRequest request, HttpServletResponse response) throws IOException{
+		Iterator<String> itr =  request.getFileNames();
+		 
+	     MultipartFile file = request.getFile(itr.next());
+	 	String name = file.getOriginalFilename();
+		String type = file.getContentType();
+		int index = type.indexOf( '/' );
+		index++;
+		String type2 = type.substring(index);
+		if (!file.isEmpty()) {
+	 BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
+	 File destination = new File("/home/arjun/training_workspace/workspace/Cart/src/main/webapp/resources/images/"+name); // something like C:/Users/tom/Documents/nameBasedOnSomeId.png
+	 ImageIO.write(src, type2, destination);
+	 //Save the id you have used to create the file name in the DB. You can retrieve the image in future with the ID.
+	 }  
+	return "imagetest";
+	}
+		
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	@ResponseBody public String handleFormUpload(@RequestParam("file") MultipartFile file) throws IOException{
+		String name = file.getOriginalFilename();
+		String type = file.getContentType();
+		int index = type.indexOf( '/' );
+		index++;
+		String type2 = type.substring(index);
+		if (!file.isEmpty()) {
+	 BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
+	 File destination = new File("/home/arjun/training_workspace/workspace/Cart/src/main/webapp/resources/images/"+name); // something like C:/Users/tom/Documents/nameBasedOnSomeId.png
+	 ImageIO.write(src, type2, destination);
+	 //Save the id you have used to create the file name in the DB. You can retrieve the image in future with the ID.
+	 }  
+	return "imagetest";
+	}
+	@RequestMapping(value = { "/imagetest" }, method = RequestMethod.GET)
+	public ModelAndView testpage() {
+
+		ModelAndView model = new ModelAndView();
+		model.setViewName("imagetest");
+		return model;
 
 	}
+
 }
