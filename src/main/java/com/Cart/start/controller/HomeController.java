@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
@@ -258,6 +260,7 @@ public class HomeController {
 	public  @ResponseBody ModelAndView productsearch(@RequestParam("searchproduct") String search, @RequestParam("category") String category){
 		ModelAndView modelView = search(search,category);
 		modelView.setViewName("search");
+		modelView.addObject("selectedagegroup",category);
 		return modelView;
 		
 	}
@@ -274,9 +277,9 @@ public class HomeController {
 	
 	@RequestMapping(value="/productSearch")
 	public  ModelAndView productSearch(@RequestParam(value = "agegroup", required = false) String agegroup,@RequestParam("searchProduct") String search){
-		System.out.println("inside search");
 		ModelAndView modelView = search(search,agegroup);
 		modelView.setViewName("product");
+		modelView.addObject("selectedagegroup",agegroup);
 		return modelView;
 		
 	}
@@ -288,35 +291,67 @@ public class HomeController {
 		return modelView;
 		
 	}
-	@RequestMapping(value = "/addproduct", method = RequestMethod.POST)
-	public ModelAndView productAdd(@ModelAttribute("product") Products products){
-		ModelAndView modelView = new ModelAndView();
-			this.productService.addProduct(products);
-			modelView.setViewName("adminProductControl");
-			return modelView;
-	}
 	@RequestMapping(value = "/adproduct", method = RequestMethod.POST)
-	public @ResponseBody ModelAndView adproduct(@RequestBody Products product) {
-		System.out.println(product);
-		System.out.println("in ad product");
+	public @ResponseBody ModelAndView adproduct(MultipartHttpServletRequest request, HttpServletResponse response) throws IOException{
+		Iterator<String> itr =  request.getFileNames();
+		String prdct =request.getParameter("product");
+		Products product = new Products();
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			product = mapper.readValue(prdct, Products.class);
+			} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try{
+		MultipartFile file = request.getFile(itr.next());
+		String image=imageupload(file, product.getProductName(),product.getBrand());
+		if(!image.equals("Failure")){
+			product.setProductImage(image);
+		}
+		else{
+			
+		}
+		}
+		catch(NoSuchElementException e){
+			e.printStackTrace();
+		}
+		
+		
 		ModelAndView model = new ModelAndView();
 		this.productService.addProduct(product);
 		model.setViewName("product");
 		return model;
 	}
 	
-	@RequestMapping(value = "/updateproduct", method = {RequestMethod.POST,RequestMethod.GET} )
-	public ModelAndView productupdate(@ModelAttribute("product") Products product){
-		ModelAndView modelView = new ModelAndView();
-			this.productService.updateProduct(product);
-			modelView.setViewName("home");
-			return modelView;
-	}
-
 	@RequestMapping(value = "/upproduct", method = RequestMethod.POST)
-	public @ResponseBody ModelAndView upproduct(@RequestBody Products product) {
-		System.out.println(product);
-		System.out.println("in ad product");
+	public @ResponseBody ModelAndView upproduct(MultipartHttpServletRequest request, HttpServletResponse response) throws IOException{
+		Iterator<String> itr =  request.getFileNames();
+		String prdct =request.getParameter("product");
+		Products product = new Products();
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			product = mapper.readValue(prdct, Products.class);
+			} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try{
+			MultipartFile file = request.getFile(itr.next());
+			String image=imageupload(file, product.getProductName(),product.getBrand());
+			Products entity = this.productService.findById(product.getProductId());
+			if(!image.equals("Failure")){
+				File deleteFile=new File("/home/arjun/training_workspace/workspace/Cart/src/main/webapp/resources/images/"+entity.getProductImage());
+				try{
+					deleteFile.delete();
+				}
+				catch(Exception e){
+					e.printStackTrace();
+				}
+				product.setProductImage(image);
+			}
+		}
+		catch(NoSuchElementException e){
+			e.printStackTrace();
+		}
 		ModelAndView model = new ModelAndView();
 		this.productService.updateProduct(product);
 		model.setViewName("product");
@@ -324,9 +359,9 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/removeproduct", method = RequestMethod.GET  )
-	public ModelAndView productremove(@ModelAttribute("productName") String productName){
+	public @ResponseBody ModelAndView productremove(@RequestParam("id") int productId){
 		ModelAndView modelView = new ModelAndView();
-			this.productService.removeProduct(productName);
+			this.productService.removeProduct(productId);
 			modelView.setViewName("product");
 			return modelView;
 	}
@@ -334,9 +369,9 @@ public class HomeController {
 	@RequestMapping(value = "/filter", method = RequestMethod.POST  )
 	public @ResponseBody ModelAndView filterList(@RequestBody Filter filter) {
 		ModelAndView modelView = new ModelAndView();
-		System.out.println(filter.getCategory());
 		List<Products> listproducts = this.productService.filterList(filter);
 		modelView.addObject("listproducts", listproducts);
+		modelView.addObject("selectedagegroup",filter.getAgeGroup());
 		modelView.setViewName("search");
 		return modelView;
 	
@@ -359,6 +394,11 @@ public class HomeController {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("userCart");
 		return model;
+	}
+	@RequestMapping(value="cartUpdateQuantity",method=RequestMethod.GET)
+	public @ResponseBody void cartUpdateQuantity(@RequestParam("quantity") Integer quantity,@RequestParam("id") Integer cartId){
+		this.cartService.updateQty(quantity,cartId);
+		
 	}
 	
 
@@ -383,27 +423,25 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/imageupload", method = RequestMethod.POST)
-	@ResponseBody public String iamgeUpload(MultipartHttpServletRequest request, HttpServletResponse response) throws IOException{
+	@ResponseBody public String imageUploaded(MultipartHttpServletRequest request, HttpServletResponse response) throws IOException{
 		Iterator<String> itr =  request.getFileNames();
-		 
-	     MultipartFile file = request.getFile(itr.next());
-	 	String name = file.getOriginalFilename();
-		String type = file.getContentType();
-		int index = type.indexOf( '/' );
-		index++;
-		String type2 = type.substring(index);
-		if (!file.isEmpty()) {
-	 BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
-	 File destination = new File("/home/arjun/training_workspace/workspace/Cart/src/main/webapp/resources/images/"+name); // something like C:/Users/tom/Documents/nameBasedOnSomeId.png
-	 ImageIO.write(src, type2, destination);
-	 //Save the id you have used to create the file name in the DB. You can retrieve the image in future with the ID.
-	 }  
-	return "imagetest";
-	}
-		
-	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	@ResponseBody public String handleFormUpload(@RequestParam("file") MultipartFile file) throws IOException{
+		String productName=request.getParameter("name");
+		String brand =request.getParameter("brand");
+		String prdct =request.getParameter("product");
+		Products product = new Products();
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			product = mapper.readValue(prdct, Products.class);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("the product name is is is " +product.getProductName());
+		try{
+		MultipartFile file = request.getFile(itr.next());
 		String name = file.getOriginalFilename();
+	 	name = "Indiacart" +productName +"123" +brand +name;
+	 	System.out.println(name);
 		String type = file.getContentType();
 		int index = type.indexOf( '/' );
 		index++;
@@ -412,17 +450,42 @@ public class HomeController {
 	 BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
 	 File destination = new File("/home/arjun/training_workspace/workspace/Cart/src/main/webapp/resources/images/"+name); // something like C:/Users/tom/Documents/nameBasedOnSomeId.png
 	 ImageIO.write(src, type2, destination);
+		}
+		return name;
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			return "Failure";
+		}
+
 	 //Save the id you have used to create the file name in the DB. You can retrieve the image in future with the ID.
-	 }  
-	return "imagetest";
-	}
-	@RequestMapping(value = { "/imagetest" }, method = RequestMethod.GET)
-	public ModelAndView testpage() {
-
-		ModelAndView model = new ModelAndView();
-		model.setViewName("imagetest");
-		return model;
+	
 
 	}
+	public String imageupload(MultipartFile file,String productName, String brand) {
+			String name = file.getOriginalFilename();
+			Random rand = new Random();
+		 	int randomNum = rand.nextInt(99999) + 123;
+		 	randomNum+=rand.nextInt(99999) + 123;
+			name = "Indiacart" +productName +randomNum +brand +name;
+		 	String type = file.getContentType();
+			int index = type.indexOf( '/' );
+			index++;
+			String type2 = type.substring(index);
+			try{
+				if (!file.isEmpty()) {
+					BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
+					File destination = new File("/home/arjun/training_workspace/workspace/Cart/src/main/webapp/resources/images/"+name); // something like C:/Users/tom/Documents/nameBasedOnSomeId.png
+					ImageIO.write(src, type2, destination);
+				}
+				return name;
+			}
+			catch (Exception e) {
+				return "Failure";
+			}
+			
+		}
+
+		
 
 }

@@ -46,7 +46,7 @@ public class UsersDaoImpl implements UsersDao {
  
     public void removeUser(String email) {
         Session session = this.sessionFactory.getCurrentSession();
-        Users user = (Users) session.get(Users.class, new String(email));
+        Users user = findByUserName(email);
         if(null != user){
             session.delete(user);
         }

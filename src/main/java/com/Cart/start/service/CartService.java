@@ -3,7 +3,7 @@ package com.Cart.start.service;
 import java.util.List;
 
 import com.Cart.start.model.Cart;
-import com.Cart.start.model.Category;
+import com.Cart.start.model.Users;
 
 public interface CartService {
 
@@ -11,6 +11,6 @@ public interface CartService {
 	public List<Cart> listAllByUser(String email);
 	public void deleteItem(int CartID);
 	public void deleteAllItem(String email);
-	public void updateQty(int qty);
-	public Cart findByProductID(int productId);
+	public void updateQty(Integer qty,Integer cartId);
+	public List<Cart> findByProductID(int productId);
 }

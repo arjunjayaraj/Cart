@@ -23,7 +23,7 @@
 			<label for="productImage">IMAGE</label>
 			<input id = "productImage" type="text" name="productImage" disabled="disabled" />
 			<input type="file" name="file" id="file" />
-    		<input type="button" value="upload"  onclick="test();"/>
+    		<input type="button" value="upload"  onclick="upload();"/>
 			</div>
 			<div class="pure-control-group">
 			<table>
