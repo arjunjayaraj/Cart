@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.hql.internal.ast.tree.IsNotNullLogicOperatorNode;
+import org.hibernate.jpa.criteria.predicate.IsEmptyPredicate;
 import org.springframework.stereotype.Service;
 
 import com.Cart.start.dao.CartDao;
@@ -58,11 +60,12 @@ public class CartServiceImpl implements CartService{
 	
 	@Transactional
 	public List<Cart> listAllByUser(String email) {
-		// TODO Auto-generated method stub
 		Users user = this.userDao.findByUserName(email);
 		Set<Cart> sC= user.getCart();
 		List<Cart> cartList = new ArrayList<Cart>();
-		cartList.addAll(sC);
+		if(!sC.isEmpty()){
+			cartList.addAll(sC);
+		}
 		return cartList;
 	}
 

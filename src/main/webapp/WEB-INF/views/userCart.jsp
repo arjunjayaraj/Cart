@@ -27,8 +27,8 @@
 	<div>
 		<h1>Cart</h1>
 	</div>
-	<div>
-		<table style="margin-left: 10%;">
+	<div style="margin-left: 5%">
+		<table >
             <c:set var="subtotal" value="${0}"></c:set>
 			<thead>
 				<tr>
@@ -36,7 +36,8 @@
 					<th width="10%">QTY</th>
 					<th width="10%">PRICE</th>
 					<th width="10%">SUBTOTAL</th>
-					<th width="10%">DELETE</th>
+					<th width="10%"></th>
+					<th width="3%"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -52,7 +53,7 @@
 						<td><c:out value="${cart.product.productPrice}"/></td>
 						<td><c:out value="${cart.product.productPrice*cart.qty}"></c:out></td>
 						<td><button onclick="deleteitem('${cart.cartId}')">Delete</button> </td>
-					</tr>
+						</tr>
 				</c:forEach>
 				
 			
@@ -65,9 +66,8 @@
 				<tr>
 				<td></td>
 				<td></td>
-				<td><button class="btn waves-effect waves-light" type="submit" name="placeOrder">PLACE ORDER
-    <i class="mdi-content-send right"></i>
-  </button></td>
+				<td><a class="modal-trigger waves-effect waves-light btn" href="#agreemnent" name="placeOrder" >PLACE ORDER
+    </a></td>
 				</tr>
 				</c:if>
 				
@@ -75,6 +75,19 @@
 			</tbody>
 		</table>
 	</div>
+	<div id="agreemnent" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4>Shopping Cart Agreement</h4>
+      <p>THIS LICENSE AGREEMENT IS A LEGAL AGREEMENT BETWEEN THE PERSON, COMPANY, OR ORGANIZATION THAT HAS LICENSED THIS SOFTWARE ("YOU" OR "CUSTOMER") AND HUMMINGBIRD WEB SOLUTIONS PRIVATE LIMITED ("HUMMINGBIRD", "WE" OR "US"). BY INSTALLING, COPYING AND/OR OTHERWISE USING THE SOFTWARE ("SOFTWARE"), THE CUSTOMER ACCEPTS THE SOFTWARE AND AGREES TO THE TERMS OF THIS AGREEMENT. READ IT CAREFULLY BEFORE COMPLETING THE INSTALLATION PROCESS AND USING THE SOFTWARE. BY INSTALLING AND/OR USING THE SOFTWARE, YOU ARE CONFIRMING YOUR ACCEPTANCE OF THE SOFTWARE AND AGREEING TO BE BOUND BY THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO BE BOUND BY THESE TERMS, OR DO NOT HAVE THE AUTHORITY TO BIND THE CUSTOMER TO THESE TERMS, THEN DO NOT INSTALL AND/OR USE THE SOFTWARE.
+THE SOFTWARE IS PROTECTED BY COPYRIGHT LAWS AND INTERNATIONAL TREATIES. ALL TITLE AND INTELLECTUAL PROPERTY RIGHTS IN AND TO THE SOFTWARE ARE OWNED BY HUMMINGBIRD. THE SOFTWARE IS HEREBY MADE AVAILABLE FOR USE (LICENSED), NOT SOLD.
+THIS LICENSE AGREEMENT SHALL APPLY ONLY TO THE SOFTWARE SUPPLIED BY HUMMINGBIRD HEREWITH REGARDLESS OF WHETHER OTHER SOFTWARE IS REFERRED TO OR DESCRIBED HEREIN.</p>
+    </div>
+    <div class="modal-footer">
+        <a class="modal-trigger waves-effect waves-light btn" href="/Cart/usercheckout" name="placeOrder" >AGREE</a>
+    </div>
+  </div>
+  
+
 	<!--   	  FOOTER	-->
 
 	<footer class="page-footer">
@@ -125,6 +138,7 @@ function updateQuantity(id,curqty){
 	
 	
 }
+
 
 
 </script>
