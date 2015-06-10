@@ -212,6 +212,9 @@ function resetDialog(form) {
 function formSubmit() {
 	document.getElementById("logoutForm").submit();
 }
-
+function productDescription(){
+	$("#productDescription").css("display", "block")
+	$("#backgroundDiv").css("display", "block")
+}
 
 

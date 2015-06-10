@@ -6,10 +6,11 @@
                         <div class="col s12 m6 l3">
                             <div class="card product-card">
                                 <div class="card-image">
-                                    <img class="item-image product-item-image" src="resources/images/${product.productImage}"><span class="card-title" style="color: black">Brand:${product.brand}</span>
+                                    <img class="item-image product-item-image" src="resources/images/${product.productImage}" onclick="productDescription('${product.productId}')"><span class="card-title" style="color: black">Brand:${product.brand}</span>
                                 </div>
                                 <div class="card-content product-content">
                                     <p>${product.productName}</p>
+                                     <p>Price:${product.productPrice}</p>
                                     <c:choose>
                                     <c:when test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
                                     <a class="waves-effect waves-light btn product-change"  onclick="editProduct('${product.productId}','${product.productName}','${product.brand}','${product.quantity}','${product.productPrice}','${product.productImage}','${product.category.categoryName}','${product.gender}')">EDIT</a>
@@ -18,10 +19,11 @@
                                     </c:choose>
                 
                                 </div>
-                                
+                                 <c:if test="$(product.quantity)!=0">
                                 <div class="card-action">
                                     <a class="waves-effect waves-light btn add-to-cart" onclick="addtoCart('${product.productName}');">Add To Cart</a>
                                 </div>
+                                </c:if>
                                 
                             </div>
                         </div>

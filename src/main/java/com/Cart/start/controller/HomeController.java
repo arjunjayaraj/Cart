@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -234,7 +236,6 @@ public class HomeController {
 		try {
 			editUser = mapper.readValue(user, Users.class);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		this.usersService.updateUserKey(editUser, curUser);
@@ -376,6 +377,13 @@ public class HomeController {
 		return modelView;
 	
 	}
+	@RequestMapping(value = "/productDescription", method = RequestMethod.POST  )
+	public @ResponseBody ModelAndView productDescription(@RequestParam("id") int id) {
+		ModelAndView modelView = new ModelAndView();
+		modelView.setViewName("description");
+		return modelView;
+	
+	}
 	
 
 	
@@ -414,9 +422,7 @@ public class HomeController {
 	public ModelAndView userCart(@PathVariable("email") String email) {
 
 		ModelAndView model = new ModelAndView();
-		System.out.println(email);
 		List<Cart> userCart= this.cartService.listAllByUser(email);
-		System.out.println(userCart);
 		model.addObject("listCart", userCart);
 		model.setViewName("userCart");
 		return model;
@@ -433,7 +439,6 @@ public class HomeController {
 		try {
 			product = mapper.readValue(prdct, Products.class);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("the product name is is is " +product.getProductName());
@@ -454,7 +459,6 @@ public class HomeController {
 		return name;
 		}
 		catch (Exception e) {
-			// TODO: handle exception
 			return "Failure";
 		}
 
@@ -486,6 +490,23 @@ public class HomeController {
 			
 		}
 
+	
+	@RequestMapping(value = "/usercheckout", method = RequestMethod.GET)
+	public ModelAndView checkout(){
+		ModelAndView model = new ModelAndView();
+		User user = (User) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+				String username = user.getUsername();
+				List<Cart> userCart= this.cartService.listAllByUser(username);
+		int amount = 0;
+		for (Cart cart : userCart) {
+			amount+=(cart.getQty()*cart.getProduct().getProductPrice());
+			
+		}
+		model.addObject("amount", amount);
+		model.setViewName("usercheckout");
+		return model;
+	}
 		
 
 }

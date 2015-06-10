@@ -30,6 +30,11 @@
 </head>
 
 <body>
+<div id=productDescription>
+	</div>
+	<div id="backgroundDiv">
+	</div>
+
 <nav>
 		<div class="nav-wrapper">
 
@@ -193,7 +198,6 @@
 		<%@ include file = "partials/footer.jsp"%>
 	</footer>
 	
-
 	
 </body>
 </html>

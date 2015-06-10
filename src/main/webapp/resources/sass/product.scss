@@ -4,7 +4,7 @@
   overflow-y:scroll;
 }
 .product-card{
-max-height: 315px;
+max-height: 335px;
 }
 .product-item-image{
 height:43%;
@@ -47,6 +47,31 @@ display:none;
 td,th{
 padding:0px;
 }
-
+}
+#productDescription{
+display:none;
+margin-top:10%;
+margin-left:25%;
+margin-right:25%;
+width:50%;
+background-color: white;
+z-index:20;
+ position: absolute;
+ padding: 10%;
+ border: 10px solid green;
+}
+#backgroundDiv{
+display:none;
+width:100%;
+background-color: black;
+z-index:10;
+opacity:.6;
+height: 100%;
+position: absolute;
+}
+#productDescription{
+#ImageDiv{
+width:70%;
+}
 
 }

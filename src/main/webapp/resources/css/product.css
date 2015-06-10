@@ -7,7 +7,7 @@
 
 /* line 6, ../sass/product.scss */
 .product-card {
-  max-height: 315px;
+  max-height: 335px;
 }
 
 /* line 9, ../sass/product.scss */
@@ -61,4 +61,34 @@
 /* line 47, ../sass/product.scss */
 .pure-control-group td, .pure-control-group th {
   padding: 0px;
+}
+
+/* line 51, ../sass/product.scss */
+#productDescription {
+  display: none;
+  margin-top: 10%;
+  margin-left: 25%;
+  margin-right: 25%;
+  width: 50%;
+  background-color: white;
+  z-index: 20;
+  position: absolute;
+  padding: 10%;
+  border: 10px solid green;
+}
+
+/* line 63, ../sass/product.scss */
+#backgroundDiv {
+  display: none;
+  width: 100%;
+  background-color: black;
+  z-index: 10;
+  opacity: .6;
+  height: 100%;
+  position: absolute;
+}
+
+/* line 73, ../sass/product.scss */
+#productDescription #ImageDiv {
+  width: 70%;
 }
