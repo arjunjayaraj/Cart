@@ -140,6 +140,7 @@ $(document).ready(function() {
 				                xhr.setRequestHeader(header, token);
 				              },  
 				              success :function(result) {
+				            	  location.reload();
 				            	  filter();
 				                   		          			
 				          }});	    
@@ -159,6 +160,7 @@ $(document).ready(function() {
 			                xhr.setRequestHeader(header, token);
 			              },  
 			              success :function(result) {
+			            	  location.reload();
 			            	  filter();
 			                   		          			
 			          }});	    
