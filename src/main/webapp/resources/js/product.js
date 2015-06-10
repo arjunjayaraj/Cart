@@ -1,25 +1,24 @@
-/*$(document).ready(function(){
-	$("#searchproduct").keyup( function() {
-					var searchQuery = $("#searchproduct").val();
-					var search = $("#categorySelect").val();
-					
-			 		    $.ajax({
-				            type: "GET",
-				            url: "productsearch",
-				            contentType : 'application/json; charset=utf-8',
-				            data: { "searchproduct" :searchQuery,
-				            		"category" :search,
-				            }, 
-				          
-				              success :function(result) {
-				         $("#productList").html(result);
-				            		          			
-				          }});	    
-						
-				});
-		});*/
-
-function deleteProduct(productName){
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
+function searchForm() {
+	var searchQuery = $("#searchproduct").val();
+	var search = $("#categorySelect").val();
+	
+		    $.ajax({
+            type: "GET",
+            url: "productsearch",
+            contentType : 'application/json; charset=utf-8',
+            data: { "searchproduct" :searchQuery,
+            		"category" :search,
+            }, 
+                     
+              success :function(result) {
+         $("#productList").html(result);
+            		          			
+          }});	    
+		
+}
+function deleteProduct(productName,id){
 	
 	var x = confirm('Are you sure you want to delete this Product? '+productName);
 	if (x == true)
@@ -28,7 +27,8 @@ function deleteProduct(productName){
         type: "GET",
         url: "removeproduct",
         contentType : 'application/json; charset=utf-8',
-        data: { "productName" : productName
+        data: { "productName" : productName,
+        		"id":id
           }, 
         success :function(result) {
         	location.reload();
@@ -49,9 +49,7 @@ function filter() {
 	filters.brand=[];
 	filters.category=[];
 	filters.availability=0;
-	console.log(filters.availability);
 	filters.maximumPrice=$("#priceinput").val();
-	console.log($("#priceinput").val())
 	$('#brandFilter input:checked').each(function() {
 			filters.brand.push($(this).attr('value'));
 		});
@@ -64,9 +62,7 @@ function filter() {
 	$('#quantityFilter input:checked').each(function() {
 		filters.availability=$(this).attr('value');
 	});
-		console.log(filters.maximumPrice);
-		console.log(filters.availability);
-   
+		  
 		    $.ajax({
             type: "POST",
             url: "filter",
@@ -83,17 +79,16 @@ function filter() {
 }
 
 var productId;
+var productImage;
 function addProduct() {
 	$("#productDialog").html();
 	$('#productDialog').dialog("option", "title", "ADD Product");
 	$("#productDialog").dialog('open');
 	productId=0;
+	productImage=null;
 }
 
 function editProduct(id,name,brand,quantity,price,image,category,gender) {
-	$("#productDialog").html();
-	$('#productDialog').dialog("option", "title", "Edit Product");
-	$("#productDialog").dialog('open');
 	$("#productName").val(name);
 	$("#brand").val(brand);
 	$("#productPrice").val(price);
@@ -101,6 +96,11 @@ function editProduct(id,name,brand,quantity,price,image,category,gender) {
 	$("#categoryName").val(category);
 	$("#productImage").val(image);
 	productId=id;
+	$("#productDialog").html();
+	$('#productDialog').dialog("option", "title", "Edit Product");
+	$("#productDialog").dialog('open');
+	$("#productFormAge option[value=" + gender + "]").attr('selected', 'selected'); 
+	$('select').material_select();
 	}
 
 $(document).ready(function() {
@@ -124,37 +124,44 @@ $(document).ready(function() {
 					product.brand=document.getElementById("brand").value;
 					product.gender=document.getElementById("productFormAge").value;
 					product.productImage=document.getElementById("productImage").value;
-				console.log(product);
+				var oMyForm = new FormData();
+					oMyForm.append("file", file.files[0]);
 				if(productId==0){
 					product.productId=productId;
+					oMyForm.append("product",JSON.stringify(product));
 					$.ajax({
-		        	    type: "POST",
-		       	    	url: "adproduct",
-			            contentType : 'application/json; charset=utf-8',
-			            data: JSON.stringify(product),
-			            beforeSend: function(xhr){
-			                xhr.setRequestHeader(header, token);
-			              },
-			    	    success :function(result) {
-			        	    	location.reload();
-			           		}
-			        	});
+				            url: "adproduct",
+				            data: oMyForm,
+				            dataType: 'text',
+				            processData: false,
+				            contentType: false,
+				            type: 'POST',
+				            beforeSend: function(xhr){
+				                xhr.setRequestHeader(header, token);
+				              },  
+				              success :function(result) {
+				            	  filter();
+				                   		          			
+				          }});	    
 				
 				}
 				else{
 					product.productId=productId;
+					oMyForm.append("product",JSON.stringify(product));
 					$.ajax({
-		        	    type: "POST",
-		       	    	url: "upproduct",
-			            contentType : 'application/json; charset=utf-8',
-			            data: JSON.stringify(product),
+			            url: "upproduct",
+			            data: oMyForm,
+			            dataType: 'text',
+			            processData: false,
+			            contentType: false,
+			            type: 'POST',
 			            beforeSend: function(xhr){
 			                xhr.setRequestHeader(header, token);
-			              },
-			    	    success :function(result) {
-			        	    	location.reload();
-			           		}
-			        	});
+			              },  
+			              success :function(result) {
+			            	  filter();
+			                   		          			
+			          }});	    
 					
 					
 				}
@@ -173,51 +180,17 @@ $(document).ready(function() {
 	});
 	
 });
-var token = $("meta[name='_csrf']").attr("content");
-var header = $("meta[name='_csrf_header']").attr("content");
-function test(){
-		var path = $("#file").val();
-		var filename = path.substring(path.lastIndexOf("\\") + 1);
-		var oMyForm = new FormData();
-		oMyForm.append("file", file.files[0]);
-	
-		    $.ajax({
-            url: "imageupload",
-            data: oMyForm,
-            dataType: 'text',
-            processData: false,
-            contentType: false,
-            type: 'POST',
-            beforeSend: function(xhr){
-                xhr.setRequestHeader(header, token);
-              },  
-              success :function(result) {
-            	  $("#productImage").val(filename);
-                   		          			
-          }});	    
-}
-function searchForm() {
-	var searchQuery = $("#searchproduct").val();
-	var search = $("#categorySelect").val();
-	
-		    $.ajax({
-            type: "POST",
-            url: "productsearch",
-            contentType : 'application/json; charset=utf-8',
-            data: { "searchproduct" :searchQuery,
-            		"category" :search,
-            }, 
-          
-              success :function(result) {
-         $("#productList").html(result);
-            		          			
-          }});	    
-		
+
+function upload(){
+	var path = $("#file").val();
+	var filename = path.substring(path.lastIndexOf("\\") + 1);
+	$("#productImage").val(filename);
 }
 
 function addtoCart(productName)
 {
 	var curUser = $("#curUser").html();
+	Materialize.toast('Added To Cart', 1000);
 	
 	$.ajax({
         type: "GET",

@@ -16,7 +16,7 @@ public interface ProductService {
 	public void addProduct(Products product);
     public void updateProduct(Products product);
     public List<Products> listProducts();
-    public void removeProduct(String productName);
+    public void removeProduct(int productId);
     public List<String>brands();
     public List<String>categoryList();
     public List<Products> filterList(Filter filter);

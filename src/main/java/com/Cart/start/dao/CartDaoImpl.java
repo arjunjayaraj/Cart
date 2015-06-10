@@ -27,9 +27,7 @@ public class CartDaoImpl implements CartDao{
 	}
 
 	public void updateCart(Cart cart) {
-		// TODO Auto-generated method stub
-
-        Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.getCurrentSession();
         session.update(cart);
 	}
 
@@ -71,11 +69,20 @@ public class CartDaoImpl implements CartDao{
 		Cart cart = (Cart) session.get(Cart.class, new Integer(cartId));
 		return cart;
 	}
-	public Cart findByProductID(int productId){
+	@SuppressWarnings("unchecked")
+	public List<Cart> findByProductID(int productId){
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria cr =session.createCriteria(Cart.class);
 		cr.add(Restrictions.like("product.productId",productId));
-		return (Cart) cr.uniqueResult();
+		return cr.list();
 	}
+
+	public Cart findUsersProductByID(int productId,Users user){
+		 Session session = this.sessionFactory.getCurrentSession();
+			Criteria cr =session.createCriteria(Cart.class);
+			cr.add(Restrictions.like("product.productId",productId));
+			cr.add(Restrictions.eq("user", user));
+			return (Cart) cr.uniqueResult();
+	 }
 
 }

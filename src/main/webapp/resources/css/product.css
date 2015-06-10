@@ -7,15 +7,16 @@
 
 /* line 6, ../sass/product.scss */
 .product-card {
-  height: 315px;
+  max-height: 315px;
 }
 
 /* line 9, ../sass/product.scss */
 .product-item-image {
-  max-height: 165px;
+  height: 43%;
+  max-height: 140px;
 }
 
-/* line 12, ../sass/product.scss */
+/* line 14, ../sass/product.scss */
 #priceFilter {
   margin-top: 20px;
   margin-bottom: 10px;
@@ -23,41 +24,41 @@
   margin-right: 10px;
 }
 
-/* line 18, ../sass/product.scss */
+/* line 20, ../sass/product.scss */
 #filterButton {
   margin-top: 5px;
 }
 
-/* line 21, ../sass/product.scss */
+/* line 23, ../sass/product.scss */
 #stockFilter {
   margin-left: 60px;
 }
 
-/* line 25, ../sass/product.scss */
+/* line 27, ../sass/product.scss */
 .pure-control-group #productImage {
   width: 220px;
   color: black;
   font-weight: 900;
 }
-/* line 30, ../sass/product.scss */
+/* line 32, ../sass/product.scss */
 .pure-control-group #file {
   margin-left: 7%;
   width: 30%;
 }
-/* line 34, ../sass/product.scss */
+/* line 36, ../sass/product.scss */
 .pure-control-group #formselectdiv {
   width: 250px;
   background-color: white;
   margin-left: 0px;
   color: black;
 }
-/* line 40, ../sass/product.scss */
+/* line 42, ../sass/product.scss */
 .pure-control-group #productFormAge {
   width: 100px;
   padding-left: 20px;
   display: none;
 }
-/* line 45, ../sass/product.scss */
+/* line 47, ../sass/product.scss */
 .pure-control-group td, .pure-control-group th {
   padding: 0px;
 }

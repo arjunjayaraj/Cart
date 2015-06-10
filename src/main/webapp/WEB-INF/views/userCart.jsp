@@ -28,7 +28,7 @@
 		<h1>Cart</h1>
 	</div>
 	<div>
-		<table style="margin-left: 10%">
+		<table style="margin-left: 10%;">
             <c:set var="subtotal" value="${0}"></c:set>
 			<thead>
 				<tr>
@@ -47,20 +47,31 @@
 						<img src="resources/images/${cart.product.productImage}" style="width: 10%;height:auto;">	
 						<c:out value="${cart.product.productName}"/>
 								</td>
-						<td><c:out value="${cart.qty}"/></td>
+						<td><input id="quantity${cart.cartId}" type="text" value="${cart.qty}" style="width:31%;height: auto;"/>
+						<a href= "javascript:updateQuantity('${cart.cartId}','${cart.qty}')" style="display: block;">save</a></td>
 						<td><c:out value="${cart.product.productPrice}"/></td>
 						<td><c:out value="${cart.product.productPrice*cart.qty}"></c:out></td>
 						<td><button onclick="deleteitem('${cart.cartId}')">Delete</button> </td>
 					</tr>
 				</c:forEach>
 				
-				<tr>
+			
 				<c:if test="${!empty listCart}">
+					<tr>
 				<td></td><td></td>
 				<td>TOTAL</td><td><c:out value="${total}"></c:out></td>
 				<td><button onclick="deleteallitems()">Delete All</button> </td>
-				</c:if>
 				</tr>
+				<tr>
+				<td></td>
+				<td></td>
+				<td><button class="btn waves-effect waves-light" type="submit" name="placeOrder">PLACE ORDER
+    <i class="mdi-content-send right"></i>
+  </button></td>
+				</tr>
+				</c:if>
+				
+				
 			</tbody>
 		</table>
 	</div>
@@ -88,5 +99,34 @@
 	<script type="text/javascript" src="resources/js/materialize.min.js"></script>
 	<script type="text/javascript" src="resources/js/home-ads.js"></script>
 	<script type="text/javascript" src="resources/js/custom.js"></script>
+<script>
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
+function updateQuantity(id,curqty){
+	var curUser = $("#curUser").html();
+	var newqty=$("#quantity"+id).val();
+	if(newqty!=curqty){
+	$.ajax({
+		type:"GET",
+		url: "cartUpdateQuantity",
+        contentType : 'application/json; charset=utf-8',
+        data: {"quantity":newqty,
+        	   "id":id,
+        	   },
+		beforeSend: function(xhr){
+            xhr.setRequestHeader(header, token);
+          },  
+          success :function(result) {
+        	  location.reload();
+          }})	
+         
+		
+	}
+	
+	
+}
+
+
+</script>
 </body>
 </html>

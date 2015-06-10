@@ -27,22 +27,12 @@
 		
 		<div id="collection-wrap">
  			<div class="row" id="collection-panel-wrap">
- 				<div class="col l6 s12 m12">
+ 					<div class="col l9 s12 m12">
  					<div class="card small collection-panel" id="home-collection-men" >
  						<div class="card-image collection-content" >
  							<a href="adminUsersControl">
  								<img id="collection-men-image" src="resources/images/users.png">
              					<span class="card-title collection-title" id="collection-men-title" >USERS</span>
-             				</a>
-             			</div>
-             		</div>
-             	</div>
-             	<div class="col l6 s12 m12">
-             		<div class="card small collection-panel" id="home-collection-women">
-             			<div class="card-image collection-content">
-             				<a href="adminProductsControl">
-             					<img id="collection-women-image" src="resources/images/products.jpg" >
-             					<span class="card-title collection-title" id="collection-women-title" >PRODUCTS</span>
              				</a>
              			</div>
              		</div>

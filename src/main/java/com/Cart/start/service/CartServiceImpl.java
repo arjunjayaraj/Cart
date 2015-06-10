@@ -41,7 +41,7 @@ public class CartServiceImpl implements CartService{
 		// TODO Auto-generated method stub
 		Users user = this.userDao.findByUserName(email);
 		Products product = this.productDao.findByProductName(productName);
-		Cart cart1 = this.cartDao.findByProductID(product.getProductId());
+		Cart cart1 = this.cartDao.findUsersProductByID(product.getProductId(), user);
 		if(cart1!=null){
 		int qty = cart1.getQty()+1;
 			cart1.setQty(qty);
@@ -59,11 +59,8 @@ public class CartServiceImpl implements CartService{
 	@Transactional
 	public List<Cart> listAllByUser(String email) {
 		// TODO Auto-generated method stub
-		System.out.println(email);
 		Users user = this.userDao.findByUserName(email);
-		System.out.println(user);
 		Set<Cart> sC= user.getCart();
-		System.out.println(sC);
 		List<Cart> cartList = new ArrayList<Cart>();
 		cartList.addAll(sC);
 		return cartList;
@@ -83,12 +80,14 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Transactional
-	public void updateQty(int qty) {
-		// TODO Auto-generated method stub
+	public void updateQty(Integer qty,Integer cartId){
+		Cart cart = this.cartDao.findByCartID(cartId);
+		cart.setQty(qty);
+		this.cartDao.updateCart(cart);
 		
 	}
 	@Transactional
-	public Cart findByProductID(int productId){
+	public List<Cart> findByProductID(int productId){
 		return this.cartDao.findByProductID(productId);
 	}
 

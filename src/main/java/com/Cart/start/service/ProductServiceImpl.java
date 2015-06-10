@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.Cart.start.dao.CartDao;
 import com.Cart.start.dao.ProductDao;
+import com.Cart.start.model.Cart;
 import com.Cart.start.model.Category;
 import com.Cart.start.model.Filter;
 import com.Cart.start.model.Products;
@@ -22,6 +24,12 @@ public class ProductServiceImpl implements ProductService {
 	
 	public void setCategoryService(CategoryService categoryService) {
 		this.categoryService = categoryService;
+	}
+	
+	CartDao cartDao;
+	
+	public void setCartDao(CartDao cartDao) {
+		this.cartDao = cartDao;
 	}
 	ProductDao productDao;
 	public void setProductDao(ProductDao productDao) {
@@ -62,7 +70,6 @@ public class ProductServiceImpl implements ProductService {
 	 @Override
 	 @Transactional
 	public void updateProduct(Products product){
-		 System.out.println("product id is" +product.getProductId());
 		 Products entity =findById(product.getProductId()); // To check entity is present
 			if(entity!=null){
 				entity.setProduct(product);
@@ -90,10 +97,18 @@ public class ProductServiceImpl implements ProductService {
 	
 	 @Override
 	 @Transactional
-    public void removeProduct(String productName){
-		 Products entity =findByProductName(productName);
+    public void removeProduct(int productId){
+		 Products entity =findById(productId);
 			if(entity!=null){
 				entity.setCategory(null);
+				int id = entity.getProductId();
+				List<Cart> cart=	this.cartDao.findByProductID(id);
+				if(!cart.isEmpty()){
+					for (Cart cart2 : cart) {
+						this.cartDao.removeItem(cart2.getCartId());
+					}
+					
+				}
 				this.productDao.removeProduct(entity);
 			}
 			else {
@@ -103,11 +118,8 @@ public class ProductServiceImpl implements ProductService {
     }
 	 @Override
 	 @Transactional
-	 @SuppressWarnings("null")
-	public List<String>brands(){
- 
-		 List<String> brand = this.productDao.brands();
-
+	 public List<String>brands(){
+ 		 List<String> brand = this.productDao.brands();
 		 return brand;
 	 }
 	 @Override
@@ -120,7 +132,6 @@ public class ProductServiceImpl implements ProductService {
 	 @Transactional
 	 public List<String>categoryList(){
 			  return this.productDao.categoryList();
-		 
 	 }
 	
 

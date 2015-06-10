@@ -55,7 +55,8 @@
 	</bean>
 	
 	<bean id="productService" class="com.Cart.start.service.ProductServiceImpl">
-	 <property name ="productDao" ref="productDao"></property>   
+	 <property name ="productDao" ref="productDao"></property> 
+	 <property name ="cartDao" ref="cartDao"></property>
 	</bean>
 		<bean id="categoryDao" class="com.Cart.start.dao.CategoryDaoImpl">
 	   <property name="sessionFactory" ref ="sessionFactory"></property> 

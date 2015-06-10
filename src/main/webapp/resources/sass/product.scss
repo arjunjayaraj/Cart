@@ -4,10 +4,12 @@
   overflow-y:scroll;
 }
 .product-card{
-height: 315px;
+max-height: 315px;
 }
 .product-item-image{
-max-height: 165px
+height:43%;
+max-height:140px;
+
 }
 #priceFilter{
 margin-top:20px;
