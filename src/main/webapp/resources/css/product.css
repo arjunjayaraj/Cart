@@ -27,43 +27,44 @@
 /* line 20, ../sass/product.scss */
 #filterButton {
   margin-top: 5px;
+  margin-left: 25%;
 }
 
-/* line 23, ../sass/product.scss */
+/* line 26, ../sass/product.scss */
 #stockFilter {
   margin-left: 60px;
 }
 
-/* line 27, ../sass/product.scss */
+/* line 30, ../sass/product.scss */
 .pure-control-group #productImage {
   width: 220px;
   color: black;
   font-weight: 900;
 }
-/* line 32, ../sass/product.scss */
+/* line 35, ../sass/product.scss */
 .pure-control-group #file {
   margin-left: 7%;
   width: 30%;
 }
-/* line 36, ../sass/product.scss */
+/* line 39, ../sass/product.scss */
 .pure-control-group #formselectdiv {
   width: 250px;
   background-color: white;
   margin-left: 0px;
   color: black;
 }
-/* line 42, ../sass/product.scss */
+/* line 45, ../sass/product.scss */
 .pure-control-group #productFormAge {
   width: 100px;
   padding-left: 20px;
   display: none;
 }
-/* line 47, ../sass/product.scss */
+/* line 50, ../sass/product.scss */
 .pure-control-group td, .pure-control-group th {
   padding: 0px;
 }
 
-/* line 51, ../sass/product.scss */
+/* line 54, ../sass/product.scss */
 #productDescription {
   display: none;
   margin-top: 10%;
@@ -76,25 +77,24 @@
   padding: 3%;
   border: 10px solid green;
 }
-/* line 63, ../sass/product.scss */
+/* line 66, ../sass/product.scss */
 #productDescription #productDescriptionWrap #ImageDiv {
   float: right;
   width: 60%;
 }
-/* line 66, ../sass/product.scss */
+/* line 69, ../sass/product.scss */
 #productDescription #productDescriptionWrap #ImageDiv #images {
   position: relative;
   width: 100%;
 }
-/* line 71, ../sass/product.scss */
+/* line 74, ../sass/product.scss */
 #productDescription #productDescriptionWrap .productDescriptionTag {
   text-align: left;
   font-size: 20px;
   font-weight: 300;
 }
-
-/* line 80, ../sass/product.scss */
-#backgroundDiv {
+/* line 83, ../sass/product.scss */
+#productDescription #backgroundDiv {
   display: none;
   width: 100%;
   background-color: black;
@@ -102,4 +102,22 @@
   opacity: .6;
   height: 100%;
   position: absolute;
+}
+
+/* line 96, ../sass/product.scss */
+#productDialog #productForm .input[type="text"], #productDialog #productForm input[type="number"] {
+  width: 29%;
+  background-color: white;
+}
+
+/* line 103, ../sass/product.scss */
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+/* line 109, ../sass/product.scss */
+main {
+  flex: 1 0 auto;
 }
