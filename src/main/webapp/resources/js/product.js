@@ -251,3 +251,8 @@ function isFieldEmpty(){
     }
 	 return false;
 }
+
+function closeBtn(){
+	$("#productDescription").css("display", "none");
+	$("#backgroundDiv").css("display", "none");
+}

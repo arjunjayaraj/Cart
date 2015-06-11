@@ -1,3 +1,4 @@
+<a class="closeButton" onclick=closeBtn();>x</a>
 <div id="productDescriptionWrap">
 <div id="ImageDiv">
 <img alt="product-image" src="resources/images/${product.productImage}" id="images">
