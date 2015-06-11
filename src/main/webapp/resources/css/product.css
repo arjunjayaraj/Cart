@@ -67,17 +67,33 @@
 #productDescription {
   display: none;
   margin-top: 10%;
-  margin-left: 25%;
+  margin-left: 16%;
   margin-right: 25%;
-  width: 50%;
+  width: 70%;
   background-color: white;
   z-index: 20;
   position: absolute;
-  padding: 10%;
+  padding: 3%;
   border: 10px solid green;
 }
-
 /* line 63, ../sass/product.scss */
+#productDescription #productDescriptionWrap #ImageDiv {
+  float: right;
+  width: 60%;
+}
+/* line 66, ../sass/product.scss */
+#productDescription #productDescriptionWrap #ImageDiv #images {
+  position: relative;
+  width: 100%;
+}
+/* line 71, ../sass/product.scss */
+#productDescription #productDescriptionWrap .productDescriptionTag {
+  text-align: left;
+  font-size: 20px;
+  font-weight: 300;
+}
+
+/* line 80, ../sass/product.scss */
 #backgroundDiv {
   display: none;
   width: 100%;
@@ -86,9 +102,4 @@
   opacity: .6;
   height: 100%;
   position: absolute;
-}
-
-/* line 73, ../sass/product.scss */
-#productDescription #ImageDiv {
-  width: 70%;
 }

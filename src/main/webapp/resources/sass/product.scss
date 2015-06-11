@@ -1,77 +1,88 @@
 .filter-form{
-  margin-left: 60px;
-  max-height:150px;
-  overflow-y:scroll;
+	margin-left: 60px;
+	max-height:150px;
+	overflow-y:scroll;
 }
 .product-card{
-max-height: 335px;
+	max-height: 335px;
 }
 .product-item-image{
-height:43%;
-max-height:140px;
+	height:43%;
+	max-height:140px;
 
 }
 #priceFilter{
-margin-top:20px;
-margin-bottom:10px;
-margin-left:10px;
-margin-right:10px;
+	margin-top:20px;
+	margin-bottom:10px;
+	margin-left:10px;
+	margin-right:10px;
 }
 #filterButton{
-margin-top:5px;
+	margin-top:5px;
 }
 #stockFilter{
-margin-left: 60px;
+	margin-left: 60px;
 }
 .pure-control-group{
-#productImage{
-width: 220px;
-color: black;
-font-weight: 900;
-}
-#file{
-margin-left: 7%;
-width: 30%;
-}
-#formselectdiv{
-width: 250px;
-background-color: white;
- margin-left:0px;
- color: black;
-}
-#productFormAge{
-width:100px;
-padding-left: 20px;
-display:none;
-}
-td,th{
-padding:0px;
-}
-}
-#productDescription{
-display:none;
-margin-top:10%;
-margin-left:25%;
-margin-right:25%;
-width:50%;
-background-color: white;
-z-index:20;
- position: absolute;
- padding: 10%;
- border: 10px solid green;
-}
-#backgroundDiv{
-display:none;
-width:100%;
-background-color: black;
-z-index:10;
-opacity:.6;
-height: 100%;
-position: absolute;
+	#productImage{
+		width: 220px;
+		color: black;
+		font-weight: 900;
+	}
+	#file{
+		margin-left: 7%;
+		width: 30%;
+	}
+	#formselectdiv{
+		width: 250px;
+		background-color: white;
+		margin-left:0px;
+		color: black;
+	}
+	#productFormAge{
+		width:100px;
+		padding-left: 20px;
+		display:none;
+	}
+	td,th{
+		padding:0px;
+	}
 }
 #productDescription{
-#ImageDiv{
-width:70%;
+	display:none;
+	margin-top:10%;
+	margin-left:16%;
+	margin-right:25%;
+	width:70%;
+	background-color: white;
+	z-index:20;
+	position: absolute;
+	padding: 3%;
+	border: 10px solid green;
+	#productDescriptionWrap{
+		#ImageDiv{
+		float:right;
+		width:60%;
+		#images{
+			position:relative;
+			width:100%;
+		}
+	}
+	.productDescriptionTag{
+		text-align:left;
+		font-size:20px;
+		font-weight:300;
+		
+		}
 }
 
+}
+#backgroundDiv{
+	display:none;
+	width:100%;
+	background-color: black;
+	z-index:10;
+	opacity:.6;
+	height: 100%;
+	position: absolute;
 }

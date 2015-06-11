@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 
-     <div class="row" >
+     <div class="row" style="margin-top: 4%" >
                 <c:if test="${!empty listproducts}">
                     <c:forEach items="${listproducts}" var="product">
                         <div class="col s12 m6 l3">
