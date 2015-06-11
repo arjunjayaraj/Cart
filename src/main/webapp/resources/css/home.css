@@ -136,3 +136,13 @@ nav {
   padding-right: 15px;
   margin: 5px;
 }
+
+/* line 5, ../sass/home.scss */
+.select-wrapper input.select-dropdown {
+  border-bottom: none;
+}
+
+/* line 8, ../sass/home.scss */
+#addProductButton {
+  margin: 5% 20%;
+}

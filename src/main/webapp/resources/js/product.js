@@ -126,7 +126,11 @@ $(document).ready(function() {
 					product.productImage=document.getElementById("productImage").value;
 				var oMyForm = new FormData();
 					oMyForm.append("file", file.files[0]);
-				if(productId==0){
+				
+					if(isFieldEmpty()===false){
+						if(productId==0){
+					
+						alert("hahaha");
 					product.productId=productId;
 					oMyForm.append("product",JSON.stringify(product));
 					$.ajax({
@@ -142,6 +146,7 @@ $(document).ready(function() {
 				              success :function(result) {
 				            	  location.reload();
 				            	  filter();
+				            	  
 				                   		          			
 				          }});	    
 				
@@ -167,7 +172,7 @@ $(document).ready(function() {
 					
 					
 				}
-				
+				}
 			},
 			"Cancel" : function() {
 				$(this).dialog('close');
@@ -218,5 +223,13 @@ function productDescription(){
 	$("#productDescription").css("display", "block")
 	$("#backgroundDiv").css("display", "block")
 }
-
-
+function isFieldEmpty(){
+	 var inputs = productDialog.getElementsByTagName('input');
+	  for(var i = 0; i < inputs.length; i++){
+           if(inputs[i].value === ''){
+           	$("#error-msg").html(inputs[i].name+" field shouldn't be empty"); 
+	            return true;
+           }
+    }
+	 return false;
+}

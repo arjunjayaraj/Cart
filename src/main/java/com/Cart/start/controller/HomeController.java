@@ -479,7 +479,7 @@ public class HomeController {
 			try{
 				if (!file.isEmpty()) {
 					BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
-					File destination = new File("/home/arjun/training_workspace/workspace/Cart/src/main/webapp/resources/images/"+name); // something like C:/Users/tom/Documents/nameBasedOnSomeId.png
+					File destination = new File("/home/ashwin/Training Workspace/Cart/src/main/webapp/resources/images/"+name); // something like C:/Users/tom/Documents/nameBasedOnSomeId.png
 					ImageIO.write(src, type2, destination);
 				}
 				return name;

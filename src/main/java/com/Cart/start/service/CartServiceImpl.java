@@ -6,8 +6,6 @@ import java.util.Set;
 
 import javax.transaction.Transactional;
 
-import org.hibernate.hql.internal.ast.tree.IsNotNullLogicOperatorNode;
-import org.hibernate.jpa.criteria.predicate.IsEmptyPredicate;
 import org.springframework.stereotype.Service;
 
 import com.Cart.start.dao.CartDao;

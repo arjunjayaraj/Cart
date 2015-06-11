@@ -3,7 +3,6 @@ package com.Cart.start.service;
 import java.util.List;
 
 import com.Cart.start.model.Cart;
-import com.Cart.start.model.Users;
 
 public interface CartService {
 

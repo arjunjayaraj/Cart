@@ -1,12 +1,13 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<form class="pure-form pure-form-aligned">
+<form class="pure-form pure-form-aligned" id="productForm">
 
 	<fieldset>
 		<legend></legend>
-
+	<label id="error-msg" style="color: red"></label>
 		<div class="pure-control-group">
+		
 			<label for="productName">Product Name</label>
 			<input id = "productName" name = "productName" placeholder="PRODUCT NAME" required/>
 			<label for="brand">Brand Name</label>
@@ -14,12 +15,13 @@
 		</div>
 		<div class="pure-control-group">
 			<label for="productPrice">Price</label>
-			<input id = "productPrice" name="productPrice" placeholder="PRICE" />
+			<input id = "productPrice" name="productPrice" placeholder="PRICE" type="number"/>
 			<label for="quantity">Quantity</label>
-			<input id = "quantity" name="quantity" placeholder="QUANTITY" />
+			<input id = "quantity" name="quantity" placeholder="QUANTITY" type="number"/>
 		</div>
 
 	<div class="pure-control-group">
+
 			<label for="productImage">IMAGE</label>
 			<input id = "productImage" type="text" name="productImage" disabled="disabled" />
 			<input type="file" name="file" id="file" />
@@ -42,9 +44,7 @@
 			</tr>
 			</table>
 			</div>
-			<div class="" style="width: 100px;background-color: white; margin-left: 140px;color: black;">
-	
-			</div>
+		
 		</fieldset>
 	
 </form>

@@ -2,3 +2,9 @@
 @import '_home-collection.scss';
 @import '_home-ads.scss';
 @import '_navbar.scss';
+.select-wrapper input.select-dropdown{
+  border-bottom: none;
+}
+#addProductButton{
+  margin: 5% 20%;
+}
