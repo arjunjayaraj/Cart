@@ -19,7 +19,9 @@ margin-right:10px;
 }
 #filterButton{
 margin-top:5px;
+  margin-left: 25%;
 }
+
 #stockFilter{
 margin-left: 60px;
 }
@@ -75,3 +77,24 @@ width:70%;
 }
 
 }
+#productDialog{
+	#productForm{
+ 		.input[type="text"],input[type="number"]{
+  			width: 29%;
+  			background-color: white;
+  			}
+  		}
+  	}
+  	
+  	body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+      
+  	
+  	
