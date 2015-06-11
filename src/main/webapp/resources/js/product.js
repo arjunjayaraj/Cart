@@ -14,6 +14,7 @@ function searchForm() {
                      
               success :function(result) {
          $("#productList").html(result);
+      	Materialize.fadeInImage('.product-item-image')
             		          			
           }});	    
 		
@@ -73,6 +74,8 @@ function filter() {
               },  
               success :function(result) {
          $("#productList").html(result);
+         Materialize.fadeInImage('.product-card')
+    
             		          			
           }});	    
 		
@@ -104,7 +107,9 @@ function editProduct(id,name,brand,quantity,price,image,category,gender) {
 	}
 
 $(document).ready(function() {
-	$('#productDialog').dialog({
+	Materialize.fadeInImage('.product-card')
+	Materialize.fadeInImage('.product-item-image')
+ 	$('#productDialog').dialog({
 		autoOpen : false,
 		position : 'center',
 		modal : true,
@@ -219,9 +224,22 @@ function resetDialog(form) {
 function formSubmit() {
 	document.getElementById("logoutForm").submit();
 }
-function productDescription(){
-	$("#productDescription").css("display", "block")
-	$("#backgroundDiv").css("display", "block")
+function productDescription(id){
+	$("#productDescription").css("display", "block");
+	$("#backgroundDiv").css("display", "block");
+	$.ajax({
+		type:"GET",
+		url:"ProductDescription",	
+		contentType : 'application/json; charset=utf-8',
+	    data: { "id" :id
+	    },
+	    success :function(result){
+	    	$("#productDescription").html(result);
+	    	Materialize.fadeInImage('#images')
+	     	
+	    }
+	});
+	
 }
 function isFieldEmpty(){
 	 var inputs = productDialog.getElementsByTagName('input');
@@ -232,4 +250,9 @@ function isFieldEmpty(){
            }
     }
 	 return false;
+}
+
+function closeBtn(){
+	$("#productDescription").css("display", "none");
+	$("#backgroundDiv").css("display", "none");
 }

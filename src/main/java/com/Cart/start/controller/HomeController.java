@@ -377,13 +377,15 @@ public class HomeController {
 		return modelView;
 	
 	}
-	@RequestMapping(value = "/productDescription", method = RequestMethod.POST  )
+	@RequestMapping(value = "/ProductDescription", method = RequestMethod.GET  )
 	public @ResponseBody ModelAndView productDescription(@RequestParam("id") int id) {
 		ModelAndView modelView = new ModelAndView();
+		modelView.addObject("product", this.productService.findById(id));
 		modelView.setViewName("description");
 		return modelView;
 	
 	}
+
 	
 
 	
@@ -428,44 +430,7 @@ public class HomeController {
 		return model;
 	}
 	
-	@RequestMapping(value = "/imageupload", method = RequestMethod.POST)
-	@ResponseBody public String imageUploaded(MultipartHttpServletRequest request, HttpServletResponse response) throws IOException{
-		Iterator<String> itr =  request.getFileNames();
-		String productName=request.getParameter("name");
-		String brand =request.getParameter("brand");
-		String prdct =request.getParameter("product");
-		Products product = new Products();
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			product = mapper.readValue(prdct, Products.class);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		System.out.println("the product name is is is " +product.getProductName());
-		try{
-		MultipartFile file = request.getFile(itr.next());
-		String name = file.getOriginalFilename();
-	 	name = "Indiacart" +productName +"123" +brand +name;
-	 	System.out.println(name);
-		String type = file.getContentType();
-		int index = type.indexOf( '/' );
-		index++;
-		String type2 = type.substring(index);
-		if (!file.isEmpty()) {
-	 BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
-	 File destination = new File("/home/arjun/training_workspace/workspace/Cart/src/main/webapp/resources/images/"+name); // something like C:/Users/tom/Documents/nameBasedOnSomeId.png
-	 ImageIO.write(src, type2, destination);
-		}
-		return name;
-		}
-		catch (Exception e) {
-			return "Failure";
-		}
-
-	 //Save the id you have used to create the file name in the DB. You can retrieve the image in future with the ID.
 	
-
-	}
 	public String imageupload(MultipartFile file,String productName, String brand) {
 			String name = file.getOriginalFilename();
 			Random rand = new Random();
@@ -479,8 +444,7 @@ public class HomeController {
 			try{
 				if (!file.isEmpty()) {
 					BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
-					File destination = new File("/home/ashwin/Training Workspace/Cart/src/main/webapp/resources/images/"+name); // something like C:/Users/tom/Documents/nameBasedOnSomeId.png
-					ImageIO.write(src, type2, destination);
+					File deleteFile=new File("/home/arjun/training_workspace/workspace/Cart/src/main/webapp/resources/images/"+entity.getProductImage());					ImageIO.write(src, type2, destination);
 				}
 				return name;
 			}

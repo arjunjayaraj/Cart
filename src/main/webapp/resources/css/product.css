@@ -27,87 +27,98 @@
 /* line 20, ../sass/product.scss */
 #filterButton {
   margin-top: 5px;
+  position: relative;
   margin-left: 25%;
 }
 
-/* line 25, ../sass/product.scss */
+/* line 27, ../sass/product.scss */
 #stockFilter {
   margin-left: 60px;
 }
 
-/* line 29, ../sass/product.scss */
+/* line 31, ../sass/product.scss */
 .pure-control-group #productImage {
   width: 220px;
   color: black;
   font-weight: 900;
 }
-/* line 34, ../sass/product.scss */
+/* line 36, ../sass/product.scss */
 .pure-control-group #file {
   margin-left: 7%;
   width: 30%;
 }
-/* line 38, ../sass/product.scss */
+/* line 40, ../sass/product.scss */
 .pure-control-group #formselectdiv {
   width: 250px;
   background-color: white;
   margin-left: 0px;
   color: black;
 }
-/* line 44, ../sass/product.scss */
+/* line 46, ../sass/product.scss */
 .pure-control-group #productFormAge {
   width: 100px;
   padding-left: 20px;
   display: none;
 }
-/* line 49, ../sass/product.scss */
+/* line 51, ../sass/product.scss */
 .pure-control-group td, .pure-control-group th {
   padding: 0px;
 }
 
-/* line 53, ../sass/product.scss */
+/* line 55, ../sass/product.scss */
 #productDescription {
   display: none;
   margin-top: 10%;
-  margin-left: 25%;
+  margin-left: 16%;
   margin-right: 25%;
-  width: 50%;
+  width: 70%;
   background-color: white;
   z-index: 20;
   position: absolute;
-  padding: 10%;
+  padding: 3%;
   border: 10px solid green;
 }
+/* line 66, ../sass/product.scss */
+#productDescription .closeButton {
+  float: right;
+  margin-top: -3%;
+  margin-right: -3%;
+  font-size: 20px;
+  border: 1px solid green;
+  width: 13px;
+  line-height: 0.9;
+}
+/* line 76, ../sass/product.scss */
+#productDescription #productDescriptionWrap #ImageDiv {
+  float: right;
+  width: 60%;
+}
+/* line 79, ../sass/product.scss */
+#productDescription #productDescriptionWrap #ImageDiv #images {
+  position: relative;
+  width: 100%;
+}
+/* line 84, ../sass/product.scss */
+#productDescription #productDescriptionWrap .productDescriptionTag {
+  text-align: left;
+  font-size: 20px;
+  font-weight: 300;
+}
 
-/* line 65, ../sass/product.scss */
+/* line 92, ../sass/product.scss */
 #backgroundDiv {
   display: none;
   width: 100%;
   background-color: black;
   z-index: 10;
-  opacity: .6;
+  opacity: .5;
+  width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
 }
 
-/* line 75, ../sass/product.scss */
-#productDescription #ImageDiv {
-  width: 70%;
-}
-
-/* line 82, ../sass/product.scss */
+/* line 104, ../sass/product.scss */
 #productDialog #productForm .input[type="text"], #productDialog #productForm input[type="number"] {
   width: 29%;
   background-color: white;
-}
-
-/* line 89, ../sass/product.scss */
-body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-/* line 95, ../sass/product.scss */
-main {
-  flex: 1 0 auto;
 }
