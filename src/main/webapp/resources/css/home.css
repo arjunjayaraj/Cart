@@ -83,7 +83,7 @@ footer.page-footer {
 
 /* line 28, ../sass/_navbar.scss */
 nav {
-  background-color: #4CAF50;
+  background-color: #4CAF50 !important;
 }
 
 /* line 31, ../sass/_navbar.scss */

@@ -1,7 +1,5 @@
 package com.Cart.start.controller;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
@@ -9,7 +7,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -126,7 +123,7 @@ public class HomeController {
 		ModelAndView modelView = new ModelAndView();
 
 		Boolean flagSave = true;
-
+		System.out.println("print in user service" +user.toString());
 		if (!(user.getPassword().equals(confirmPassword))) {
 			flagSave = false;
 			modelView.addObject("error", "Password Mismatch!!");
@@ -262,6 +259,7 @@ public class HomeController {
 		ModelAndView modelView = search(search,category);
 		modelView.setViewName("search");
 		modelView.addObject("selectedagegroup",category);
+		System.out.println();
 		return modelView;
 		
 	}
@@ -440,17 +438,9 @@ public class HomeController {
 		 	String type = file.getContentType();
 			int index = type.indexOf( '/' );
 			index++;
-			String type2 = type.substring(index);
-			try{
-				if (!file.isEmpty()) {
-					BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
-					File deleteFile=new File("/home/arjun/training_workspace/workspace/Cart/src/main/webapp/resources/images/"+entity.getProductImage());					ImageIO.write(src, type2, destination);
-				}
-				return name;
-			}
-			catch (Exception e) {
-				return "Failure";
-			}
+
+			
+			return name;
 			
 		}
 
@@ -471,6 +461,40 @@ public class HomeController {
 		model.setViewName("usercheckout");
 		return model;
 	}
+
+	@RequestMapping(value = "/registernew", method = {RequestMethod.POST,RequestMethod.GET})
+	public @ResponseBody void registernew(@ModelAttribute Users user) {
+		ModelAndView modelView = new ModelAndView();
+
+		Boolean flagSave = true;
+		String confirmPassword=user.getPassword();
+		if (!(user.getPassword().equals(confirmPassword))) {
+			flagSave = false;
+			modelView.addObject("error", "Password Mismatch!!");
+			modelView.addObject("loginTab", "");
+			modelView.addObject("registerTab", "active");
+			modelView.setViewName("login");
+
+		}
+		if (flagSave == true) {
+			try{
+			this.usersService.addUser(user);
+			modelView.addObject("error", "Registered Successfully!!");
+			modelView.addObject("loginTab", "active");
+			modelView.addObject("registerTab", "");
+			modelView.setViewName("login");
+					
+			}
+			catch (Exception e){
+				 e.printStackTrace();
+				 modelView.addObject("error", "Already Registerd in same Email!!");
+				 modelView.addObject("forgot_password", "Forgot Password?");
+				 modelView.addObject("loginTab", "");
+				 modelView.addObject("registerTab", "active");
+				 modelView.setViewName("login");
+			}
+		}
 		
+	}
 
 }

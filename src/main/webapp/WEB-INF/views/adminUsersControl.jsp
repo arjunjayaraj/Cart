@@ -245,7 +245,7 @@
 				        	    type: "POST",
 				       	    	url: "adminEditUser",
 					            contentType : 'application/json; charset=utf-8',
-					            data: JSON.stringify(user),
+					            data: user,
 					            beforeSend: function(xhr){
 					                xhr.setRequestHeader(header, token);
 					              },

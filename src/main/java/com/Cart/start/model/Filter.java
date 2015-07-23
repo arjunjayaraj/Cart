@@ -17,6 +17,7 @@ private List<Integer> category;
 private double maximumPrice;
 private Integer availability;
 
+
 public double getMaximumPrice() {
 	return maximumPrice;
 }

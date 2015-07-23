@@ -1,29 +1,59 @@
 /* Dcrazed style */
-.headline{text-align:center;margin:20px 0 75px}
-.headline img{display:block;margin:0 auto 20px}
-.headline > h6{display:inline-block;width:20px;border-bottom:3px solid #e33000;margin-bottom:-11px;padding:0}
-.headline h1{display:inline-block;border-bottom:1px solid #d0d0d0;line-height:40px;font-weight:300;text-transform:uppercase;margin:0 -3px;padding:0 12px}
-.headline h1 h6{color:#e33000;padding:0}
-h6{color:#e33000}
-h2{margin-bottom:10px;font-size:22px;line-height:40px}
+.headline{
+	text-align:center;
+	margin:20px 0 75px;
+	}
+.headline img{
+	display:block;
+	margin:0 auto 20px;
+	}
+.headline > h6{
+	display:inline-block;
+	width:20px;
+	border-bottom:3px solid #e33000;
+	margin-bottom:-11px;
+	padding:0;
+	}
+	
+.headline h1{
+	display:inline-block;
+	border-bottom:1px solid #d0d0d0;
+	line-height:40px;
+	font-weight:300;
+	text-transform:uppercase;
+	margin:0 -3px;
+	padding:0 12px;
+	}
+.headline h1 h6{
+	color:#e33000;
+	padding:0;
+	}
+h6{
+	color:#e33000;
+	}
+h2{
+	margin-bottom:10px;
+	font-size:22px;
+	line-height:40px;
+	}
 /* Dcrazed style ends */
 
             
 /*
 Author: DavieB
 */
-		body{
-			background:#f1f2f3;
-			font-size:62.5%;
-			padding:0;
-			margin:0;
-			font-family: 'Open Sans', sans-serif;
-    }
-		*{
-			box-sizing:border-box;
-			-webkit-box-sizing:border-box;
-		}
-  form > div {
+/* body{ */
+/* 	background:#f1f2f3; */
+/* 	font-size:62.5%; */
+/* 	padding:0; */
+/* 	margin:0; */
+/* 	font-family: 'Open Sans', sans-serif; */
+/*     } */
+*{
+	box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+}
+form > div {
   position: relative;
   overflow: hidden;
   width:100%;

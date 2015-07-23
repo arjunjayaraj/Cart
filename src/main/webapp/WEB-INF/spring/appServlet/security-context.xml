@@ -10,20 +10,21 @@
 	<http auto-config="true" use-expressions="true">
 		<intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/user**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+			<intercept-url pattern="**/registernew" access="permitAll" />
 
 		<!-- access denied page -->
 		<form-login 
-				login-page="/login"
-				default-target-url="/home" 
+				login-page="/login,http://localhost:8080/angularLogin/"
+				default-target-url="http://localhost:8080/angularLogin/test.html" 
 				authentication-failure-url="/login?error"
 				username-parameter="email"
 				password-parameter="password" />
 		<logout logout-success-url="/login?logout" />
-		<!-- enable csrf protection -->
-		<csrf/>
-
-	</http>
-
+		<!-- enable csrf protection -->	
+	<csrf/>
+<custom-filter before="SECURITY_CONTEXT_FILTER" ref="myFilter"/>
+</http>
+<beans:bean id="myFilter" class="com.Cart.start.filter.CsrfHeaderFilter"/>
 	<authentication-manager>
 		<authentication-provider user-service-ref="loginService" />
 	</authentication-manager>

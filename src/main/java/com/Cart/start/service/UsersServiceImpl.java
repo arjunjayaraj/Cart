@@ -29,11 +29,19 @@ public class UsersServiceImpl implements UsersService{
 	 
 	    @Transactional
 	    public void addUser(Users user) {
-	        this.usersDao.addUser(user);
+	    	Users entity = this.usersDao.findByUserName(user.getEmail());
+	       if(entity==null)
+	       {   
+	    	this.usersDao.addUser(user);
+	    	System.out.println("print in user service" +user.toString());
 	        UserRole userrole = new UserRole();
 	        userrole.setRole(Roles.ROLE_ADMIN);
 	        userrole.setUser(user);
 	        this.userRoleDao.addRole(userrole);
+	       }
+	       else{
+	    	   System.out.println("The user already exist");
+	       }
 	    }
 	    @Transactional
 	    public void updateUser(Users user) {

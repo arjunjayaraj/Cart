@@ -4,7 +4,7 @@
 	<span id= "nav_title">
 		<b>India-Cart</b>
 	</span>
-	<ul id= "categories_drop" class="right hide-on-med-and-down">
+	<ul id= "categories_drop" class="right hide-on-med-and-down"style="height: 100%;position: relative;erune">
 		<li id= "search_bar">
 			<form action="productSearch">
 <div class="input-field col s1 li_no_hover arrange" id ="nav-category-select">
